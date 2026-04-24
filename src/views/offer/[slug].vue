@@ -11,6 +11,7 @@ import MSearch from "./modules/MSearch.vue";
 import MBanners from "./modules/MBanners.vue";
 import MCategories from "./modules/MCategories.vue";
 import MMerchantItem from "./modules/MMerchantItem.vue";
+import MNewMerchants from "./modules/MNewMerchants.vue";
 import ModalFilterCategories from "@/components/modals/ModalFilterCategories.vue";
 import MHeaderUser from "./modules/MHeaderUser.vue";
 
@@ -149,6 +150,7 @@ const pageTitle = computed(() => {
 const loadData = async () => {
   await merchantsStore.getMerchantCategories();
   await bannerStore.getBanners();
+  await merchantsStore.getNewMerchants();
 
   // размер страницы
   if (typeof merchantsStore.setPerPage === "function") {
@@ -263,10 +265,10 @@ onUnmounted(() => {
     <div class="flex items-start gap-6 768:flex-col 768:gap-4">
       <MCategories />
 
-      <div ref="bannerRef" class="hidden 768:block w-full" v-if="false">
-        <MBanners :banners="bannerStore.banners" />
-      </div>
-
+      <MNewMerchants
+        :merchants="merchantsStore.newMerchants"
+        :getMerchantUrl="getMerchantUrl"
+      />
       <MMerchantItem
         :merchants="merchantsStore.merchants"
         :getMerchantUrl="getMerchantUrl"

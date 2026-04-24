@@ -18,6 +18,7 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
     oneMerchant: null,
     oneMerchantOffer: null,
     summaryMerchants: null,
+    newMerchants: [],
   }),
   getters: {},
   actions: {
@@ -155,6 +156,21 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
           }
         });
       } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async getNewMerchants() {
+      try {
+        const res = await axios.get("v1/merchants/new");
+        if (res.status === 200) {
+          this.newMerchants = Array.isArray(res?.data?.data) ? res.data.data : [];
+        } else {
+          this.newMerchants = [];
+          console.error("Ошибка api `v1/merchants/new`");
+        }
+      } catch (error) {
+        this.newMerchants = [];
         console.error(error);
       }
     },
