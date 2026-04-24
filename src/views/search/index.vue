@@ -63,13 +63,6 @@ watch(searchValue, (value) => {
 <style lang="scss" scoped>
 .search-page {
   .selector {
-    background-color: #efeef0;
-    border-radius: 0.75rem;
-    display: flex;
-    flex-direction: row;
-    padding: 0.25rem;
-    overflow: hidden;
-
     input {
       position: absolute;
       clip: rect(0, 0, 0, 0);
@@ -91,8 +84,8 @@ watch(searchValue, (value) => {
       text-align: center;
 
       &.active {
-        background-color: #fdfdfd;
-        color: #28262b;
+        background-color: #141416;
+        color: white;
       }
     }
   }

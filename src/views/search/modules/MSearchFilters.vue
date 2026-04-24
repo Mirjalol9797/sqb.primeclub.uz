@@ -20,7 +20,10 @@ const emit = defineEmits(["update:modelValue"]);
 </script>
 
 <template>
-  <div role="group" class="selector mb-8">
+  <div
+    role="group"
+    class="selector mb-8 bg-[#000] border border-[#ffffff1f] rounded-2xl p-2 text-white"
+  >
     <label :class="{ active: modelValue === FILTER_OPTIONS.ALL }">
       <input
         type="radio"
@@ -54,7 +57,6 @@ const emit = defineEmits(["update:modelValue"]);
 
 <style lang="scss" scoped>
 .selector {
-  background-color: #efeef0;
   border-radius: 0.75rem;
   display: flex;
   flex-direction: row;
@@ -82,8 +84,8 @@ const emit = defineEmits(["update:modelValue"]);
     text-align: center;
 
     &.active {
-      background-color: #fdfdfd;
-      color: #28262b;
+      background-color: #141416;
+      color: white;
     }
   }
 }

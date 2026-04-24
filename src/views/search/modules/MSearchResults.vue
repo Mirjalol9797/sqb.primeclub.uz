@@ -17,7 +17,7 @@ defineProps({
   <div>
     <div
       v-if="merchants.length"
-      class="grid grid-cols-4 gap-4 border-b border-333333 pb-4 mb-4 last:border-b-0 640:grid-cols-2 640:gap-2"
+      class="grid grid-cols-4 gap-4 border-b border-[#ffffff1f] pb-4 mb-4 last:border-b-0 640:grid-cols-2 640:gap-2"
     >
       <router-link
         :to="localePath(`/offer/${item.category.slug}/${item.slug}`)"
@@ -40,7 +40,7 @@ defineProps({
 
     <div
       v-if="categories.length"
-      class="grid grid-cols-4 gap-4 border-b border-333333 pb-4 mb-4 last:border-b-0 640:grid-cols-2 640:gap-2"
+      class="grid grid-cols-4 gap-4 border-b border-[#ffffff1f] pb-4 mb-4 last:border-b-0 640:grid-cols-2 640:gap-2"
     >
       <router-link
         :to="localePath(`/offer/${item.slug}`)"
