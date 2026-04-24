@@ -3,7 +3,6 @@ import { copied } from "@/utils/tools.js";
 
 export const useSettingsStore = defineStore("settings", {
   state: () => ({
-    isBurgerMenu: false,
     isCreateCertificate: false,
     isFilterCategories: false,
     isDetailImages: false,
