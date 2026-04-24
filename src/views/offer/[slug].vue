@@ -12,6 +12,7 @@ import MBanners from "./modules/MBanners.vue";
 import MCategories from "./modules/MCategories.vue";
 import MMerchantItem from "./modules/MMerchantItem.vue";
 import MNewMerchants from "./modules/MNewMerchants.vue";
+import MPopularMerchants from "./modules/MPopularMerchants.vue";
 import ModalFilterCategories from "@/components/modals/ModalFilterCategories.vue";
 import MHeaderUser from "./modules/MHeaderUser.vue";
 
@@ -151,6 +152,7 @@ const loadData = async () => {
   await merchantsStore.getMerchantCategories();
   await bannerStore.getBanners();
   await merchantsStore.getNewMerchants();
+  await merchantsStore.getPopularMerchants();
 
   // размер страницы
   if (typeof merchantsStore.setPerPage === "function") {
@@ -267,6 +269,10 @@ onUnmounted(() => {
 
       <MNewMerchants
         :merchants="merchantsStore.newMerchants"
+        :getMerchantUrl="getMerchantUrl"
+      />
+      <MPopularMerchants
+        :merchants="merchantsStore.popularMerchants"
         :getMerchantUrl="getMerchantUrl"
       />
       <MMerchantItem

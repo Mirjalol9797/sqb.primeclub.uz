@@ -19,6 +19,7 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
     oneMerchantOffer: null,
     summaryMerchants: null,
     newMerchants: [],
+    popularMerchants: [],
   }),
   getters: {},
   actions: {
@@ -171,6 +172,23 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
         }
       } catch (error) {
         this.newMerchants = [];
+        console.error(error);
+      }
+    },
+
+    async getPopularMerchants() {
+      try {
+        const res = await axios.get("v1/merchants/popular");
+        if (res.status === 200) {
+          this.popularMerchants = Array.isArray(res?.data?.data)
+            ? res.data.data
+            : [];
+        } else {
+          this.popularMerchants = [];
+          console.error("Ошибка api `v1/merchants/popular`");
+        }
+      } catch (error) {
+        this.popularMerchants = [];
         console.error(error);
       }
     },
