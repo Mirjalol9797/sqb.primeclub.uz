@@ -7,15 +7,15 @@ const { t } = useI18n();
 
 <template>
   <div
-    class="hidden 768:flex justify-around rounded-t-2xl fixed bottom-[-2px] bg-[#141416] pt-[14px] pb-7 px-1 w-full z-10 text-xs shadow-[0_-3px_15px_rgba(0,0,0,0.1)]"
+    class="hidden text-[#8d94a6] 768:flex justify-around rounded-t-2xl fixed bottom-[-2px] bg-[#141416] pt-[14px] pb-7 px-1 w-full z-10 text-xs shadow-[0_-3px_15px_rgba(0,0,0,0.1)]"
   >
     <router-link
       :to="localePath('/offer')"
       class="flex items-center flex-col w-1/3"
-      :class="{ 'text-[#ffd531]': $route.path === localePath('/offer') }"
+      :class="{ 'text-white': $route.path === localePath('/offer') }"
     >
       <img
-        src="/icons/profile/skidka-ffd531.svg"
+        src="/icons/profile/skidka-white.svg"
         class="mb-1.5 w-5 h-5"
         alt=""
         v-if="$route.path === localePath('/offer')"
@@ -26,15 +26,15 @@ const { t } = useI18n();
         class="mb-1.5 w-5 h-5"
         v-else
       />
-      <div class="font-medium">{{ $t("discounts") }}</div>
+      <div class="font-medium">{{ $t("Каталог") }}</div>
     </router-link>
     <router-link
       :to="localePath('/certificates')"
       class="flex items-center flex-col w-1/3"
-      :class="{ 'text-[#ffd531]': $route.path === localePath('/certificates') }"
+      :class="{ 'text-white': $route.path === localePath('/certificates') }"
     >
       <img
-        src="/icons/profile/certificat-ffd531.svg"
+        src="/icons/profile/certificat-white.svg"
         class="mb-1.5 w-5 h-5"
         alt=""
         v-if="$route.path === localePath('/certificates')"
@@ -51,10 +51,10 @@ const { t } = useI18n();
     <router-link
       :to="localePath('/profile')"
       class="flex items-center flex-col w-1/3"
-      :class="{ 'text-[#ffd531]': $route.path === localePath('/profile') }"
+      :class="{ 'text-white': $route.path === localePath('/profile') }"
     >
       <img
-        src="/icons/profile/profile-ffd531.svg"
+        src="/icons/profile/profile-white.svg"
         class="mb-1.5 w-5 h-5"
         alt=""
         v-if="$route.path === localePath('/profile')"

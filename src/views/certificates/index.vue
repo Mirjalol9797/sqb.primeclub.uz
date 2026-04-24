@@ -322,7 +322,7 @@ function changePagePagination(page) {
             :to="localePath('/offer')"
             class="button-exit text-center text-base text-111D28 font-medium bg-ffd531 rounded-3xl py-3 px-6"
           >
-            <span>{{ $t("go_to_discounts") }}</span>
+            <span>{{ $t("Перейти в каталог") }}</span>
           </router-link>
         </div>
       </template>
