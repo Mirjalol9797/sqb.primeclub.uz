@@ -22,17 +22,17 @@ function logOut() {
 
 <template>
   <div
-    class="page-profile py-10 h-[90vh] 768:pb-[100px] 768:pt-5 480:py-5 relative bg-f7f7f7"
+    class="page-profile py-10 h-[90vh] 768:pb-[100px] 768:pt-5 480:py-5 relative"
   >
     <div class="site-container">
       <div class="site-title">{{ $t("my_profile") }}</div>
       <div class="flex gap-10 768:flex-col 768:gap-0">
         <div
-          class="w-1/2 flex flex-col 768:w-full 768:mb-4 768:pb-4 768:border-b 768:border-[#e0e0e0]"
+          class="w-1/2 flex flex-col 768:w-full 768:mb-4 768:pb-4 768:border-b 768:border-[#ffffff1f]"
         >
           <router-link
             :to="localePath('/profile/detail-info')"
-            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-ececec rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
+            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -66,7 +66,7 @@ function logOut() {
           </router-link>
           <router-link
             :to="localePath('/favorites')"
-            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-ececec rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
+            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -100,7 +100,7 @@ function logOut() {
           </router-link>
           <div
             @click="settingsStore.isModalSupportService = true"
-            class="bg-white flex items-center justify-between cursor-pointer border border-ececec rounded-xl mb-4 768:bg-transparent gap-3 p-2.5 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="bg-white flex items-center justify-between cursor-pointer border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent gap-3 p-2.5 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -174,7 +174,7 @@ function logOut() {
           <a
             href="https://primeclub.uz/terms"
             target="_blank"
-            class="bg-white flex border border-ececec rounded-xl mb-4 items-center justify-between gap-3 p-2.5 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="bg-white flex border border-[#ffffff1f] rounded-xl mb-4 items-center justify-between gap-3 p-2.5 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -245,7 +245,7 @@ function logOut() {
         <div class="flex justify-center fixed bottom-28 left-0 w-full">
           <button
             @click="logOut"
-            class="hidden 768:block button-exit text-center text-base text-111D28 font-medium bg-ffd531 rounded-3xl py-3 px-6"
+            class="hidden 768:block button-exit text-center text-base text-black font-medium bg-white border border-black rounded-3xl py-3 px-6"
           >
             <span>{{ $t("exit") }}</span>
           </button>

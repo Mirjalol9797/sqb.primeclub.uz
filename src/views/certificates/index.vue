@@ -156,8 +156,8 @@ function changePagePagination(page) {
             :class="[
               'py-2.5 px-6 font-medium rounded-[20px] text-sm transition-colors',
               isActive
-                ? 'text-111D28 bg-ffd531'
-                : 'bg-[#e5e7eb] text-[#6b7280]',
+                ? 'text-black bg-white border border-black'
+                : 'bg-black text-white border border-white',
             ]"
           >
             {{ $t("active") }}
@@ -167,8 +167,8 @@ function changePagePagination(page) {
             :class="[
               'py-2.5 px-6 font-medium rounded-[20px] text-sm transition-colors',
               !isActive
-                ? 'text-111D28 bg-ffd531'
-                : 'bg-[#e5e7eb] text-[#6b7280]',
+                ? 'text-black bg-white border border-black'
+                : 'bg-black text-white border border-white',
             ]"
           >
             {{ $t("inactive") }}
@@ -320,7 +320,7 @@ function changePagePagination(page) {
         <div class="flex justify-center fixed bottom-28 left-0 w-full">
           <router-link
             :to="localePath('/offer')"
-            class="button-exit text-center text-base text-111D28 font-medium bg-ffd531 rounded-3xl py-3 px-6"
+            class="button-exit text-center text-base text-black font-medium bg-white border border-black rounded-3xl py-3 px-6"
           >
             <span>{{ $t("Перейти в каталог") }}</span>
           </router-link>
