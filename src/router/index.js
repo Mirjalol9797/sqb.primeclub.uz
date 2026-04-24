@@ -14,7 +14,7 @@ const baseRoutes = [
   {
     path: "/offer/:slug",
     name: "OfferByCategory",
-    component: () => import("@/views/offer/[slug].vue"),
+    component: () => import("@/views/offer/category/[slug].vue"),
   },
   {
     path: "/offer/:slug/:slug",

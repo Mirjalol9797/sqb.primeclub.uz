@@ -22,11 +22,7 @@ async function closeModal(id) {
   if (props.categoriesType === "filter-modal") {
     emit("closeModal");
   }
-  // districtsStore.setSelectedDistricts([]);
-  merchantsStore.getSummaryMerchants(id);
-  merchantsStore.filters.category_id = null;
-  merchantsStore.filters.district_ids = null;
-  // await merchantsStore.getMerchants(id, null, 1);
+  merchantsStore.getSummaryMerchants(id || null);
 }
 </script>
 

@@ -7,6 +7,10 @@ defineProps({
     type: Array,
     required: true,
   },
+  showTitle: {
+    type: Boolean,
+    default: true,
+  },
   getMerchantUrl: {
     type: Function,
     required: true,
@@ -45,7 +49,7 @@ watch(
 
 <template>
   <div v-if="merchants?.length > 0" class="w-full px-4">
-    <div class="text-lg font-semibold mb-4">Все предложения</div>
+    <div v-if="showTitle" class="text-lg font-semibold mb-4">Все предложения</div>
 
     <div class="grid grid-cols-1 gap-4">
       <router-link

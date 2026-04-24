@@ -32,6 +32,20 @@ const isInitialLoad = ref(true);
 const isLoading = ref(false); // Флаг загрузки
 const hasMoreData = ref(true); // Есть ли еще данные
 
+const isAllCategory = computed(() => {
+  return !route.params.slug || route.params.slug === "all";
+});
+
+const activeCategoryId = computed(() => {
+  if (isAllCategory.value) {
+    return null;
+  }
+  const category = merchantsStore.merchantCategories.find(
+    (c) => c.slug === route.params.slug
+  );
+  return category?.id ?? null;
+});
+
 // синхронизируемся с meta от бэка (если он присылает current_page)
 watch(
   () => merchantsStore.pagination.current_page,
@@ -94,15 +108,7 @@ const loadNextPage = async () => {
   const nextPage = currentPage.value + 1;
 
   try {
-    const slug = route.params.slug || "all";
-    let categoryId = null;
-
-    if (slug !== "all" && slug) {
-      const category = merchantsStore.merchantCategories.find(
-        (c) => c.slug === slug
-      );
-      categoryId = category?.id ?? null;
-    }
+    const categoryId = activeCategoryId.value;
 
     console.log("Загружаем страницу:", nextPage, "для категории:", categoryId);
 
@@ -161,24 +167,20 @@ const loadData = async () => {
     merchantsStore.pagination.per_page = 18;
   }
 
-  const slug = route.params.slug || "all";
   currentPage.value = 1;
   hasMoreData.value = true; // Сбрасываем флаг
   isLoading.value = false; // Сбрасываем флаг загрузки
 
-  console.log("Начинаем загрузку данных для:", slug);
+  console.log("Начинаем загрузку данных для:", route.params.slug || "all");
 
-  if (slug === "all" || !slug) {
+  if (isAllCategory.value) {
     // ⬇️ первый вызов: передаём фильтры (category_id=null), district_ids (если есть), page=1
     await merchantsStore.getMerchants(null, null, 1);
     await merchantsStore.getSummaryMerchants();
   } else {
-    const category = merchantsStore.merchantCategories.find(
-      (c) => c.slug === slug
-    );
     // ⬇️ первый вызов для категории: УСТАНАВЛИВАЕМ фильтр category_id
-    await merchantsStore.getMerchants(category?.id ?? null, null, 1);
-    await merchantsStore.getSummaryMerchants(category?.id);
+    await merchantsStore.getMerchants(activeCategoryId.value, null, 1);
+    await merchantsStore.getSummaryMerchants(activeCategoryId.value);
   }
 
   // Проверяем, есть ли еще данные после первой загрузки
@@ -268,10 +270,12 @@ onUnmounted(() => {
       <MCategories />
 
       <MNewMerchants
+        v-if="isAllCategory"
         :merchants="merchantsStore.newMerchants"
         :getMerchantUrl="getMerchantUrl"
       />
       <MPopularMerchants
+        v-if="isAllCategory"
         :merchants="merchantsStore.popularMerchants"
         :getMerchantUrl="getMerchantUrl"
       />
