@@ -12,6 +12,7 @@ import MBanners from "./modules/MBanners.vue";
 import MCategories from "./modules/MCategories.vue";
 import MMerchantItem from "./modules/MMerchantItem.vue";
 import ModalFilterCategories from "@/components/modals/ModalFilterCategories.vue";
+import MHeaderUser from "./modules/MHeaderUser.vue";
 
 const route = useRoute();
 const { t, locale } = useI18n();
@@ -238,21 +239,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- Sticky Header -->
-  <!-- <transition name="fade-slide">
-    <div
-      v-if="showStickyHeader"
-      class="hidden fixed top-0 left-0 w-full z-50 border-b border-f7f7f7 bg-white px-4 py-3 768:flex"
-    >
-      <div class="site-container text-center font-medium">
-        {{ $t("discounts") }}
-      </div>
-      <button @click="settingsStore.isFilterCategories = true">
-        <img src="/icons/p-offer/filter.svg" alt="" />
-      </button>
-    </div>
-  </transition> -->
-
   <!-- Sticky Banner -->
   <transition name="fade-slide">
     <div
@@ -265,24 +251,26 @@ onUnmounted(() => {
     </div>
   </transition>
 
-  <div class="w-full py-10 768:pb-[100px] 768:py-5">
-    <div class="site-container">
-      <!-- search -->
-      <div ref="searchRef" class="w-full">
-        <MSearch />
-      </div>
-      <div class="flex items-start gap-6 768:flex-col 768:gap-4">
-        <MCategories />
+  <div class="w-full">
+    <MHeaderUser />
+    <!-- search -->
+    <div
+      ref="searchRef"
+      class="w-full bg-[#141416] border-b border-[#ffffff1f] p-4"
+    >
+      <MSearch />
+    </div>
+    <div class="flex items-start gap-6 768:flex-col 768:gap-4">
+      <MCategories />
 
-        <div ref="bannerRef" class="hidden 768:block w-full" v-if="false">
-          <MBanners :banners="bannerStore.banners" />
-        </div>
-
-        <MMerchantItem
-          :merchants="merchantsStore.merchants"
-          :getMerchantUrl="getMerchantUrl"
-        />
+      <div ref="bannerRef" class="hidden 768:block w-full" v-if="false">
+        <MBanners :banners="bannerStore.banners" />
       </div>
+
+      <MMerchantItem
+        :merchants="merchantsStore.merchants"
+        :getMerchantUrl="getMerchantUrl"
+      />
     </div>
   </div>
 

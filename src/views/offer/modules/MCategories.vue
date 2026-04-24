@@ -31,7 +31,7 @@ async function closeModal(id) {
 
 <template>
   <div
-    class="categories min-w-[300px] max-w-[300px] w-full 1024:min-w-[220px] 1024:max-w-[220px] 768:!max-w-full sticky top-2 self-start 768:relative 768:top-0"
+    class="categories w-full bg-[#141416] p-4"
     :class="
       categoriesType == 'filter-modal'
         ? 'categories-filter-modal'

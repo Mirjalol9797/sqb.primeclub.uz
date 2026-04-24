@@ -44,7 +44,9 @@ watch(
 </script>
 
 <template>
-  <div v-if="merchants?.length > 0" class="w-full">
+  <div v-if="merchants?.length > 0" class="w-full px-4">
+    <div class="text-lg font-semibold mb-4">Все предложения</div>
+
     <div class="grid grid-cols-1 gap-4">
       <router-link
         v-for="(item, index) in merchants"
@@ -56,20 +58,22 @@ watch(
           <img
             :src="`https://main.primeclub.uz/uploads/${item.image}`"
             :alt="item.name"
-            class="w-full h-full object-cover rounded-t-lg"
+            class="w-full h-full object-cover rounded-t-2xl"
           />
         </div>
-        <div class="p-4 bg-[#141416]">
-          <div class="text-sm font-semibold mb-1 flex items-center gap-1.5">
-            <!-- <img
-            :src="`https://main.primeclub.uz/uploads/${item.logo}`"
-            :alt="item.name"
-            class="w-8 h-8 object-contain rounded-lg"
-          /> -->
-            {{ item.name }}
+        <div
+          class="p-4 bg-[#141416] flex justify-between items-center rounded-b-2xl"
+        >
+          <div>
+            <div class="text-sm font-semibold mb-1 flex items-center gap-1.5">
+              {{ item.name }}
+            </div>
+            <div class="text-sm text-[#8d94a6]">
+              {{ item.excerpt }}
+            </div>
           </div>
-          <div class="text-sm text-gray-500">
-            {{ item.excerpt }}
+          <div>
+            <img src="/icons/p-offer/left-white.svg" alt="" class="w-5 h-5" />
           </div>
         </div>
       </router-link>
