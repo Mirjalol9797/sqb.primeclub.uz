@@ -47,12 +47,12 @@ const handleToggleFavorite = () => {
         {{ merchant?.category?.name }}
       </div>
     </div>
-    <tm-button
-      class="!max-w-full !h-11 !rounded-lg !hidden 768:!block"
+    <button
+      class="site-btn-grey w-full"
       @click="settingsStore.isDownloadAppModal = true"
-      :title="$t('get_certificate')"
     >
-    </tm-button>
+      {{ $t("get_certificate") }}
+    </button>
 
     <!-- <button
       class="absolute top-4 right-4"

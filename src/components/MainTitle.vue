@@ -7,7 +7,7 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="py-4 flex items-center">
+  <div class="pb-4 flex items-center">
     <button @click="$router.back()">
       <img src="/icons/p-offer/back-white.svg" alt="" class="w-6" />
     </button>

@@ -39,7 +39,7 @@ const emit = defineEmits(["openDetailImages"]);
     >
       <div class="flex items-center gap-2">
         <div
-          class="bg-ffd531 px-2 py-1 rounded-full text-white"
+          class="bg-black px-2 py-1 rounded-full text-white"
           v-for="(item, index) in merchantOffer"
           :key="index"
         >
