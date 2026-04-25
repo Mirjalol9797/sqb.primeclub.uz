@@ -28,7 +28,7 @@ const props = defineProps({
         class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl h-[52px]"
       >
         <a :href="`tel:${phone}`" class="flex items-center gap-2">
-          <img src="/icons/socials/phone.svg" alt="" />
+          <img src="/icons/socials/phone.svg" alt="" class="w-6" />
           <div class="font-medium text-sm">{{ phone }}</div>
         </a>
       </div>
@@ -38,7 +38,7 @@ const props = defineProps({
         class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
-          <img src="/icons/socials/tg.svg" alt="" />
+          <img src="/icons/socials/tg2.svg" alt="" class="w-6" />
           <div class="font-medium text-sm">Telegram</div>
         </div>
         <a
@@ -55,7 +55,7 @@ const props = defineProps({
         class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
-          <img src="/icons/socials/inst.svg" alt="" />
+          <img src="/icons/socials/inst.svg" alt="" class="w-6" />
           <div class="font-medium text-sm">Instagram</div>
         </div>
         <a
@@ -63,7 +63,7 @@ const props = defineProps({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src="/icons/socials/link.svg" alt="" />
+          <img src="/icons/socials/link.svg" alt="" class="w-6" />
         </a>
       </div>
       <!-- website -->
@@ -72,7 +72,7 @@ const props = defineProps({
         class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
-          <img src="/icons/socials/web.svg" alt="" />
+          <img src="/icons/socials/web.svg" alt="" class="w-6" />
           <div class="font-medium text-sm">Website</div>
         </div>
         <a

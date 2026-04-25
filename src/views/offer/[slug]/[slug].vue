@@ -232,7 +232,7 @@ onUnmounted(() => {
                 @click="setActiveTab('terms')"
                 :class="[
                   'text-sm font-medium text-center py-1.5 px-3 rounded-lg transition-colors',
-                  activeTab === 'terms' ? 'bg-ffd531 text-111d28' : '',
+                  activeTab === 'terms' ? 'bg-white text-black' : '',
                 ]"
               >
                 {{ $t("terms") }}
@@ -241,7 +241,7 @@ onUnmounted(() => {
                 @click="setActiveTab('description')"
                 :class="[
                   'text-sm font-medium text-center py-1.5 px-3 rounded-lg transition-colors',
-                  activeTab === 'description' ? 'bg-ffd531 text-111d28' : '',
+                  activeTab === 'description' ? 'bg-white text-black' : '',
                 ]"
               >
                 {{ $t("about_building") }}
