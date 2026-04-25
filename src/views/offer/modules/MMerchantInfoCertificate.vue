@@ -150,20 +150,20 @@ onUnmounted(() => {
           </div>
         </template>
         <template v-else>
-          <div
-            class="site-btn w-full !h-11 !max-w-full !rounded-lg cursor-pointer"
+          <button
+            class="site-btn-grey w-full"
             @click="openDownloadAppModal()"
             v-if="merchant?.type == 'single'"
           >
             {{ $t("get_certificate") }}
-          </div>
-          <div
-            class="site-btn w-full !h-11 !max-w-full !rounded-lg cursor-pointer"
+          </button>
+          <button
+            class="site-btn-grey w-full"
             @click="openDownloadAppModal()"
             v-else
           >
             {{ $t("get_certificate") }}
-          </div>
+          </button>
         </template>
       </div>
     </div>
