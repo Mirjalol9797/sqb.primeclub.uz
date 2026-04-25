@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset-0 flex items-center justify-center z-20">
     <div
-      class="bg-white pt-8 p-6 rounded-2xl w-full relative z-20"
+      class="bg-black pt-8 p-6 rounded-2xl w-full relative z-20"
       :style="{ maxWidth: `${width}px` }"
       :class="classWrap"
     >
@@ -14,7 +14,7 @@
           class="absolute top-3 right-3"
           v-if="closeBtn"
         >
-          <img src="@/assets/images/modal-close.svg" alt="" />
+          <img src="/icons/modal-close.svg" alt="" class="w-8 h-8" />
         </button>
       </div>
       <div>

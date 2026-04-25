@@ -1,7 +1,7 @@
 <script setup></script>
 <template>
   <div
-    class="mb-4 bg-white w-full p-4 rounded-2xl relative border-2 border-ffdf8f 768:p-0 768:mb-5"
+    class="bg-[#141416] w-full rounded-2xl relative border-2 border-[#ffffff1f] mb-5 mt-10"
   >
     <div class="app-promo-block">
       <div class="app-promo-text">
@@ -39,9 +39,10 @@
 </template>
 <style lang="scss" scoped>
 .app-promo-block {
-  background: linear-gradient(135deg, #e8faf9 0%, #c8f7f4 100%);
+  background: #141416;
   border-radius: 16px;
   padding: 16px;
+  color: #fff;
 }
 
 .app-promo-badge {
@@ -66,13 +67,11 @@
 .app-promo-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1a1a1a;
   margin-bottom: 6px;
 }
 
 .app-promo-subtitle {
   font-size: 14px;
-  color: #555;
   margin-bottom: 20px;
 }
 

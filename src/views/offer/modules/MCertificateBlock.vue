@@ -97,7 +97,7 @@ onUnmounted(() => {
     class="gap-5 mb-6 768:flex 768:mb-0 768:overflow-x-auto 768:items-start 768:gap-2"
   >
     <div
-      class="discount-card shadow-[0_0_2px_0_rgba(0,0,0,.06),0_2px_8px_0_rgba(242,242,242,1)] p-4 max-w-[400px] rounded-2xl mb-4 last:mb-0 768:max-w-full 768:mb-0 480:p-3"
+      class="p-3 rounded-2xl last:mb-0 mb-0 border border-[#ffffff1f] min-w-[250px]"
       v-for="(item, index) in merchantOffer"
       :key="index"
     >

@@ -250,7 +250,7 @@ onUnmounted(() => {
                 @click="setActiveTab('filials')"
                 :class="[
                   'text-sm font-medium text-center py-1.5 px-3 rounded-lg transition-colors',
-                  activeTab === 'filials' ? 'bg-ffd531 text-111d28' : '',
+                  activeTab === 'filials' ? 'bg-white text-black' : '',
                 ]"
                 v-if="merchantsStore.oneMerchant?.branches?.length > 0"
               >
