@@ -11,10 +11,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div
-    :class="blockClass"
-    class="bg-white p-4 rounded-2xl mb-4 480:mb-3 480:text-sm"
-  >
+  <div :class="blockClass" class="p-4 rounded-2xl mb-4 480:mb-3 480:text-sm">
     <div class="text-sm mb-2.5 font-semibold">
       {{ $t("contacts") }}
     </div>
@@ -28,7 +25,7 @@ const props = defineProps({
         v-if="socials?.phones?.length > 0"
         v-for="(phone, index) in socials?.phones"
         :key="index"
-        class="flex items-center justify-between bg-F3F4F6 px-3 py-2 rounded-xl h-[52px]"
+        class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl h-[52px]"
       >
         <a :href="`tel:${phone}`" class="flex items-center gap-2">
           <img src="/icons/socials/phone.svg" alt="" />
@@ -38,7 +35,7 @@ const props = defineProps({
       <!-- telegram -->
       <div
         v-if="socials?.socials?.telegram"
-        class="flex items-center justify-between bg-F3F4F6 px-3 py-2 rounded-xl"
+        class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
           <img src="/icons/socials/tg.svg" alt="" />
@@ -55,7 +52,7 @@ const props = defineProps({
       <!-- instagram -->
       <div
         v-if="socials?.socials?.instagram"
-        class="flex items-center justify-between bg-F3F4F6 px-3 py-2 rounded-xl"
+        class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
           <img src="/icons/socials/inst.svg" alt="" />
@@ -72,7 +69,7 @@ const props = defineProps({
       <!-- website -->
       <div
         v-if="socials?.socials?.website"
-        class="flex items-center justify-between bg-F3F4F6 px-3 py-2 rounded-xl"
+        class="flex items-center justify-between bg-[#141416] px-3 py-2 rounded-xl"
       >
         <div class="flex items-center gap-2">
           <img src="/icons/socials/web.svg" alt="" />

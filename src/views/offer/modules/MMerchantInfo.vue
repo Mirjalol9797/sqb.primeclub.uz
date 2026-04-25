@@ -30,7 +30,7 @@ const handleToggleFavorite = () => {
 
 <template>
   <div
-    class="mb-4 bg-white w-full p-4 rounded-2xl relative border-2 border-ffdf8f 768:p-3 768:mb-5"
+    class="mb-4 w-full p-4 rounded-2xl relative border border-[#ffffff1f] 768:p-3 768:mb-5"
   >
     <div class="w-16 mb-4 rounded-lg">
       <img

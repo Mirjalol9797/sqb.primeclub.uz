@@ -223,7 +223,7 @@ onUnmounted(() => {
             @openDetailImages="openDetailImages"
             class="768:!hidden"
           />
-          <div class="p-4 bg-white rounded-2xl border-2 border-ffdf8f">
+          <div class="p-4 rounded-2xl border border-[#ffffff1f]">
             <div
               class="flex gap-0.5"
               :class="activeTab === 'description' ? 'mb-0' : 'mb-5'"
@@ -285,12 +285,12 @@ onUnmounted(() => {
           <div v-if="activeTab === 'description'" class="mt-4">
             <div
               v-html="merchantsStore.oneMerchant?.about"
-              class="p-4 bg-white rounded-2xl mb-4"
+              class="p-4 rounded-2xl mb-4 border border-[#ffffff1f] text-sm"
             ></div>
 
             <MMerchantLocation
               :locations="merchantsStore.oneMerchant"
-              class="bg-white p-4 rounded-2xl mb-4 480:mb-3 480:text-sm"
+              class="p-4 rounded-2xl mb-4 480:mb-3 480:text-sm border border-[#ffffff1f]"
             />
           </div>
         </div>
