@@ -12,6 +12,7 @@ import MCategories from "../modules/MCategories.vue";
 import MMerchantItem from "../modules/MMerchantItem.vue";
 import ModalFilterCategories from "@/components/modals/ModalFilterCategories.vue";
 import MHeaderUser from "../modules/MHeaderUser.vue";
+import MainTitle from "@/components/MainTitle.vue";
 
 const route = useRoute();
 const { t } = useI18n();
@@ -156,11 +157,16 @@ onUnmounted(() => {
   </div>
 
   <div v-else class="w-full">
-    <div class="w-full bg-[#141416] border-b border-[#ffffff1f] p-4">
-      <div class="px-4 pt-4">
-        <div class="text-lg font-semibold">{{ pageTitle }}</div>
+    <div class="w-full bg-[#141416] border-b border-[#ffffff1f] p-4 mb-4">
+      <MainTitle :pageTitle="pageTitle" />
+      <div class="flex items-center gap-2">
+        <MSearch class="w-full" />
+        <button
+          class="min-w-11 h-11 bg-[#f5f7fb] rounded-xl flex items-center justify-center hover:opacity-90 transition-opacity"
+        >
+          <img src="/icons/search-burger.svg" alt="" class="w-5" />
+        </button>
       </div>
-      <MSearch />
     </div>
 
     <div class="flex items-start gap-6 768:flex-col 768:gap-4">
