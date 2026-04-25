@@ -10,7 +10,7 @@ import { localePath } from "@/plugins/i18n";
 import MSearch from "../modules/MSearch.vue";
 import MCategories from "../modules/MCategories.vue";
 import MMerchantItem from "../modules/MMerchantItem.vue";
-import ModalFilterCategories from "@/components/modals/ModalFilterCategories.vue";
+import RegionFilter from "@/components/regionFilter.vue";
 import MHeaderUser from "../modules/MHeaderUser.vue";
 import MainTitle from "@/components/MainTitle.vue";
 
@@ -162,7 +162,8 @@ onUnmounted(() => {
       <div class="flex items-center gap-2">
         <MSearch class="w-full" />
         <button
-          class="min-w-11 h-11 bg-[#f5f7fb] rounded-xl flex items-center justify-center hover:opacity-90 transition-opacity"
+          @click="settingsStore.isFilterCategories = true"
+          class="min-w-11 h-11 bg-[#f5f7fb] rounded-xl flex items-center justify-center"
         >
           <img src="/icons/search-burger.svg" alt="" class="w-5" />
         </button>
@@ -178,7 +179,10 @@ onUnmounted(() => {
     </div>
   </div>
 
-  <ModalFilterCategories v-if="settingsStore.isFilterCategories" />
+  <RegionFilter
+    v-if="settingsStore.isFilterCategories"
+    @close="settingsStore.isFilterCategories = false"
+  />
 </template>
 
 <style scoped>
