@@ -60,7 +60,7 @@ onMounted(async () => {
         </div>
         <div class="flex justify-center fixed bottom-28 left-0 w-full">
           <router-link :to="localePath('/offer')" class="site-btn-grey">
-            <span>{{ $t("go_to_discounts") }}</span>
+            <span>{{ $t("go_to_catalog") }}</span>
           </router-link>
         </div>
       </div>

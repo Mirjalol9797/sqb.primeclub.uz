@@ -1,18 +1,42 @@
 const generatedIcons = new Map();
 
 const CATEGORY_ICON_RULES = [
-  { test: /(ресторан|кафе|еда|food|restaurant|cafe)/i, icon: "cutlery" },
-  { test: /(магаз|shop|goods|товар)/i, icon: "bag" },
-  { test: /(красот|spa|beauty)/i, icon: "sparkles" },
-  { test: /(здоров|медиц|врач|health|medical)/i, icon: "heart" },
-  { test: /(развлеч|игр|entertain|game)/i, icon: "gamepad" },
-  { test: /(азс|заправ|fuel|gas)/i, icon: "fuel" },
-  { test: /(отел|hotel)/i, icon: "hotel" },
-  { test: /(сервис|услуг|service)/i, icon: "service" },
-  { test: /(дет|kids|children|child)/i, icon: "kids" },
-  { test: /(образован|учеб|education)/i, icon: "education" },
-  { test: /(спорт|фитнес|sport|fitness)/i, icon: "sport" },
-  { test: /(отдых|путешеств|travel|trip|tour)/i, icon: "travel" },
+  {
+    test:
+      /(ресторан|кафе|еда|food|restaurant|cafe|ovqat|taom|oshxona|restoran|kafe)/i,
+    icon: "cutlery",
+  },
+  {
+    test: /(магаз|shop|goods|товар|do[ʻ'’]?kon|savdo|market|tovar)/i,
+    icon: "bag",
+  },
+  {
+    test: /(красот|spa|beauty|go[ʻ'’]?zallik|salon)/i,
+    icon: "sparkles",
+  },
+  {
+    test:
+      /(здоров|медиц|врач|health|medical|sog[ʻ'’]?liq|tibbiyot|shifokor|dorixona)/i,
+    icon: "heart",
+  },
+  {
+    test:
+      /(развлеч|игр|entertain|game|ko[ʻ'’]?ngil|o[ʻ'’]?yin|kino|attraksion)/i,
+    icon: "gamepad",
+  },
+  { test: /(азс|заправ|fuel|gas|yoqilg[ʻ'’]?i|benzin)/i, icon: "fuel" },
+  { test: /(отел|hotel|mehmonxona)/i, icon: "hotel" },
+  { test: /(сервис|услуг|service|xizmat|servis)/i, icon: "service" },
+  { test: /(дет|kids|children|child|bola|bolalar)/i, icon: "kids" },
+  {
+    test: /(образован|учеб|education|ta[ʻ'’]?lim|o[ʻ'’]?quv|maktab)/i,
+    icon: "education",
+  },
+  { test: /(спорт|фитнес|sport|fitness|fitnes)/i, icon: "sport" },
+  {
+    test: /(отдых|путешеств|travel|trip|tour|sayohat|turizm|dam olish)/i,
+    icon: "travel",
+  },
 ];
 
 function resolveCategoryIconType(name = "") {
