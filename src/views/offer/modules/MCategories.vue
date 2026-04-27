@@ -1,5 +1,6 @@
 <!-- src/components/modules/MCategory.vue -->
 <script setup>
+import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { useMerchantsStore } from "@/stores/merchants";
@@ -9,6 +10,8 @@ import { buildCategoryIconDataUrl } from "@/utils/categoryIcons";
 const route = useRoute();
 const { t } = useI18n();
 const merchantsStore = useMerchantsStore();
+const showAllCategories = ref(false);
+const INITIAL_VISIBLE_ITEMS = 8;
 
 const props = defineProps({
   categoriesType: {
@@ -24,6 +27,23 @@ async function closeModal(id) {
   }
   merchantsStore.getSummaryMerchants(id || null);
 }
+
+const shouldCollapseCategories = computed(() => props.categoriesType === "offer");
+const visibleCategories = computed(() => {
+  if (!shouldCollapseCategories.value || showAllCategories.value) {
+    return merchantsStore.merchantCategories;
+  }
+
+  // Показываем 8 элементов вместе с "Все", значит категорий здесь 7.
+  return merchantsStore.merchantCategories.slice(0, INITIAL_VISIBLE_ITEMS - 1);
+});
+
+const hasHiddenCategories = computed(
+  () =>
+    shouldCollapseCategories.value &&
+    !showAllCategories.value &&
+    merchantsStore.merchantCategories.length > INITIAL_VISIBLE_ITEMS - 1
+);
 </script>
 
 <template>
@@ -66,7 +86,7 @@ async function closeModal(id) {
         </router-link>
         <!-- Категории -->
         <router-link
-          v-for="(category, index) in merchantsStore.merchantCategories"
+          v-for="(category, index) in visibleCategories"
           :key="index"
           :to="localePath('/offer/' + category?.slug)"
           :class="[
@@ -97,6 +117,15 @@ async function closeModal(id) {
           </div>
         </router-link>
       </div>
+
+      <button
+        v-if="hasHiddenCategories"
+        type="button"
+        class="w-full mt-3 rounded-xl border border-[#ffffff2b] text-[#d5d9e2] py-2.5 text-sm font-medium hover:bg-[#ffffff0f] transition-colors"
+        @click="showAllCategories = true"
+      >
+        Показать все
+      </button>
     </div>
   </div>
 </template>
