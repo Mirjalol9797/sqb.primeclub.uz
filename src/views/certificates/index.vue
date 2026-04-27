@@ -321,7 +321,7 @@ function changePagePagination(page) {
             :to="localePath('/offer')"
             class="button-exit text-center text-base text-black font-medium bg-white border border-black rounded-3xl py-3 px-6"
           >
-            <span>{{ $t("Перейти в каталог") }}</span>
+            <span>{{ $t("go_to_catalog") }}</span>
           </router-link>
         </div>
       </template>

@@ -13,7 +13,9 @@ defineProps({
 
 <template>
   <div v-if="merchants?.length" class="w-full px-4 mb-4">
-    <div class="text-lg font-semibold mb-4">Популярные заведения</div>
+    <div class="text-lg font-semibold mb-4">
+      {{ $t("popular_establishments") }}
+    </div>
 
     <div class="flex gap-3 overflow-x-auto">
       <router-link

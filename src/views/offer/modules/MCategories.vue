@@ -28,7 +28,9 @@ async function closeModal(id) {
   merchantsStore.getSummaryMerchants(id || null);
 }
 
-const shouldCollapseCategories = computed(() => props.categoriesType === "offer");
+const shouldCollapseCategories = computed(
+  () => props.categoriesType === "offer"
+);
 const visibleCategories = computed(() => {
   if (!shouldCollapseCategories.value || showAllCategories.value) {
     return merchantsStore.merchantCategories;
@@ -124,7 +126,7 @@ const hasHiddenCategories = computed(
         class="w-full mt-3 rounded-xl border border-[#ffffff2b] text-[#d5d9e2] py-2.5 text-sm font-medium hover:bg-[#ffffff0f] transition-colors"
         @click="showAllCategories = true"
       >
-        Показать все
+        {{ $t("show_all") }}
       </button>
     </div>
   </div>

@@ -49,7 +49,9 @@ watch(
 
 <template>
   <div v-if="merchants?.length > 0" class="w-full px-4">
-    <div v-if="showTitle" class="text-lg font-semibold mb-4">Все предложения</div>
+    <div v-if="showTitle" class="text-lg font-semibold mb-4">
+      {{ $t("all_offers") }}
+    </div>
 
     <div class="grid grid-cols-1 gap-4">
       <router-link
@@ -100,6 +102,6 @@ watch(
     </div> -->
   </div>
   <div v-else class="w-full pt-10">
-    <div class="text-center text-gray-500">Ничего не найдено</div>
+    <div class="text-center text-gray-500">{{ $t("nothing_found") }}</div>
   </div>
 </template>

@@ -26,7 +26,7 @@ const { t } = useI18n();
         class="mb-1.5 w-5 h-5"
         v-else
       />
-      <div class="font-medium">{{ $t("Каталог") }}</div>
+      <div class="font-medium">{{ $t("catalog") }}</div>
     </router-link>
     <router-link
       :to="localePath('/certificates')"

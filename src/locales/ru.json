@@ -272,5 +272,12 @@
     "terms_title": "Условия использования",
     "terms_text": "Используя данный сервис, вы автоматически соглашаетесь с",
     "continue": "Продолжить"
-  }
+  },
+  "search_establishments_offers": "Поиск заведений и предложений",
+  "show_all": "Показать все",
+  "new_establishments": "Новые заведения",
+  "popular_establishments": "Популярные заведения",
+  "catalog": "Каталог",
+  "go_to_catalog": "Перейти в каталог",
+  "all_offers": "Все предложения"
 }

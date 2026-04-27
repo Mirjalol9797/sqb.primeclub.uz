@@ -16,7 +16,7 @@ function goToSearchPage() {
     <input
       type="text"
       class="bg-[#000] border border-[#ffffff1f] text-white pl-11 py-3 pr-3 w-full rounded-2xl focus-visible:outline-none text-sm"
-      :placeholder="$t('Поиск заведений и предложений')"
+      :placeholder="$t('search_establishments_offers')"
       @focus="goToSearchPage"
     />
   </div>

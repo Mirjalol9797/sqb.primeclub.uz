@@ -273,5 +273,12 @@
     "terms_title": "Foydalanish shartlari",
     "terms_text": "Ushbu xizmatdan foydalanish orqali siz avtomatik tarzda",
     "continue": "Davom etish"
-  }
+  },
+  "search_establishments_offers": "Joylar va takliflarni qidirish",
+  "show_all": "Barchasini ko‘rsatish",
+  "new_establishments": "Yangi joylar",
+  "popular_establishments": "Mashhur joylar",
+  "catalog": "Katalog",
+  "go_to_catalog": "Katalogga o‘tish",
+  "all_offers": "Barcha takliflar"
 }
