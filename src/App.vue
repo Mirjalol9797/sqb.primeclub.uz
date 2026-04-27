@@ -1,12 +1,14 @@
 <script setup>
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Header from "@/components/Header.vue";
 import MobileFooter from "@/components/MobileFooter.vue";
+import WelcomeSite from "@/components/WelcomeSite.vue";
 import { useLoginStore } from "@/stores/login";
 
 const route = useRoute();
 const router = useRouter();
+const showWelcomeSite = ref(false);
 
 const loginStore = useLoginStore();
 function siteScrollTop() {
@@ -29,6 +31,9 @@ const hideHeader = computed(() => {
 });
 
 onMounted(() => {
+  showWelcomeSite.value =
+    localStorage.getItem("primeclub_welcome_passed") !== "1";
+
   if (loginStore.token) {
     loginStore.checkAuthToken(router);
   }
@@ -46,12 +51,20 @@ onMounted(() => {
     }
   });
 });
+
+const handleWelcomeCompleted = () => {
+  showWelcomeSite.value = false;
+};
 </script>
 
 <template>
   <Header v-if="!hideHeader" />
   <RouterView />
   <MobileFooter v-if="!hideHeader" />
+  <WelcomeSite
+    v-if="showWelcomeSite"
+    @completed="handleWelcomeCompleted"
+  />
 
   <!-- <a
     href="https://t.me/primeuz_bot?start=support"
