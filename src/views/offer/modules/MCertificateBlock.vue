@@ -112,7 +112,7 @@ onUnmounted(() => {
         <template v-if="item?.skip_certificate == true">
           <button
             class="site-btn-grey gap-2 min-h-12"
-            @click="openDownloadAppModal()"
+            @click="showCode(item)"
             v-if="
               !showCodes[item.id] ||
               (codeError && Object.keys(codeError).length > 0)
@@ -121,7 +121,7 @@ onUnmounted(() => {
             <img src="/icons/p-offer/show1.svg" alt="" class="w-5" />
             {{ $t("show_code") }}
           </button>
-          <button class="site-btn-grey" v-else @click="openDownloadAppModal()">
+          <button class="site-btn-grey" v-else @click="showCode(item)">
             <img src="/icons/p-offer/copy.svg" alt="" class="w-4" />
             {{ item._code }}
           </button>
@@ -129,12 +129,16 @@ onUnmounted(() => {
         <template v-else>
           <button
             class="site-btn-grey"
-            @click="openDownloadAppModal()"
+            @click="$emit('createCertificate', item?.id)"
             v-if="merchant?.type == 'single'"
           >
             {{ $t("get_certificate") }}
           </button>
-          <button class="site-btn-grey" @click="openDownloadAppModal()" v-else>
+          <button
+            class="site-btn-grey"
+            @click="$emit('openMerchantBranches', item?.id)"
+            v-else
+          >
             {{ $t("get_certificate") }}
           </button>
         </template>

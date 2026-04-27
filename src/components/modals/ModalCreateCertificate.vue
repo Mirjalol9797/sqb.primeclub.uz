@@ -105,7 +105,7 @@ function getTelegramBookingLink(startParam) {
               </a> -->
               <a
                 :href="getTelegramBookingLink(`booking_${certificateId}`)"
-                class="site-btn"
+                class="site-btn-grey w-full min-h-12"
                 @click="closeModal"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -113,7 +113,7 @@ function getTelegramBookingLink(startParam) {
                 {{ $t("warn_on_telegram") }}
               </a>
               <button
-                class="site-btn"
+                class="site-btn-grey w-full min-h-12"
                 v-if="isWtihoutBooking"
                 @click="isWtihoutBooking = false"
               >
@@ -127,7 +127,10 @@ function getTelegramBookingLink(startParam) {
             </div>
 
             <div class="flex flex-wrap gap-2 justify-center">
-              <button class="site-btn" @click="downloadCertificate">
+              <button
+                class="site-btn-grey w-full min-h-12"
+                @click="downloadCertificate"
+              >
                 {{ $t("show_certificate") }}
               </button>
               <!-- <a
@@ -138,7 +141,7 @@ function getTelegramBookingLink(startParam) {
                 {{ $t("send_to_telegram") }}
               </a> -->
               <a
-                class="site-btn text-center"
+                class="site-btn-grey w-full min-h-12 text-center"
                 :href="
                   getTelegramBookingLink(
                     extractStartParam(certificateData.telegram_link)

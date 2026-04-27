@@ -93,7 +93,7 @@ function clearSelection(event) {
             @blur="handleBlur"
             type="text"
             :placeholder="$t('choose_branch_placeholder')"
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-f4af00 pr-10 cursor-pointer"
+            class="w-full text-black px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ffffff1f] pr-10 cursor-pointer"
           />
           <button
             v-if="searchQuery"
@@ -112,22 +112,19 @@ function clearSelection(event) {
             v-for="branch in filteredBranches"
             :key="branch.id"
             @mousedown.prevent="selectBranch(branch)"
-            class="px-4 py-3 hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
+            class="px-4 py-3 text-black hover:bg-gray-100 cursor-pointer border-b border-gray-100 last:border-b-0"
           >
             <div class="text-sm font-semibold">{{ branch.name }}</div>
-            <div class="text-xs text-gray-500">{{ branch.address }}</div>
+            <div class="text-xs">{{ branch.address }}</div>
           </div>
-          <div
-            v-if="filteredBranches.length === 0"
-            class="px-4 py-3 text-sm text-gray-500"
-          >
+          <div v-if="filteredBranches.length === 0" class="px-4 py-3 text-sm">
             Ничего не найдено
           </div>
         </div>
       </div>
 
       <div v-if="selectedBranch" class="mt-6">
-        <button @click="confirmSelection" class="site-btn">
+        <button @click="confirmSelection" class="site-btn-grey w-full min-h-12">
           {{ $t("confirm") }}
         </button>
       </div>

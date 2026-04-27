@@ -29,9 +29,7 @@ const handleToggleFavorite = () => {
 </script>
 
 <template>
-  <div
-    class="mb-4 w-full p-4 rounded-2xl relative border border-[#ffffff1f] 768:p-3 768:mb-5"
-  >
+  <div class="mb-4 w-full p-3 rounded-2xl relative border border-[#ffffff1f]">
     <div class="w-16 mb-4 rounded-lg">
       <img
         :src="`https://main.primeclub.uz/uploads/${merchant?.logo}`"
@@ -47,10 +45,7 @@ const handleToggleFavorite = () => {
         {{ merchant?.category?.name }}
       </div>
     </div>
-    <button
-      class="site-btn-grey w-full"
-      @click="settingsStore.isDownloadAppModal = true"
-    >
+    <button class="site-btn-grey w-full" @click="onScrollToCertificate">
       {{ $t("get_certificate") }}
     </button>
 

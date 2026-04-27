@@ -208,13 +208,13 @@ function changePagePagination(page) {
         </div>
         <div
           v-else
-          class="shadow-[0_0_2px_0_rgba(0,0,0,.04),0_2px_20px_0_rgba(0,0,0,.08)] p-4 mb-6 flex items-center justify-between rounded-lg hover:scale-[1.01] transition-all duration-300 768:flex-col 768:items-start 768:gap-2"
+          class="border border-[#ffffff1f] p-4 mb-6 flex items-center justify-between rounded-2xl hover:scale-[1.01] transition-all duration-300 768:flex-col 768:items-start 768:gap-2"
           v-for="(item, index) in certificatesStore.listCertificates"
           :key="index"
           :class="!isActive ? 'opacity-50' : ''"
         >
           <div class="w-full 768:mb-2">
-            <div class="font-semibold text-lg mb-2">
+            <div class="font-semibold text-base mb-2">
               {{ item?.offer?.name }}
             </div>
             <div class="flex items-center gap-4">
@@ -224,7 +224,7 @@ function changePagePagination(page) {
                   :alt="item?.offer?.merchant?.name"
                 />
               </div>
-              <div>
+              <div class="text-sm">
                 {{ item?.offer?.merchant?.name }}
               </div>
             </div>
@@ -235,7 +235,7 @@ function changePagePagination(page) {
           >
             <template v-if="item?.is_digital">
               <button
-                class="site-btn-grey gap-2 min-h-12 show-code-btn"
+                class="site-btn-grey gap-2 min-h-11 show-code-btn"
                 @click="item.showCode = true"
                 v-if="!item.showCode"
               >
@@ -243,7 +243,7 @@ function changePagePagination(page) {
                 {{ $t("show_code") }}
               </button>
               <button
-                class="site-btn-grey gap-2 min-h-12 show-code"
+                class="site-btn-grey gap-2 min-h-11 show-code"
                 v-else
                 @click="copyOfferCode(item.code)"
               >
@@ -254,7 +254,7 @@ function changePagePagination(page) {
             <template v-else>
               <button
                 @click="downloadCertificate(item?.id)"
-                class="site-btn-grey gap-2 min-h-12"
+                class="site-btn-grey gap-2 min-h-11"
               >
                 <img src="/icons/download.svg" alt="" class="w-5" />
                 {{ $t("download_certificate") }}
@@ -272,7 +272,7 @@ function changePagePagination(page) {
               </a> -->
               <a
                 :href="`https://t.me/primeuz_bot?start=booking_${item?.id}`"
-                class="site-btn-grey gap-2 min-h-12"
+                class="site-btn-grey gap-2 min-h-11"
                 target="_blank"
                 rel="noopener noreferrer"
                 v-if="item?.offer?.is_bookable || item?.offer?.is_notifiable"

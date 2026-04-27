@@ -32,7 +32,7 @@ const formattedTime = computed(() => {
     <div class="text-gray-600 mb-3 text-center">
       {{ $t("max_certificates_per_day") }}
     </div>
-    <div class="text-[#ffd531] text-2xl font-bold text-center mb-3">
+    <div class="text-2xl font-bold text-center mb-3">
       {{ formattedTime }}
     </div>
     <div class="text-sm text-center">
