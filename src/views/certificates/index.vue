@@ -235,7 +235,7 @@ function changePagePagination(page) {
           >
             <template v-if="item?.is_digital">
               <button
-                class="site-btn-grey gap-2 min-h-12"
+                class="site-btn-grey gap-2 min-h-12 show-code-btn"
                 @click="item.showCode = true"
                 v-if="!item.showCode"
               >
@@ -243,7 +243,7 @@ function changePagePagination(page) {
                 {{ $t("show_code") }}
               </button>
               <button
-                class="site-btn-grey gap-2 min-h-12"
+                class="site-btn-grey gap-2 min-h-12 show-code"
                 v-else
                 @click="copyOfferCode(item.code)"
               >

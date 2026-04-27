@@ -103,9 +103,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
-    class="mb-4 w-full p-4 rounded-2xl relative border border-[#ffffff1f] 768:p-3 768:mb-5"
-  >
+  <div class="mb-4 w-full p-3 rounded-2xl relative border border-[#ffffff1f]">
     <div class="w-16 mb-4 rounded-lg">
       <img
         :src="`https://main.primeclub.uz/uploads/${merchant?.logo}`"
@@ -130,7 +128,7 @@ onUnmounted(() => {
       <div class="hidden 768:block">
         <template v-if="item?.skip_certificate == true">
           <div
-            class="site-btn-grey w-full !h-11 !max-w-full !rounded-lg gap-2 cursor-pointer"
+            class="site-btn-grey w-full !h-11 !max-w-full !rounded-lg gap-2 cursor-pointer show-code"
             @click="openDownloadAppModal()"
             v-if="
               !showCodes[item.id] ||
