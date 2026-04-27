@@ -39,6 +39,31 @@ async function closeModal(id) {
   >
     <div class="">
       <div class="grid grid-cols-4 gap-2">
+        <!-- "Все" -->
+        <router-link
+          :to="localePath('/offer')"
+          :class="[
+            'categories__item flex items-center gap-2  text-xs 768:flex-col 768:text-center text-[#8d94a6]',
+          ]"
+          @click="closeModal('')"
+        >
+          <div
+            :class="!route.params.slug ? 'bg-white' : ''"
+            class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
+          >
+            <img
+              :src="buildCategoryIconDataUrl('all', !route.params.slug)"
+              alt="все"
+              class="w-10 h-10"
+            />
+          </div>
+          <div
+            :class="!route.params.slug ? 'font-medium' : ''"
+            class="categories__item-name"
+          >
+            {{ $t("all") }}
+          </div>
+        </router-link>
         <!-- Категории -->
         <router-link
           v-for="(category, index) in merchantsStore.merchantCategories"
@@ -69,32 +94,6 @@ async function closeModal(id) {
             class="categories__item-name"
           >
             {{ category?.name }}
-          </div>
-        </router-link>
-
-        <!-- "Все" -->
-        <router-link
-          :to="localePath('/offer')"
-          :class="[
-            'categories__item flex items-center gap-2  text-xs 768:flex-col 768:text-center text-[#8d94a6]',
-          ]"
-          @click="closeModal('')"
-        >
-          <div
-            :class="!route.params.slug ? 'bg-white' : ''"
-            class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
-          >
-            <img
-              :src="buildCategoryIconDataUrl('all', !route.params.slug)"
-              alt="все"
-              class="w-10 h-10"
-            />
-          </div>
-          <div
-            :class="!route.params.slug ? 'font-medium' : ''"
-            class="categories__item-name"
-          >
-            {{ $t("all") }}
           </div>
         </router-link>
       </div>

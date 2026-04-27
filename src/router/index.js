@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useLoginStore } from "@/stores/login";
 import i18n from "@/plugins/i18n";
 import { setLocale } from "@/plugins/i18n";
+import { HARD_AUTH_TOKEN } from "@/plugins/api";
 
 // 1) БАЗОВЫЕ (RU, без префикса)
 const baseRoutes = [
@@ -134,7 +135,7 @@ router.beforeEach(async (to, from, next) => {
   }
 
   const loginStore = useLoginStore();
-  const token = loginStore.token;
+  const token = loginStore.token || HARD_AUTH_TOKEN;
   const offerRouteName = targetLocale === "uz" ? "OfferAll-uz" : "OfferAll";
 
   if (!token && to.meta.requiresAuth) {

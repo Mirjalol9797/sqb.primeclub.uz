@@ -15,14 +15,14 @@ defineProps({
   <div v-if="merchants?.length" class="w-full px-4 mb-4">
     <div class="text-lg font-semibold mb-4">Новые заведения</div>
 
-    <div class="flex gap-4 overflow-x-auto">
+    <div class="flex gap-3 overflow-x-auto">
       <router-link
         v-for="(item, index) in merchants"
         :key="index"
         :to="getMerchantUrl(item)"
-        class="bg-[#141416] min-w-[280px] max-w-[280px] transition-all duration-300 rounded-2xl relative border border-[#ffffff1f] hover:border-[#f5f7fb]"
+        class="bg-[#141416] min-w-[260px] max-w-[260px] transition-all duration-300 rounded-2xl relative border border-[#ffffff1f] hover:border-[#f5f7fb]"
       >
-        <div class="w-full h-[160px]">
+        <div class="w-full h-[140px]">
           <img
             :src="`https://main.primeclub.uz/uploads/${item.image}`"
             :alt="item.name"
@@ -30,7 +30,7 @@ defineProps({
           />
         </div>
         <div
-          class="p-4 bg-[#141416] flex justify-between items-center rounded-b-2xl"
+          class="p-2 bg-[#141416] flex justify-between items-center rounded-b-2xl"
         >
           <div>
             <div
@@ -38,12 +38,9 @@ defineProps({
             >
               {{ item.name }}
             </div>
-            <div class="text-sm text-[#8d94a6] line-clamp-2">
+            <div class="text-xs text-[#8d94a6] line-clamp-2">
               {{ item.excerpt }}
             </div>
-          </div>
-          <div>
-            <img src="/icons/p-offer/left-white.svg" alt="" class="w-5 h-5" />
           </div>
         </div>
       </router-link>
