@@ -261,5 +261,17 @@
   "only_in_the_app": "Faqat ilovada",
   "download_the_app": "Ilovani yuklab oling",
   "get_your_certificate_in_the_app": "Sertifikatni ilovada oling",
-  "password": "Parol"
+  "password": "Parol",
+  "welcome_site": {
+    "program": "Imtiyozlar dasturi",
+    "title": "SQB Premium ga xush kelibsiz",
+    "description": "SQB bankining Premium mijozlari uchun eksklyuziv imtiyozlar, chegirmalar va sertifikatlar.",
+    "note": "Xizmat SQB Premium tomonidan taqdim etiladi. “Boshlash” tugmasini bosish orqali siz",
+    "offer_link": "ommaviy oferta shartlariga rozilik bildirasiz",
+    "start": "Boshlash",
+    "back": "Orqaga",
+    "terms_title": "Foydalanish shartlari",
+    "terms_text": "Ushbu xizmatdan foydalanish orqali siz avtomatik tarzda",
+    "continue": "Davom etish"
+  }
 }

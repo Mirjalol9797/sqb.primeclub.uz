@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 const emit = defineEmits(["completed"]);
+const { t } = useI18n();
 
 const isTermsModalVisible = ref(false);
 
@@ -24,35 +26,36 @@ const completeWelcome = () => {
   <div
     class="fixed inset-0 z-[100] text-white bg-[radial-gradient(circle_at_top,_#111827_0%,_#04060b_45%,_#000000_100%)]"
   >
-    <div class="min-h-full flex flex-col justify-between px-7 pt-14 pb-10">
+    <div class="min-h-full flex flex-col justify-between px-6 pt-14 pb-10">
       <div class="mt-14">
-        <div class="text-2xl font-bold leading-none text-center">PrimeClub</div>
+        <div class="text-2xl font-bold leading-none text-center">
+          SQB Premium
+        </div>
         <div class="mt-2 tracking-[1.2px] text-sm text-center">
-          ПРОГРАММА ПРИВИЛЕГИЙ
+          {{ t("welcome_site.program") }}
         </div>
       </div>
 
       <div class="text-center">
-        <h1 class="text-2xl font-bold mb-4">Добро пожаловать в PrimeClub</h1>
-        <p class="text-sm leading-[1.45] text-[#b7bfce] mb-6">
-          Эксклюзивные привилегии, скидки и сертификаты для Premium-клиентов SQB
-          банка.
+        <h1 class="text-xl font-bold mb-4">{{ t("welcome_site.title") }}</h1>
+        <p class="text-sm text-[#b7bfce] mb-4">
+          {{ t("welcome_site.description") }}
         </p>
-        <p class="text-sm leading-[1.5] text-[#d6dbe6] mb-5">
-          Услуга предоставляется PrimeClub. Нажимая «Начать», вы принимаете
+        <p class="text-sm text-[#d6dbe6] mb-4">
+          {{ t("welcome_site.note") }}
           <a href="/offer" class="text-white font-bold underline ml-1">
-            Договор оферты
+            {{ t("welcome_site.offer_link") }}
           </a>
         </p>
 
         <button
           @click="openTermsModal"
-          class="w-full min-h-12 rounded-[14px] bg-white text-black text-lg leading-none font-semibold mb-3"
+          class="w-full min-h-12 rounded-2xl bg-white text-black text-base leading-none font-semibold mb-3"
         >
-          Начать
+          {{ t("welcome_site.start") }}
         </button>
-        <button class="text-white text-lg leading-none font-semibold">
-          Назад
+        <button class="text-white text-base leading-none font-semibold">
+          {{ t("welcome_site.back") }}
         </button>
       </div>
     </div>
@@ -66,19 +69,21 @@ const completeWelcome = () => {
         <div
           class="w-[52px] h-[5px] rounded-full bg-white/25 mx-auto mb-4"
         ></div>
-        <div class="text-lg font-bold mb-2">Условия использования</div>
+        <div class="text-lg font-bold mb-2">
+          {{ t("welcome_site.terms_title") }}
+        </div>
         <p class="text-sm text-[#c3c9d6] mb-5">
-          Используя данный сервис, вы автоматически соглашаетесь с
+          {{ t("welcome_site.terms_text") }}
           <a href="/offer" class="text-white font-bold underline ml-1">
-            условиями публичной оферты
+            {{ t("welcome_site.offer_link") }}
           </a>
           .
         </p>
         <button
           @click="completeWelcome"
-          class="w-full min-h-12 rounded-[14px] bg-white text-black text-lg leading-none font-semibold"
+          class="w-full min-h-12 rounded-2xl bg-white text-black text-base leading-none font-semibold"
         >
-          Продолжить
+          {{ t("welcome_site.continue") }}
         </button>
       </div>
     </div>
