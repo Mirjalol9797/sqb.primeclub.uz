@@ -148,7 +148,6 @@ function changePagePagination(page) {
         <div class="site-title !mb-0">{{ $t("certificates") }}</div>
         <div
           class="relative flex items-center gap-2 480:w-full 480:justify-center"
-          v-if="hasInactiveCertificates"
         >
           <!-- Buttons -->
           <button
@@ -236,7 +235,7 @@ function changePagePagination(page) {
           >
             <template v-if="item?.is_digital">
               <button
-                class="site-btn gap-2"
+                class="site-btn-grey gap-2 min-h-12"
                 @click="item.showCode = true"
                 v-if="!item.showCode"
               >
@@ -244,7 +243,7 @@ function changePagePagination(page) {
                 {{ $t("show_code") }}
               </button>
               <button
-                class="border-2 border-f4af00 bg-white rounded-xl gap-2 w-full max-w-[220px] flex items-center justify-center h-12 768:max-w-full"
+                class="site-btn-grey gap-2 min-h-12"
                 v-else
                 @click="copyOfferCode(item.code)"
               >
@@ -255,7 +254,7 @@ function changePagePagination(page) {
             <template v-else>
               <button
                 @click="downloadCertificate(item?.id)"
-                class="site-btn gap-2"
+                class="site-btn-grey gap-2 min-h-12"
               >
                 <img src="/icons/download.svg" alt="" class="w-5" />
                 {{ $t("download_certificate") }}
@@ -273,7 +272,7 @@ function changePagePagination(page) {
               </a> -->
               <a
                 :href="`https://t.me/primeuz_bot?start=booking_${item?.id}`"
-                class="site-btn gap-2"
+                class="site-btn-grey gap-2 min-h-12"
                 target="_blank"
                 rel="noopener noreferrer"
                 v-if="item?.offer?.is_bookable || item?.offer?.is_notifiable"
@@ -286,7 +285,7 @@ function changePagePagination(page) {
         </div>
         <div
           class="flex justify-end 768:justify-center"
-          v-if="certificatesStore.pagination.total > 0"
+          v-if="certificatesStore.pagination.total > 10"
         >
           <vue-awesome-paginate
             :total-items="certificatesStore.pagination.total"

@@ -32,7 +32,7 @@ function closeModal() {
           <a
             href="https://t.me/primeuz_bot?start=support"
             target="_blank"
-            class="w-full px-5 py-3 text-center max-w-[240px] bg-ffd531 text-111D28 rounded-3xl font-medium hover:bg-opacity-90 transition-colors duration-200"
+            class="site-btn-grey"
           >
             {{ $t("contact_in_telegram") }}
           </a>

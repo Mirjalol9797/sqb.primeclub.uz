@@ -111,7 +111,7 @@ onUnmounted(() => {
       <div class="mt-5 hidden 768:block">
         <template v-if="item?.skip_certificate == true">
           <button
-            class="site-btn-grey gap-2"
+            class="site-btn-grey gap-2 min-h-12"
             @click="openDownloadAppModal()"
             v-if="
               !showCodes[item.id] ||

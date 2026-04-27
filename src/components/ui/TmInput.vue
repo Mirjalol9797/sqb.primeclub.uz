@@ -85,7 +85,7 @@ function updateValue(e) {
   input {
     padding-top: 14px;
     /* Заменяем box-shadow на border для лучшей совместимости с iOS */
-    border: 1px solid #f4af00;
+    border: 1px solid #ffffff1f;
     background-color: transparent;
     z-index: 2;
     position: relative;
@@ -104,7 +104,7 @@ function updateValue(e) {
     appearance: none;
 
     &:focus {
-      border-color: #f4af00;
+      border-color: #ffffff1f;
       border-width: 2px;
       /* Убираем outline для iOS */
       outline: none;

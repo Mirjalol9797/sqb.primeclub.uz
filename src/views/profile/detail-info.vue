@@ -29,9 +29,7 @@ function logOut() {
     <div class="site-container">
       <div class="site-title">{{ $t("personal_information") }}</div>
 
-      <div
-        class="max-w-[800px] mx-auto shadow-[0_0_2px_0_rgba(0,0,0,.06),0_2px_8px_0_rgba(242,242,242,1)] rounded-lg p-6 768:p-3"
-      >
+      <div class="max-w-[800px] mx-auto rounded-lg p-6 768:p-3">
         <div class="w-[150px] h-[150px] mx-auto mb-12 768:mb-8">
           <img
             :src="
@@ -71,10 +69,7 @@ function logOut() {
             :label="$t('position')"
           ></tm-input>
         </div>
-        <button
-          @click="logOut"
-          class="items-center mx-auto mt-4 hidden 768:flex text-white bg-ffd531 rounded-lg py-2 px-4"
-        >
+        <button @click="logOut" class="site-btn-grey mt-4 min-h-12 mx-auto">
           <span>{{ $t("exit") }}</span>
         </button>
       </div>

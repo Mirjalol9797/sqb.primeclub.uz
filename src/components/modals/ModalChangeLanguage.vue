@@ -59,7 +59,7 @@ function switchLocale(target) {
         <button
           v-if="currentLocale === 'uz'"
           @click="switchLocale('ru')"
-          class="w-full px-4 py-3 bg-ffd531 text-white rounded-3xl font-medium hover:bg-opacity-90 transition-colors duration-200"
+          class="site-btn-grey w-full"
         >
           Русский
         </button>
@@ -68,7 +68,7 @@ function switchLocale(target) {
         <button
           v-if="currentLocale === 'ru'"
           @click="switchLocale('uz')"
-          class="w-full px-4 py-3 bg-ffd531 text-white rounded-3xl font-medium hover:bg-opacity-90 transition-colors duration-200"
+          class="site-btn-grey w-full"
         >
           O'zbek
         </button>
