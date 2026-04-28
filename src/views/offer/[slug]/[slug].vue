@@ -299,6 +299,7 @@ onUnmounted(() => {
           <MMerchantInfo
             :merchant="merchantsStore.oneMerchant"
             :on-scroll-to-certificate="scrollToCertificateButton"
+            :merchant-offer="merchantsStore.oneMerchantOffer"
           />
           <div>
             <MCertificateBlock
