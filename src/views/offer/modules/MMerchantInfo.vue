@@ -47,24 +47,21 @@ const handleToggleFavorite = () => {
       </div>
     </div>
     <div class="mt-3 border border-[#ffffff1f] rounded-2xl p-3">
-      <div class="font-medium mb-1">Внимание!</div>
+      <div class="font-medium mb-1">{{ $t("attention") }}</div>
       <div class="text-sm mb-2">
-        Чтобы гарантировать скидку в данном заведении, необходимо предупредить
-        администрацию перед посещением.
+        {{ $t("attention_desc") }}
       </div>
       <button
-        class="bg-white text-black text-sm px-3 py-1.5 rounded-lg"
+        class="bg-white text-black text-xs px-3 py-1.5 rounded-lg"
         @click="isDetailsVisible = !isDetailsVisible"
       >
-        {{ isDetailsVisible ? "Скрыть" : "Подробнее" }}
+        {{ isDetailsVisible ? $t("hide") : $t("show_more") }}
       </button>
       <div
         v-if="isDetailsVisible"
         class="text-sm border border-[#ffffff1f] p-3 rounded-2xl mt-2"
       >
-        Желательно получить сертификат за несколько часов до посещения. Если вы
-        планируете посетить заведение рано утром, то важно получить сертификат
-        за день до этого.
+        {{ $t("attention_desc2") }}
       </div>
     </div>
     <!-- <button class="site-btn-grey w-full" @click="onScrollToCertificate">

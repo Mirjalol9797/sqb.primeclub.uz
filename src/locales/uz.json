@@ -280,5 +280,10 @@
   "popular_establishments": "Mashhur joylar",
   "catalog": "Katalog",
   "go_to_catalog": "Katalogga o‘tish",
-  "all_offers": "Barcha takliflar"
+  "all_offers": "Barcha takliflar",
+  "attention": "Diqqat!",
+  "attention_desc": "Ushbu muassasada chegirma kafolatlanishi uchun tashrifdan oldin ma’muriyatni ogohlantirish zarur.",
+  "attention_desc2": "Sertifikatni tashrifdan bir necha soat oldin olish tavsiya etiladi. Agar muassasaga erta tongda borishni rejalashtirayotgan bo‘lsangiz, sertifikatni bir kun oldin olish muhim.",
+  "hide": "Berkitish",
+  "show_more": "Batafsil"
 }
