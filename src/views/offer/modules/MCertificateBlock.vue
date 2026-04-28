@@ -128,14 +128,14 @@ onUnmounted(() => {
         </template>
         <template v-else>
           <button
-            class="site-btn-grey"
+            class="site-btn-grey get-certificat-single"
             @click="$emit('createCertificate', item?.id)"
             v-if="merchant?.type == 'single'"
           >
             {{ $t("get_certificate") }}
           </button>
           <button
-            class="site-btn-grey"
+            class="site-btn-grey get-certificat"
             @click="$emit('openMerchantBranches', item?.id)"
             v-else
           >

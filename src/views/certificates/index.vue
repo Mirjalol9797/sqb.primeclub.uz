@@ -255,7 +255,7 @@ function changePagePagination(page) {
                 @click="downloadCertificate(item?.id)"
                 class="site-btn-grey gap-2 min-h-11"
               >
-                <img src="/icons/download.svg" alt="" class="w-5" />
+                <img src="/icons/download2.svg" alt="" class="w-5" />
                 {{ $t("download_certificate") }}
               </button>
 
@@ -284,7 +284,7 @@ function changePagePagination(page) {
         </div>
         <div
           class="flex justify-end 768:justify-center"
-          v-if="certificatesStore.pagination.total > 10"
+          v-if="certificatesStore.pagination.total > 20"
         >
           <vue-awesome-paginate
             :total-items="certificatesStore.pagination.total"
