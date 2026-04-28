@@ -295,29 +295,28 @@ onUnmounted(() => {
           </div>
         </div>
         <div class="right-column">
-          <template v-if="merchantsStore.oneMerchantOffer?.length > 1">
-            <MMerchantInfo
+          <!-- <template v-if="merchantsStore.oneMerchantOffer?.length > 1"> -->
+          <MMerchantInfo
+            :merchant="merchantsStore.oneMerchant"
+            :on-scroll-to-certificate="scrollToCertificateButton"
+          />
+          <div>
+            <MCertificateBlock
+              ref="certificateBlockRef"
               :merchant="merchantsStore.oneMerchant"
-              :on-scroll-to-certificate="scrollToCertificateButton"
+              :merchant-offer="merchantsStore.oneMerchantOffer"
+              :offer-code="offersStore.offerCode"
+              :code-error="codeError"
+              :show-offer-code-btn="offerCodeBtn"
+              @get-offer-code="getOfferCode"
+              @copy-offer-code="copyOfferCode"
+              @create-certificate="createCertificate"
+              @open-merchant-branches="openMerchantBranches"
             />
-            <!-- <MDownloadApp class="768:hidden" /> -->
-            <div>
-              <MCertificateBlock
-                ref="certificateBlockRef"
-                :merchant="merchantsStore.oneMerchant"
-                :merchant-offer="merchantsStore.oneMerchantOffer"
-                :offer-code="offersStore.offerCode"
-                :code-error="codeError"
-                :show-offer-code-btn="offerCodeBtn"
-                @get-offer-code="getOfferCode"
-                @copy-offer-code="copyOfferCode"
-                @create-certificate="createCertificate"
-                @open-merchant-branches="openMerchantBranches"
-              />
-            </div>
-          </template>
+          </div>
+          <!-- </template> -->
 
-          <template v-else>
+          <!-- <template v-else>
             <MMerchantInfoCertificate
               :merchant="merchantsStore.oneMerchant"
               :merchant-offer="merchantsStore.oneMerchantOffer"
@@ -329,8 +328,7 @@ onUnmounted(() => {
               @create-certificate="createCertificate"
               @open-merchant-branches="openMerchantBranches"
             />
-            <MDownloadApp class="768:hidden" />
-          </template>
+          </template> -->
         </div>
       </div>
 

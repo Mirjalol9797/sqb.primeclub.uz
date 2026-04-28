@@ -93,11 +93,10 @@ onUnmounted(() => {
   <div class="text-sm font-medium mb-3 768:mb-2" ref="certificateContainer">
     {{ $t("all_discounts") }}
   </div>
-  <div
-    class="gap-5 mb-6 768:flex 768:mb-0 768:overflow-x-auto 768:items-start 768:gap-2"
-  >
+  <div class="flex mb-0 overflow-x-auto items-start gap-2">
     <div
-      class="p-3 rounded-2xl last:mb-0 mb-0 border border-[#ffffff1f] min-w-[250px]"
+      class="p-3 rounded-2xl last:mb-0 mb-0 border border-[#ffffff1f]"
+      :class="merchantOffer?.length > 1 ? 'min-w-[250px]' : 'min-w-full'"
       v-for="(item, index) in merchantOffer"
       :key="index"
     >
@@ -106,6 +105,7 @@ onUnmounted(() => {
       </div>
       <div
         class="text-6B7280 text-sm 768:min-h-10"
+        v-if="item?.description"
         v-html="item?.description"
       ></div>
       <div class="mt-3">

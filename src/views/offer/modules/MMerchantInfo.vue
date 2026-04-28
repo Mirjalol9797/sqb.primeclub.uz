@@ -1,11 +1,12 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, ref } from "vue";
 import TmButton from "@/components/ui/TmButton.vue";
 import { useFavoritesStore } from "@/stores/favorites.js";
 import { useSettingsStore } from "@/stores/settings";
 
 const favoritesStore = useFavoritesStore();
 const settingsStore = useSettingsStore();
+const isDetailsVisible = ref(false);
 
 const props = defineProps({
   merchant: {
@@ -37,12 +38,33 @@ const handleToggleFavorite = () => {
         class="rounded-lg"
       />
     </div>
-    <div class="768:mb-2">
+    <div>
       <div class="font-semibold text-base 768:text-xl">
         {{ merchant?.name }}
       </div>
       <div class="text-gray-500 text-sm">
         {{ merchant?.category?.name }}
+      </div>
+    </div>
+    <div class="mt-3 border border-[#ffffff1f] rounded-2xl p-3">
+      <div class="font-medium mb-1">Внимание!</div>
+      <div class="text-sm mb-2">
+        Чтобы гарантировать скидку в данном заведении, необходимо предупредить
+        администрацию перед посещением.
+      </div>
+      <button
+        class="bg-white text-black text-sm px-3 py-1.5 rounded-lg"
+        @click="isDetailsVisible = !isDetailsVisible"
+      >
+        {{ isDetailsVisible ? "Скрыть" : "Подробнее" }}
+      </button>
+      <div
+        v-if="isDetailsVisible"
+        class="text-sm border border-[#ffffff1f] p-3 rounded-2xl mt-2"
+      >
+        Желательно получить сертификат за несколько часов до посещения. Если вы
+        планируете посетить заведение рано утром, то важно получить сертификат
+        за день до этого.
       </div>
     </div>
     <!-- <button class="site-btn-grey w-full" @click="onScrollToCertificate">
