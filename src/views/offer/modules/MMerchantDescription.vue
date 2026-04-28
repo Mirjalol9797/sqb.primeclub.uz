@@ -8,10 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div
-    class="mb-6 480:mb-3 480:text-sm"
-    v-html="description?.description"
-  ></div>
+  <div class="mb-3 text-sm" v-html="description?.description"></div>
 </template>
 
 <style></style>

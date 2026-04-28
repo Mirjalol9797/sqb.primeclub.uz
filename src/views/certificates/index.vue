@@ -194,7 +194,9 @@ function changePagePagination(page) {
                   <div class="h-4 bg-gray-200 rounded w-1/2"></div>
                 </div>
               </div>
-              <div class="w-full flex justify-end gap-4 400:gap-2 400:flex-col">
+              <div
+                class="w-full flex justify-center gap-4 400:gap-2 400:flex-col"
+              >
                 <!-- Скелетон кнопок -->
                 <div
                   class="h-12 bg-gray-200 rounded-xl w-full max-w-[220px] 768:max-w-full"
@@ -229,10 +231,7 @@ function changePagePagination(page) {
               </div>
             </div>
           </div>
-          <div
-            class="w-full flex justify-end gap-4 400:gap-2 400:flex-col"
-            v-if="isActive"
-          >
+          <div class="w-full gap-2 flex flex-col" v-if="isActive">
             <template v-if="item?.is_digital">
               <button
                 class="site-btn-grey gap-2 min-h-11 show-code-btn"

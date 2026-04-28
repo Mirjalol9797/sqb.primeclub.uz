@@ -300,7 +300,7 @@ onUnmounted(() => {
               :merchant="merchantsStore.oneMerchant"
               :on-scroll-to-certificate="scrollToCertificateButton"
             />
-            <MDownloadApp class="768:hidden" />
+            <!-- <MDownloadApp class="768:hidden" /> -->
             <div>
               <MCertificateBlock
                 ref="certificateBlockRef"

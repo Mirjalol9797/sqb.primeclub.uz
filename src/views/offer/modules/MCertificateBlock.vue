@@ -108,10 +108,10 @@ onUnmounted(() => {
         class="text-6B7280 text-sm 768:min-h-10"
         v-html="item?.description"
       ></div>
-      <div class="mt-5 hidden 768:block">
+      <div class="mt-3">
         <template v-if="item?.skip_certificate == true">
           <button
-            class="site-btn-grey gap-2 min-h-12"
+            class="site-btn-grey gap-2"
             @click="showCode(item)"
             v-if="
               !showCodes[item.id] ||

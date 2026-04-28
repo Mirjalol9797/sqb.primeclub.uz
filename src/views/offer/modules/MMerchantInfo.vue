@@ -45,9 +45,9 @@ const handleToggleFavorite = () => {
         {{ merchant?.category?.name }}
       </div>
     </div>
-    <button class="site-btn-grey w-full" @click="onScrollToCertificate">
+    <!-- <button class="site-btn-grey w-full" @click="onScrollToCertificate">
       {{ $t("get_certificate") }}
-    </button>
+    </button> -->
 
     <!-- <button
       class="absolute top-4 right-4"
