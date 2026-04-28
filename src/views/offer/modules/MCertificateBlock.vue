@@ -12,6 +12,7 @@ import { useLoginStore } from "@/stores/login";
 import { useSettingsStore } from "@/stores/settings";
 import TmButton from "@/components/ui/TmButton.vue";
 import ModalAboniment from "@/components/modals/ModalAboniment.vue";
+import ModalWarnInstitution from "@/components/certificatDownload/ModalWarnInstitution.vue";
 
 const loginStore = useLoginStore();
 const settingsStore = useSettingsStore();
@@ -19,6 +20,7 @@ const route = useRoute();
 const bottomButton = ref(null);
 const showCodes = ref({});
 const certificateContainer = ref(null);
+const isWarnInstitutionModalOpen = ref(false);
 
 const scrollToButton = () => {
   if (certificateContainer.value) {
@@ -141,12 +143,17 @@ onUnmounted(() => {
           >
             {{ $t("get_certificate") }}
           </button>
+          <button @click="isWarnInstitutionModalOpen = true">Тест кнопка</button>
         </template>
       </div>
     </div>
   </div>
 
   <ModalAboniment v-if="settingsStore.isAboniment" />
+  <ModalWarnInstitution
+    v-if="isWarnInstitutionModalOpen"
+    @close="isWarnInstitutionModalOpen = false"
+  />
 </template>
 
 <style lang="scss" scoped>
