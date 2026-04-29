@@ -154,7 +154,16 @@ onUnmounted(() => {
         @already-received="handleAlreadyReceived"
         @success="handleFlowSuccess"
       />
-      <OptionalBlock v-else :flow-item="optionalFlowItem" />
+      <OptionalBlock
+        v-else
+        :flow-item="optionalFlowItem"
+        :selected-offer-id="selectedOfferId"
+        :selected-merchant-branch-id="selectedMerchantBranchId"
+        :merchant-branches="merchantBranches"
+        @close="closeModal"
+        @already-received="handleAlreadyReceived"
+        @success="handleFlowSuccess"
+      />
     </div>
 
     <div

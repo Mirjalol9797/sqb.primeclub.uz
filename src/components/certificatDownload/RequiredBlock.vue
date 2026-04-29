@@ -335,7 +335,7 @@ async function submitComePlanFlow() {
       <div class="flex items-center justify-between gap-2">
         <button
           class="w-full py-3 rounded-2xl border border-[#d2d3d8] text-sm font-medium h-12"
-          @click="backFromComePlan"
+          @click="emit('close')"
         >
           {{ comePlanData.secondary_button?.text }}
         </button>

@@ -51,6 +51,7 @@ const flowData = computed(() => props.flowItem?.data || {});
 const warnData = computed(() => flowData.value?.warn_establishment || null);
 const alreadyHereData = computed(() => flowData.value?.already_here || null);
 const comePlanData = computed(() => flowData.value?.come_plan || null);
+const warnChosenData = computed(() => flowData.value?.warn_chosen || null);
 
 function goToKey(key, fallback = "warn_establishment") {
   currentKey.value = key || fallback;
@@ -62,6 +63,10 @@ function goToAlreadyHere() {
 
 function goToComePlan() {
   goToKey(warnData.value?.primary_button?.linked_key, "come_plan");
+}
+
+function goToWarnChosen() {
+  goToKey(warnData.value?.secondary_button?.linked_key, "warn_chosen");
 }
 
 function backFromAlreadyHere() {
@@ -76,6 +81,17 @@ function backFromComePlan() {
     comePlanData.value?.secondary_button?.linked_key,
     "warn_establishment"
   );
+}
+
+function backFromWarnChosen() {
+  goToKey(
+    warnChosenData.value?.secondary_button?.linked_key,
+    "warn_establishment"
+  );
+}
+
+function goToComePlanFromWarnChosen() {
+  goToKey(warnChosenData.value?.primary_button?.linked_key, "come_plan");
 }
 
 watch(selectedComePlanOption, (value) => {
@@ -199,7 +215,9 @@ async function submitComePlanFlow() {
         {{ warnData.extra_text }}
       </div>
       <div class="flex items-center justify-between gap-2 mt-3">
-        <button class="w-full site-btn-grey">Не надо</button>
+        <button class="w-full site-btn-grey" @click="goToWarnChosen">
+          {{ warnData.secondary_button?.text }}
+        </button>
         <button
           class="w-full site-btn-grey warn-establishment"
           @click="goToComePlan"
@@ -212,6 +230,33 @@ async function submitComePlanFlow() {
         @click="goToAlreadyHere"
       >
         {{ warnData.footer_link?.text }}
+      </button>
+    </div>
+
+    <div v-else-if="currentKey === 'warn_chosen' && warnChosenData">
+      <div class="text-base font-semibold mb-1">{{ warnChosenData.title }}</div>
+      <div class="text-sm text-[#5e6068] mb-3">
+        {{ warnChosenData.description }}
+      </div>
+      <div class="text-sm border border-[#d2d3d8] rounded-2xl p-3 mb-4">
+        {{ warnChosenData.extra_text }}
+      </div>
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <button class="w-full site-btn-grey show-certificate">
+          {{ alreadyHereData?.primary_button?.text || "Показать сертификат" }}
+        </button>
+        <button
+          class="w-full site-btn-grey warn-establishment"
+          @click="goToComePlanFromWarnChosen"
+        >
+          {{ warnChosenData.primary_button?.text }}
+        </button>
+      </div>
+      <button
+        class="w-full text-sm underline text-[#5e6068]"
+        @click="backFromWarnChosen"
+      >
+        {{ warnChosenData.secondary_button?.text }}
       </button>
     </div>
 
@@ -338,7 +383,7 @@ async function submitComePlanFlow() {
       <div class="flex items-center justify-between gap-2">
         <button
           class="w-full py-3 rounded-2xl border border-[#d2d3d8] text-sm font-medium h-12"
-          @click="backFromComePlan"
+          @click="emit('close')"
         >
           {{ comePlanData.secondary_button?.text }}
         </button>
