@@ -31,6 +31,15 @@ const selectedHour = ref("");
 const selectedMinute = ref("");
 
 const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+const weekDayMap = {
+  Пн: "monday",
+  Вт: "tuesday",
+  Ср: "wednesday",
+  Чт: "thursday",
+  Пт: "friday",
+  Сб: "saturday",
+  Вс: "sunday",
+};
 const hourOptions = Array.from({ length: 24 }, (_, index) =>
   String(index).padStart(2, "0")
 );
@@ -113,6 +122,61 @@ async function submitCertificateFlow() {
     console.error("Ошибка в цепочке сертификата:", error);
   }
 }
+
+function getTodayYmd() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function getCurrentHm() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  return `${hours}:${minutes}`;
+}
+
+async function submitComePlanFlow() {
+  if (!props.selectedOfferId || !selectedComePlanOption.value) return;
+
+  const preferredTime =
+    selectedHour.value && selectedMinute.value
+      ? `${selectedHour.value}:${selectedMinute.value}`
+      : getCurrentHm();
+
+  const preferredDays = selectedWeekDay.value
+    ? [weekDayMap[selectedWeekDay.value]].filter(Boolean)
+    : [];
+
+  const bookingPayload = {
+    book_at: `${getTodayYmd()} ${preferredTime}`,
+    duration: selectedComePlanOption.value,
+    flexible_timing: false,
+    preferred_days: preferredDays,
+    preferred_time: preferredTime,
+  };
+
+  try {
+    const flowResult = await downloadCertificateStore.runDownloadFlow(
+      props.selectedOfferId,
+      props.selectedMerchantBranchId,
+      bookingPayload
+    );
+    if (flowResult?.status === "already_received") {
+      emit("already-received", flowResult);
+      return;
+    }
+    if (flowResult?.status === "success") {
+      emit("success", flowResult);
+      return;
+    }
+    emit("close");
+  } catch (error) {
+    console.error("Ошибка в цепочке сертификата (come_plan):", error);
+  }
+}
 </script>
 
 <template>
@@ -172,12 +236,15 @@ async function submitCertificateFlow() {
       </button>
     </div>
 
-    <div v-else-if="currentKey === 'come_plan' && comePlanData">
+    <div
+      class="come-plan-block"
+      v-else-if="currentKey === 'come_plan' && comePlanData"
+    >
       <div class="text-base font-semibold mb-1">{{ comePlanData.title }}</div>
       <div class="text-sm text-[#5e6068] mb-2">
         {{ comePlanData.description }}
       </div>
-      <div class="text-base font-semibold mb-2">{{ comePlanData.bold }}</div>
+      <div class="text-sm font-semibold mb-2">{{ comePlanData.bold }}</div>
 
       <div class="flex flex-wrap gap-2 mb-3">
         <button
@@ -195,7 +262,9 @@ async function submitCertificateFlow() {
         </button>
       </div>
 
-      <div class="text-sm text-[#5e6068] mb-3">{{ comePlanData.hint }}</div>
+      <div v-if="!selectedComePlanOption" class="text-sm text-[#5e6068] mb-3">
+        {{ comePlanData.hint }}
+      </div>
 
       <div
         v-if="showUnknownHint"
@@ -263,24 +332,26 @@ async function submitCertificateFlow() {
         </div>
       </div>
 
-      <button
-        class="w-full py-3 rounded-2xl border border-[#d2d3d8] text-sm font-medium mb-2"
-        @click="backFromComePlan"
-      >
-        {{ comePlanData.secondary_button?.text }}
-      </button>
-      <button
-        class="w-full py-3 rounded-2xl text-sm font-medium"
-        :class="
-          canSubmitComePlan
-            ? 'bg-[#11b097] text-white'
-            : 'bg-[#e6e7eb] text-[#9b9ea8]'
-        "
-        :disabled="!canSubmitComePlan"
-      >
-        {{ comePlanData.primary_button?.text }}
-      </button>
+      <div class="flex items-center justify-between gap-2">
+        <button
+          class="w-full py-3 rounded-2xl border border-[#d2d3d8] text-sm font-medium h-12"
+          @click="backFromComePlan"
+        >
+          {{ comePlanData.secondary_button?.text }}
+        </button>
+        <button
+          class="w-full rounded-2xl text-sm font-medium h-12"
+          :class="
+            canSubmitComePlan
+              ? 'bg-[#11b097] text-white'
+              : 'bg-[#e6e7eb] text-[#9b9ea8]'
+          "
+          :disabled="!canSubmitComePlan"
+          @click="submitComePlanFlow"
+        >
+          {{ comePlanData.primary_button?.text }}
+        </button>
+      </div>
     </div>
-
   </div>
 </template>

@@ -49,15 +49,12 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
       }
     },
 
-    async createBooking(
-      certificateId,
-      duration = "unknown",
-      flexibleTiming = false
-    ) {
+    async createBooking(certificateId, bookingPayload = {}) {
       const res = await axios.post("v1/bookings", {
         certificate_id: certificateId,
-        duration,
-        flexible_timing: flexibleTiming,
+        duration: "unknown",
+        flexible_timing: false,
+        ...bookingPayload,
       });
       this.bookingId = res?.data?.data?.id ?? null;
       return this.bookingId;
@@ -69,7 +66,7 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
       return this.certificateData;
     },
 
-    async runDownloadFlow(offerId, merchantBranchId) {
+    async runDownloadFlow(offerId, merchantBranchId, bookingPayload = null) {
       this.isLoading = true;
       try {
         const createResult = await this.createCertificate(
@@ -85,7 +82,7 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
         const certificateId = createResult?.certificateId;
         if (!certificateId) throw new Error("Certificate ID not found");
 
-        await this.createBooking(certificateId, "unknown", false);
+        await this.createBooking(certificateId, bookingPayload || {});
         const certificateData = await this.getCertificateById(certificateId);
         return {
           status: "success",
