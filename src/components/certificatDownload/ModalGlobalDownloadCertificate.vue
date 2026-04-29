@@ -129,7 +129,7 @@ onUnmounted(() => {
 
     <div
       v-if="!showCertificateDetail"
-      class="absolute left-0 right-0 bottom-0 w-full bg-white rounded-t-3xl px-5 pt-3 pb-6"
+      class="absolute left-0 right-0 bottom-0 w-full bg-[#141416] text-white border-t border-white rounded-t-3xl px-5 pt-3 pb-6"
     >
       <div
         class="w-[56px] h-[6px] rounded-full bg-[#e4e4e4] mx-auto mb-4"
@@ -138,7 +138,7 @@ onUnmounted(() => {
       <button
         type="button"
         @click="closeModal"
-        class="absolute right-4 top-7 min-w-8 h-8 rounded-full border border-[#e5e5ea] flex items-center justify-center text-2xl leading-none text-[#2f2f35]"
+        class="absolute right-4 top-7 min-w-8 h-8 rounded-full border border-[#e5e5ea] flex items-center justify-center text-2xl leading-none text-white"
       >
         ×
       </button>

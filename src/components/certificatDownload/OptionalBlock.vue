@@ -180,7 +180,7 @@ async function submitComePlanFlow() {
 </script>
 
 <template>
-  <div class="text-[#202127]">
+  <div class="text-white bg-[#141416]">
     <div v-if="currentKey === 'warn_establishment' && warnData">
       <div class="text-base font-semibold mb-1">{{ warnData.title }}</div>
       <div class="text-sm text-[#5e6068]">
@@ -198,12 +198,15 @@ async function submitComePlanFlow() {
       >
         {{ warnData.extra_text }}
       </div>
-      <button
-        class="w-full mt-4 py-3 rounded-2xl bg-[#11b097] text-white text-sm font-medium"
-        @click="goToComePlan"
-      >
-        {{ warnData.primary_button?.text }}
-      </button>
+      <div class="flex items-center justify-between gap-2 mt-3">
+        <button class="w-full site-btn-grey">Не надо</button>
+        <button
+          class="w-full site-btn-grey warn-establishment"
+          @click="goToComePlan"
+        >
+          {{ warnData.primary_button?.text }}
+        </button>
+      </div>
       <button
         class="w-full mt-3 text-sm underline text-[#5e6068]"
         @click="goToAlreadyHere"
@@ -223,7 +226,7 @@ async function submitComePlanFlow() {
         {{ alreadyHereData.extra_text }}
       </div>
       <button
-        class="w-full mt-4 py-3 rounded-2xl bg-[#11b097] text-white text-sm font-medium get-certificate"
+        class="w-full mt-4 site-btn-grey get-certificate"
         @click="submitCertificateFlow"
       >
         {{ alreadyHereData.primary_button?.text }}
@@ -254,7 +257,7 @@ async function submitComePlanFlow() {
           class="px-4 py-2 rounded-full border text-sm"
           :class="
             selectedComePlanOption === option.value
-              ? 'bg-[#11b097] text-white border-[#11b097]'
+              ? 'bg-[#000] text-white '
               : 'bg-[#f3f4f6] text-[#202127] border-[#e2e4e8]'
           "
         >
@@ -287,7 +290,7 @@ async function submitComePlanFlow() {
             class="px-3 py-1.5 rounded-full border text-sm"
             :class="
               selectedWeekDay === day
-                ? 'bg-[#11b097] text-white border-[#11b097]'
+                ? 'bg-[#000] text-white '
                 : 'bg-[#f3f4f6] text-[#202127] border-[#e2e4e8]'
             "
             @click="selectedWeekDay = day"
@@ -302,7 +305,7 @@ async function submitComePlanFlow() {
         <div class="flex items-center gap-2 mb-2">
           <select
             v-model="selectedHour"
-            class="flex-1 border border-[#d2d3d8] rounded-xl px-3 py-1 text-sm bg-white"
+            class="flex-1 rounded-xl px-3 py-1 text-sm bg-white text-black"
           >
             <option value="">Часы</option>
             <option v-for="hour in hourOptions" :key="hour" :value="hour">
@@ -312,7 +315,7 @@ async function submitComePlanFlow() {
           <span class="text-sm text-[#5e6068]">:</span>
           <select
             v-model="selectedMinute"
-            class="flex-1 border border-[#d2d3d8] rounded-xl px-3 py-1 text-sm bg-white"
+            class="flex-1 rounded-xl px-3 py-1 text-sm bg-white text-black"
           >
             <option value="">Мин</option>
             <option
@@ -343,7 +346,7 @@ async function submitComePlanFlow() {
           class="w-full rounded-2xl text-sm font-medium h-12"
           :class="
             canSubmitComePlan
-              ? 'bg-[#11b097] text-white'
+              ? 'bg-[#000] text-white border border-[#d2d3d8]'
               : 'bg-[#e6e7eb] text-[#9b9ea8]'
           "
           :disabled="!canSubmitComePlan"
