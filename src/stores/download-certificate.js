@@ -10,11 +10,15 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
   }),
   actions: {
     async createCertificate(offerId, merchantBranchId) {
+      const payload = {
+        offer_id: String(offerId),
+      };
+      if (merchantBranchId !== null && merchantBranchId !== undefined) {
+        payload.merchant_branch_id = String(merchantBranchId);
+      }
+
       try {
-        const res = await axios.post("v1/my/certificates", {
-          offer_id: String(offerId),
-          merchant_branch_id: String(merchantBranchId),
-        });
+        const res = await axios.post("v1/my/certificates", payload);
         const isSuccess = res?.data?.success !== false;
         if (!isSuccess) {
           this.createdCertificateId = null;
@@ -81,7 +85,7 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
         const certificateId = createResult?.certificateId;
         if (!certificateId) throw new Error("Certificate ID not found");
 
-        await this.createBooking(certificateId, "unknow", false);
+        await this.createBooking(certificateId, "unknown", false);
         const certificateData = await this.getCertificateById(certificateId);
         return {
           status: "success",

@@ -1,6 +1,5 @@
 <script setup>
 import { computed, ref, watch } from "vue";
-import ModalMerchantBranches from "@/components/modals/ModalMerchantBranches.vue";
 import { useDownloadCertificateStore } from "@/stores/download-certificate";
 
 const props = defineProps({
@@ -30,7 +29,6 @@ const selectedComePlanOption = ref("");
 const selectedWeekDay = ref("");
 const selectedHour = ref("");
 const selectedMinute = ref("");
-const isBranchesModalOpen = ref(false);
 
 const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 const hourOptions = Array.from({ length: 24 }, (_, index) =>
@@ -94,18 +92,14 @@ const showUnknownHint = computed(
 );
 const showWeekInputs = computed(() => selectedComePlanOption.value === "week");
 
-function openBranchesModal() {
+async function submitCertificateFlow() {
   if (!props.selectedOfferId) return;
-  isBranchesModalOpen.value = true;
-}
 
-async function handleBranchConfirm(branchId) {
   try {
     const flowResult = await downloadCertificateStore.runDownloadFlow(
       props.selectedOfferId,
-      branchId
+      props.selectedMerchantBranchId
     );
-    isBranchesModalOpen.value = false;
     if (flowResult?.status === "already_received") {
       emit("already-received", flowResult);
       return;
@@ -114,29 +108,6 @@ async function handleBranchConfirm(branchId) {
   } catch (error) {
     console.error("Ошибка в цепочке сертификата:", error);
   }
-}
-
-async function submitCertificateFlow() {
-  if (!props.selectedOfferId) return;
-
-  if (props.selectedMerchantBranchId) {
-    try {
-      const flowResult = await downloadCertificateStore.runDownloadFlow(
-        props.selectedOfferId,
-        props.selectedMerchantBranchId
-      );
-      if (flowResult?.status === "already_received") {
-        emit("already-received", flowResult);
-        return;
-      }
-      emit("close");
-    } catch (error) {
-      console.error("Ошибка в цепочке сертификата:", error);
-    }
-    return;
-  }
-
-  openBranchesModal();
 }
 </script>
 
@@ -307,12 +278,5 @@ async function submitCertificateFlow() {
       </button>
     </div>
 
-    <ModalMerchantBranches
-      v-if="isBranchesModalOpen"
-      :branches="merchantBranches"
-      :auto-open-create-certificate="false"
-      @closeModal="isBranchesModalOpen = false"
-      @confirmSelection="handleBranchConfirm"
-    />
   </div>
 </template>

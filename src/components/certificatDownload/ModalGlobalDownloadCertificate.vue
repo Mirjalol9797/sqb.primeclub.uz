@@ -55,16 +55,20 @@ const alreadyReceivedContent = ref({
     "Вы уже получали сертификат в этом заведении сегодня. Найти его можно в разделе Сертификаты",
 });
 
-const previousBodyOverflow = document.body.style.overflow;
-const previousHtmlOverflow = document.documentElement.style.overflow;
+function lockPageScroll() {
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
+}
 
-document.body.style.overflow = "hidden";
-document.documentElement.style.overflow = "hidden";
+function unlockPageScroll() {
+  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
+}
+
+lockPageScroll();
 
 function closeModal() {
-  // Возвращаем скролл сразу при закрытии (до размонтирования компонента)
-  document.body.style.overflow = previousBodyOverflow || "";
-  document.documentElement.style.overflow = previousHtmlOverflow || "";
+  unlockPageScroll();
   emit("close");
 }
 
@@ -98,8 +102,7 @@ async function goToCertificates() {
 }
 
 onUnmounted(() => {
-  document.body.style.overflow = previousBodyOverflow || "";
-  document.documentElement.style.overflow = previousHtmlOverflow || "";
+  unlockPageScroll();
 });
 </script>
 

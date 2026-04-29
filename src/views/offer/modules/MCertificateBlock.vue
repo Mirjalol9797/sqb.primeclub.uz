@@ -89,7 +89,15 @@ function openDownloadAppModal() {
 function openWarnFlowWithBranches(offerId) {
   selectedOfferIdForWarnModal.value = offerId;
   selectedMerchantBranchIdForWarnModal.value = null;
-  isMerchantBranchesForWarnOpen.value = true;
+  const branches = props.merchant?.branches || [];
+
+  if (branches.length > 0) {
+    isMerchantBranchesForWarnOpen.value = true;
+    return;
+  }
+
+  isMerchantBranchesForWarnOpen.value = false;
+  isWarnInstitutionModalOpen.value = true;
 }
 
 function handleWarnBranchSelected(branchId) {
@@ -149,17 +157,16 @@ onUnmounted(() => {
           </button>
         </template>
         <template v-else>
-          <button
+          <!-- <button
             class="site-btn-grey get-certificat-single"
             @click="$emit('createCertificate', item?.id)"
             v-if="merchant?.type == 'single'"
           >
             {{ $t("get_certificate") }}
-          </button>
+          </button> -->
           <button
             class="site-btn-grey get-certificat"
             @click="openWarnFlowWithBranches(item?.id)"
-            v-else
           >
             {{ $t("get_certificate") }}
           </button>
