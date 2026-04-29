@@ -1,9 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useCertificatesStore } from "@/stores/certificates";
 import { useOffersStore } from "@/stores/offers";
 import { localePath } from "@/plugins/i18n";
+import axios from "@/plugins/api";
+import CertificateDetailInfo from "@/components/certificatDownload/certificateDetailInfo.vue";
 
 const { t } = useI18n();
 const certificatesStore = useCertificatesStore();
@@ -16,6 +18,9 @@ const toastMessage = ref("");
 const certificateCodes = ref(new Map()); // Используем Map для хранения кодов
 const hasInactiveCertificates = ref(false); // Переменная для отслеживания наличия неактивных сертификатов
 const isLoading = ref(true); // Переменная для отслеживания загрузки
+const isCertificateDetailOpen = ref(false);
+const isCertificateDetailLoading = ref(false);
+const selectedCertificateDetail = ref(null);
 
 onMounted(async () => {
   await checkInactiveCertificates();
@@ -83,26 +88,37 @@ function hasCode(itemId) {
   return certificateCodes.value.has(itemId);
 }
 
-// Скачивание сертификата
-async function downloadCertificate(certificateId) {
+function lockPageScroll() {
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
+}
+
+function unlockPageScroll() {
+  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
+}
+
+function closeCertificateDetail() {
+  isCertificateDetailOpen.value = false;
+  selectedCertificateDetail.value = null;
+  unlockPageScroll();
+}
+
+async function openCertificateDetail(certificateId) {
   try {
     if (!certificateId) throw new Error("Certificate ID is missing");
-
-    const response = await certificatesStore.downloadCertificate(certificateId);
-    const data = response?.data;
-    if (!data) throw new Error("Empty response");
-
-    const blob = new Blob([data], { type: "application/pdf" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `certificate_${certificateId}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    isCertificateDetailLoading.value = true;
+    const response = await axios.get(`v1/my/certificates/${certificateId}`);
+    if (response?.status !== 200 || !response?.data) {
+      throw new Error("Empty certificate detail response");
+    }
+    selectedCertificateDetail.value = response.data;
+    isCertificateDetailOpen.value = true;
+    lockPageScroll();
   } catch (error) {
-    console.error("Error downloading the certificate:", error);
+    console.error("Error getting certificate detail:", error);
+  } finally {
+    isCertificateDetailLoading.value = false;
   }
 }
 
@@ -120,6 +136,10 @@ function changePagePagination(page) {
     behavior: "smooth",
   });
 }
+
+onUnmounted(() => {
+  unlockPageScroll();
+});
 </script>
 
 <template>
@@ -252,11 +272,12 @@ function changePagePagination(page) {
             </template>
             <template v-else>
               <button
-                @click="downloadCertificate(item?.id)"
-                class="site-btn-grey gap-2 min-h-11"
+                @click="openCertificateDetail(item?.id)"
+                class="site-btn-grey !gap-1 min-h-11"
+                :disabled="isCertificateDetailLoading"
               >
-                <img src="/icons/download2.svg" alt="" class="w-5" />
-                {{ $t("download_certificate") }}
+                <img src="/icons/show_certificate.svg" alt="" class="w-4" />
+                {{ $t("Показать сертификат") }}
               </button>
 
               <!-- <a
@@ -324,6 +345,16 @@ function changePagePagination(page) {
           </router-link>
         </div>
       </template>
+    </div>
+
+    <div
+      v-if="isCertificateDetailOpen && selectedCertificateDetail"
+      class="fixed inset-0 z-[80] bg-black overflow-y-auto px-4 pt-4 pb-8"
+    >
+      <CertificateDetailInfo
+        :certificate-data="selectedCertificateDetail"
+        @close="closeCertificateDetail"
+      />
     </div>
   </div>
 </template>
