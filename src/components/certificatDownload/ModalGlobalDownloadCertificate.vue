@@ -5,6 +5,18 @@ import OptionalBlock from "./OptionalBlock.vue";
 
 const emit = defineEmits(["close"]);
 const props = defineProps({
+  selectedOfferId: {
+    type: [Number, String],
+    default: null,
+  },
+  selectedMerchantBranchId: {
+    type: [Number, String],
+    default: null,
+  },
+  merchantBranches: {
+    type: Array,
+    default: () => [],
+  },
   merchantOffer: {
     type: Array,
     default: () => [],
@@ -33,17 +45,22 @@ const optionalFlowItem = computed(
     ) || null
 );
 
-const previousOverflow = document.body.style.overflow;
+const previousBodyOverflow = document.body.style.overflow;
+const previousHtmlOverflow = document.documentElement.style.overflow;
+
 document.body.style.overflow = "hidden";
+document.documentElement.style.overflow = "hidden";
 
 function closeModal() {
   // Возвращаем скролл сразу при закрытии (до размонтирования компонента)
-  document.body.style.overflow = previousOverflow || "";
+  document.body.style.overflow = previousBodyOverflow || "";
+  document.documentElement.style.overflow = previousHtmlOverflow || "";
   emit("close");
 }
 
 onUnmounted(() => {
-  document.body.style.overflow = previousOverflow || "";
+  document.body.style.overflow = previousBodyOverflow || "";
+  document.documentElement.style.overflow = previousHtmlOverflow || "";
 });
 </script>
 
@@ -65,7 +82,14 @@ onUnmounted(() => {
       </button>
       <!-- контент модалки -->
 
-      <RequiredBlock v-if="requiredItem" :flow-item="requiredFlowItem" />
+      <RequiredBlock
+        v-if="requiredItem"
+        :flow-item="requiredFlowItem"
+        :selected-offer-id="selectedOfferId"
+        :selected-merchant-branch-id="selectedMerchantBranchId"
+        :merchant-branches="merchantBranches"
+        @close="closeModal"
+      />
       <OptionalBlock v-else :flow-item="optionalFlowItem" />
     </div>
   </div>

@@ -1,12 +1,28 @@
 <script setup>
 import { computed, ref, watch } from "vue";
+import ModalMerchantBranches from "@/components/modals/ModalMerchantBranches.vue";
+import { useDownloadCertificateStore } from "@/stores/download-certificate";
 
 const props = defineProps({
   flowItem: {
     type: Object,
     default: null,
   },
+  selectedOfferId: {
+    type: [Number, String],
+    default: null,
+  },
+  selectedMerchantBranchId: {
+    type: [Number, String],
+    default: null,
+  },
+  merchantBranches: {
+    type: Array,
+    default: () => [],
+  },
 });
+const emit = defineEmits(["close"]);
+const downloadCertificateStore = useDownloadCertificateStore();
 
 const currentKey = ref("warn_establishment");
 const showWhyText = ref(false);
@@ -14,6 +30,7 @@ const selectedComePlanOption = ref("");
 const selectedWeekDay = ref("");
 const selectedHour = ref("");
 const selectedMinute = ref("");
+const isBranchesModalOpen = ref(false);
 
 const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 const hourOptions = Array.from({ length: 24 }, (_, index) =>
@@ -76,6 +93,43 @@ const showUnknownHint = computed(
   () => selectedComePlanOption.value === "unknown"
 );
 const showWeekInputs = computed(() => selectedComePlanOption.value === "week");
+
+function openBranchesModal() {
+  if (!props.selectedOfferId) return;
+  isBranchesModalOpen.value = true;
+}
+
+async function handleBranchConfirm(branchId) {
+  try {
+    await downloadCertificateStore.runDownloadFlow(
+      props.selectedOfferId,
+      branchId
+    );
+    isBranchesModalOpen.value = false;
+    emit("close");
+  } catch (error) {
+    console.error("Ошибка в цепочке сертификата:", error);
+  }
+}
+
+async function submitCertificateFlow() {
+  if (!props.selectedOfferId) return;
+
+  if (props.selectedMerchantBranchId) {
+    try {
+      await downloadCertificateStore.runDownloadFlow(
+        props.selectedOfferId,
+        props.selectedMerchantBranchId
+      );
+      emit("close");
+    } catch (error) {
+      console.error("Ошибка в цепочке сертификата:", error);
+    }
+    return;
+  }
+
+  openBranchesModal();
+}
 </script>
 
 <template>
@@ -122,7 +176,8 @@ const showWeekInputs = computed(() => selectedComePlanOption.value === "week");
         {{ alreadyHereData.extra_text }}
       </div>
       <button
-        class="w-full mt-4 py-3 rounded-2xl bg-[#11b097] text-white text-sm font-medium"
+        class="w-full mt-4 py-3 rounded-2xl bg-[#11b097] text-white text-sm font-medium get-certificate"
+        @click="submitCertificateFlow"
       >
         {{ alreadyHereData.primary_button?.text }}
       </button>
@@ -243,5 +298,13 @@ const showWeekInputs = computed(() => selectedComePlanOption.value === "week");
         {{ comePlanData.primary_button?.text }}
       </button>
     </div>
+
+    <ModalMerchantBranches
+      v-if="isBranchesModalOpen"
+      :branches="merchantBranches"
+      :auto-open-create-certificate="false"
+      @closeModal="isBranchesModalOpen = false"
+      @confirmSelection="handleBranchConfirm"
+    />
   </div>
 </template>

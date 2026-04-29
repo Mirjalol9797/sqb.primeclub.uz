@@ -13,6 +13,7 @@ import { useSettingsStore } from "@/stores/settings";
 import TmButton from "@/components/ui/TmButton.vue";
 import ModalAboniment from "@/components/modals/ModalAboniment.vue";
 import ModalGlobalDownloadCertificate from "@/components/certificatDownload/ModalGlobalDownloadCertificate.vue";
+import ModalMerchantBranches from "@/components/modals/ModalMerchantBranches.vue";
 
 const loginStore = useLoginStore();
 const settingsStore = useSettingsStore();
@@ -21,6 +22,9 @@ const bottomButton = ref(null);
 const showCodes = ref({});
 const certificateContainer = ref(null);
 const isWarnInstitutionModalOpen = ref(false);
+const selectedOfferIdForWarnModal = ref(null);
+const isMerchantBranchesForWarnOpen = ref(false);
+const selectedMerchantBranchIdForWarnModal = ref(null);
 
 const scrollToButton = () => {
   if (certificateContainer.value) {
@@ -66,7 +70,6 @@ const emit = defineEmits([
   "getOfferCode",
   "copyOfferCode",
   "createCertificate",
-  "openMerchantBranches",
 ]);
 
 function showCode(item) {
@@ -82,6 +85,19 @@ function copyCode(item) {
 function openDownloadAppModal() {
   settingsStore.isDownloadAppModal = true;
 }
+
+function openWarnFlowWithBranches(offerId) {
+  selectedOfferIdForWarnModal.value = offerId;
+  selectedMerchantBranchIdForWarnModal.value = null;
+  isMerchantBranchesForWarnOpen.value = true;
+}
+
+function handleWarnBranchSelected(branchId) {
+  selectedMerchantBranchIdForWarnModal.value = branchId;
+  isMerchantBranchesForWarnOpen.value = false;
+  isWarnInstitutionModalOpen.value = true;
+}
+
 watch(
   () => route.path,
   () => {
@@ -142,23 +158,36 @@ onUnmounted(() => {
           </button>
           <button
             class="site-btn-grey get-certificat"
-            @click="$emit('openMerchantBranches', item?.id)"
+            @click="openWarnFlowWithBranches(item?.id)"
             v-else
           >
             {{ $t("get_certificate") }}
           </button>
-          <button @click="isWarnInstitutionModalOpen = true">Тест кнопка</button>
         </template>
       </div>
     </div>
   </div>
 
   <ModalAboniment v-if="settingsStore.isAboniment" />
+  <ModalMerchantBranches
+    v-if="isMerchantBranchesForWarnOpen"
+    :branches="merchant?.branches || []"
+    :auto-open-create-certificate="false"
+    @closeModal="isMerchantBranchesForWarnOpen = false"
+    @confirmSelection="handleWarnBranchSelected"
+  />
   <ModalGlobalDownloadCertificate
     v-if="isWarnInstitutionModalOpen"
+    :selected-offer-id="selectedOfferIdForWarnModal"
+    :selected-merchant-branch-id="selectedMerchantBranchIdForWarnModal"
+    :merchant-branches="merchant?.branches || []"
     :merchant-offer="merchantOffer"
     :booking-flow-data="bookingFlowData"
-    @close="isWarnInstitutionModalOpen = false"
+    @close="
+      isWarnInstitutionModalOpen = false;
+      selectedOfferIdForWarnModal = null;
+      selectedMerchantBranchIdForWarnModal = null;
+    "
   />
 </template>
 

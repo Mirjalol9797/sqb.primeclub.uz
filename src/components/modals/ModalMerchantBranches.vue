@@ -7,6 +7,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  autoOpenCreateCertificate: {
+    type: Boolean,
+    default: true,
+  },
 });
 const emit = defineEmits(["closeModal", "confirmSelection"]);
 
@@ -17,7 +21,9 @@ function closeModal() {
 function selectBranch(branch) {
   emit("confirmSelection", branch.id);
   closeModal();
-  settingsStore.isCreateCertificate = true;
+  if (props.autoOpenCreateCertificate) {
+    settingsStore.isCreateCertificate = true;
+  }
 }
 </script>
 
