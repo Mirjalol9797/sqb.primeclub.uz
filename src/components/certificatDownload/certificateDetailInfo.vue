@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from "vue";
+import { useCertificatesStore } from "@/stores/certificates";
 
 const props = defineProps({
   certificateData: {
@@ -8,7 +9,8 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["download-pdf", "close"]);
+const emit = defineEmits(["close"]);
+const certificatesStore = useCertificatesStore();
 const isCodeInfoModalOpen = ref(false);
 const isDiscountInfoModalOpen = ref(false);
 const isConditionsModalOpen = ref(false);
@@ -42,8 +44,27 @@ function callMerchant() {
   window.location.href = `tel:${phone.value.replace(/\s+/g, "")}`;
 }
 
-function downloadPdf() {
-  emit("download-pdf", certificate.value?.id);
+async function downloadPdf() {
+  try {
+    const certificateId = certificate.value?.id;
+    if (!certificateId) return;
+
+    const response = await certificatesStore.downloadCertificate(certificateId);
+    const data = response?.data;
+    if (!data) return;
+
+    const blob = new Blob([data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `certificate_${certificateId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Ошибка скачивания PDF сертификата:", error);
+  }
 }
 
 function closeModal() {
@@ -89,7 +110,7 @@ function closeConditionsModal() {
     <div class="border border-[#ececf0] rounded-2xl p-4">
       <div class="flex items-start justify-between gap-3">
         <div class="min-w-0">
-          <div class="text-lg font-semibold leading-tight mb-1">
+          <div class="text-base font-semibold leading-tight mb-1">
             {{ merchant.name || "-" }}
           </div>
           <div class="text-sm">{{ offer.name || "-" }}</div>
@@ -106,7 +127,7 @@ function closeConditionsModal() {
       <div class="flex items-center justify-between gap-4">
         <div>
           <div class="text-xs uppercase">Код сертификата</div>
-          <div class="text-2xl font-bold mt-1 break-all">{{ code }}</div>
+          <div class="text-xl font-bold mt-1 break-all">{{ code }}</div>
         </div>
         <div class="w-24 h-24 rounded-xl border border-[#ececf0] p-2 bg-[#eee]">
           <img v-if="qrCode" :src="qrCode" alt="" />

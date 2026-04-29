@@ -1,7 +1,6 @@
 <script setup>
 import { computed, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import { useCertificatesStore } from "@/stores/certificates";
 import RequiredBlock from "./RequiredBlock.vue";
 import OptionalBlock from "./OptionalBlock.vue";
 import AlreadyReceived from "./AlreadyReceived.vue";
@@ -9,7 +8,6 @@ import CertificateDetailInfo from "./certificateDetailInfo.vue";
 
 const emit = defineEmits(["close"]);
 const router = useRouter();
-const certificatesStore = useCertificatesStore();
 const props = defineProps({
   selectedOfferId: {
     type: [Number, String],
@@ -110,26 +108,6 @@ function handleFlowSuccess(flowResult) {
   closeModal();
 }
 
-async function downloadCertificatePdf(certificateId) {
-  try {
-    const response = await certificatesStore.downloadCertificate(certificateId);
-    const data = response?.data;
-    if (!data) return;
-
-    const blob = new Blob([data], { type: "application/pdf" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `certificate_${certificateId}.pdf`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error("Ошибка скачивания PDF сертификата:", error);
-  }
-}
-
 async function goToCertificates() {
   showAlreadyReceivedModal.value = false;
   closeModal();
@@ -183,10 +161,7 @@ onUnmounted(() => {
       v-else
       class="absolute inset-0 bg-black overflow-y-auto px-4 pt-4 pb-8"
     >
-      <CertificateDetailInfo
-        :certificate-data="certificateDetailData"
-        @download-pdf="downloadCertificatePdf"
-      />
+      <CertificateDetailInfo :certificate-data="certificateDetailData" />
     </div>
 
     <AlreadyReceived
