@@ -148,7 +148,7 @@ function closeConditionsModal() {
     </div>
 
     <div class="mt-6">
-      <div class="text-xl font-semibold mb-3">Действия</div>
+      <div class="text-lg font-semibold mb-3">Действия</div>
       <button
         type="button"
         class="w-full site-btn-grey mb-3"
@@ -176,7 +176,7 @@ function closeConditionsModal() {
     </div>
 
     <div class="mt-6 border-t border-[#ececf0] pt-4">
-      <div class="text-xl font-semibold mb-2">Адрес заведения</div>
+      <div class="text-lg font-semibold mb-2">Адрес заведения</div>
       <div class="text-sm mb-3">{{ address }}</div>
       <img
         v-if="mapPreviewUrl"
