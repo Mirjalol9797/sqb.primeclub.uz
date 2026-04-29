@@ -242,7 +242,10 @@ async function submitComePlanFlow() {
         {{ warnChosenData.extra_text }}
       </div>
       <div class="flex items-center justify-between gap-2 mb-3">
-        <button class="w-full site-btn-grey show-certificate">
+        <button
+          class="w-full site-btn-grey show-certificate"
+          @click="submitCertificateFlow"
+        >
           {{ alreadyHereData?.primary_button?.text || "Показать сертификат" }}
         </button>
         <button
