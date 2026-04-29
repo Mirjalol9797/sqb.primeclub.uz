@@ -1,12 +1,15 @@
 <script setup>
 import { computed, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useCertificatesStore } from "@/stores/certificates";
 import RequiredBlock from "./RequiredBlock.vue";
 import OptionalBlock from "./OptionalBlock.vue";
 import AlreadyReceived from "./AlreadyReceived.vue";
+import CertificateDetailInfo from "./certificateDetailInfo.vue";
 
 const emit = defineEmits(["close"]);
 const router = useRouter();
+const certificatesStore = useCertificatesStore();
 const props = defineProps({
   selectedOfferId: {
     type: [Number, String],
@@ -49,6 +52,8 @@ const optionalFlowItem = computed(
 );
 
 const showAlreadyReceivedModal = ref(false);
+const showCertificateDetail = ref(false);
+const certificateDetailData = ref(null);
 const alreadyReceivedContent = ref({
   title: "Сертификат уже получен",
   description:
@@ -95,6 +100,36 @@ function closeAlreadyReceivedModal() {
   showAlreadyReceivedModal.value = false;
 }
 
+function handleFlowSuccess(flowResult) {
+  if (flowResult?.status === "success" && flowResult?.certificateData) {
+    certificateDetailData.value = flowResult.certificateData;
+    showCertificateDetail.value = true;
+    showAlreadyReceivedModal.value = false;
+    return;
+  }
+  closeModal();
+}
+
+async function downloadCertificatePdf(certificateId) {
+  try {
+    const response = await certificatesStore.downloadCertificate(certificateId);
+    const data = response?.data;
+    if (!data) return;
+
+    const blob = new Blob([data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `certificate_${certificateId}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Ошибка скачивания PDF сертификата:", error);
+  }
+}
+
 async function goToCertificates() {
   showAlreadyReceivedModal.value = false;
   closeModal();
@@ -107,10 +142,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 flex items-end text-black text-sm">
-    <div class="absolute inset-0 bg-black/45" @click="closeModal"></div>
+  <div class="fixed inset-0 z-50 text-black text-sm">
+    <div
+      v-if="!showCertificateDetail"
+      class="absolute inset-0 bg-black/45"
+      @click="closeModal"
+    ></div>
 
-    <div class="relative w-full bg-white rounded-t-3xl px-5 pt-3 pb-6">
+    <div
+      v-if="!showCertificateDetail"
+      class="absolute left-0 right-0 bottom-0 w-full bg-white rounded-t-3xl px-5 pt-3 pb-6"
+    >
       <div
         class="w-[56px] h-[6px] rounded-full bg-[#e4e4e4] mx-auto mb-4"
       ></div>
@@ -132,8 +174,19 @@ onUnmounted(() => {
         :merchant-branches="merchantBranches"
         @close="closeModal"
         @already-received="handleAlreadyReceived"
+        @success="handleFlowSuccess"
       />
       <OptionalBlock v-else :flow-item="optionalFlowItem" />
+    </div>
+
+    <div
+      v-else
+      class="absolute inset-0 bg-black overflow-y-auto px-4 pt-4 pb-8"
+    >
+      <CertificateDetailInfo
+        :certificate-data="certificateDetailData"
+        @download-pdf="downloadCertificatePdf"
+      />
     </div>
 
     <AlreadyReceived

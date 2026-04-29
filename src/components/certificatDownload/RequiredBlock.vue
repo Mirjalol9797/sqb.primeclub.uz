@@ -20,7 +20,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits(["close", "already-received"]);
+const emit = defineEmits(["close", "already-received", "success"]);
 const downloadCertificateStore = useDownloadCertificateStore();
 
 const currentKey = ref("warn_establishment");
@@ -102,6 +102,10 @@ async function submitCertificateFlow() {
     );
     if (flowResult?.status === "already_received") {
       emit("already-received", flowResult);
+      return;
+    }
+    if (flowResult?.status === "success") {
+      emit("success", flowResult);
       return;
     }
     emit("close");
