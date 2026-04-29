@@ -1,9 +1,12 @@
 <script setup>
-import { computed, onUnmounted } from "vue";
+import { computed, onUnmounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import RequiredBlock from "./RequiredBlock.vue";
 import OptionalBlock from "./OptionalBlock.vue";
+import AlreadyReceived from "./AlreadyReceived.vue";
 
 const emit = defineEmits(["close"]);
+const router = useRouter();
 const props = defineProps({
   selectedOfferId: {
     type: [Number, String],
@@ -45,6 +48,13 @@ const optionalFlowItem = computed(
     ) || null
 );
 
+const showAlreadyReceivedModal = ref(false);
+const alreadyReceivedContent = ref({
+  title: "Сертификат уже получен",
+  description:
+    "Вы уже получали сертификат в этом заведении сегодня. Найти его можно в разделе Сертификаты",
+});
+
 const previousBodyOverflow = document.body.style.overflow;
 const previousHtmlOverflow = document.documentElement.style.overflow;
 
@@ -56,6 +66,35 @@ function closeModal() {
   document.body.style.overflow = previousBodyOverflow || "";
   document.documentElement.style.overflow = previousHtmlOverflow || "";
   emit("close");
+}
+
+function handleAlreadyReceived(flowResult) {
+  const apiMessage = flowResult?.response?.message;
+  const retryAfter = flowResult?.response?.retry_after;
+  const apiDescription =
+    flowResult?.response?.data?.message ||
+    flowResult?.response?.error ||
+    (retryAfter
+      ? `Попробуйте снова через ${retryAfter} секунд или откройте раздел Сертификаты.`
+      : "");
+
+  alreadyReceivedContent.value = {
+    title: apiMessage || "Сертификат уже получен",
+    description:
+      apiDescription ||
+      "Вы уже получали сертификат в этом заведении сегодня. Найти его можно в разделе Сертификаты",
+  };
+  showAlreadyReceivedModal.value = true;
+}
+
+function closeAlreadyReceivedModal() {
+  showAlreadyReceivedModal.value = false;
+}
+
+async function goToCertificates() {
+  showAlreadyReceivedModal.value = false;
+  closeModal();
+  await router.push("/certificates");
 }
 
 onUnmounted(() => {
@@ -76,7 +115,7 @@ onUnmounted(() => {
       <button
         type="button"
         @click="closeModal"
-        class="min-w-10 h-10 rounded-full border border-[#e5e5ea] flex items-center justify-center text-3xl leading-none text-[#2f2f35]"
+        class="absolute right-4 top-7 min-w-8 h-8 rounded-full border border-[#e5e5ea] flex items-center justify-center text-2xl leading-none text-[#2f2f35]"
       >
         ×
       </button>
@@ -89,8 +128,17 @@ onUnmounted(() => {
         :selected-merchant-branch-id="selectedMerchantBranchId"
         :merchant-branches="merchantBranches"
         @close="closeModal"
+        @already-received="handleAlreadyReceived"
       />
       <OptionalBlock v-else :flow-item="optionalFlowItem" />
     </div>
+
+    <AlreadyReceived
+      v-if="showAlreadyReceivedModal"
+      :title="alreadyReceivedContent.title"
+      :description="alreadyReceivedContent.description"
+      @close="closeAlreadyReceivedModal"
+      @go-certificates="goToCertificates"
+    />
   </div>
 </template>

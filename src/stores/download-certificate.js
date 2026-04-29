@@ -10,13 +10,39 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
   }),
   actions: {
     async createCertificate(offerId, merchantBranchId) {
-      const res = await axios.post("v1/my/certificates", {
-        offer_id: String(offerId),
-        merchant_branch_id: String(merchantBranchId),
-      });
-      const certificateId = res?.data?.data?.id ?? null;
-      this.createdCertificateId = certificateId;
-      return certificateId;
+      try {
+        const res = await axios.post("v1/my/certificates", {
+          offer_id: String(offerId),
+          merchant_branch_id: String(merchantBranchId),
+        });
+        const isSuccess = res?.data?.success !== false;
+        if (!isSuccess) {
+          this.createdCertificateId = null;
+          return {
+            success: false,
+            certificateId: null,
+            response: res?.data || null,
+          };
+        }
+        const certificateId = res?.data?.data?.id ?? null;
+        this.createdCertificateId = certificateId;
+        return {
+          success: true,
+          certificateId,
+          response: res?.data || null,
+        };
+      } catch (error) {
+        const errorData = error?.response?.data;
+        if (errorData?.success === false) {
+          this.createdCertificateId = null;
+          return {
+            success: false,
+            certificateId: null,
+            response: errorData,
+          };
+        }
+        throw error;
+      }
     },
 
     async createBooking(
@@ -42,14 +68,26 @@ export const useDownloadCertificateStore = defineStore("downloadCertificate", {
     async runDownloadFlow(offerId, merchantBranchId) {
       this.isLoading = true;
       try {
-        const certificateId = await this.createCertificate(
+        const createResult = await this.createCertificate(
           offerId,
           merchantBranchId
         );
+        if (!createResult?.success) {
+          return {
+            status: "already_received",
+            response: createResult?.response || null,
+          };
+        }
+        const certificateId = createResult?.certificateId;
         if (!certificateId) throw new Error("Certificate ID not found");
 
         await this.createBooking(certificateId, "unknow", false);
-        return await this.getCertificateById(certificateId);
+        const certificateData = await this.getCertificateById(certificateId);
+        return {
+          status: "success",
+          certificateId,
+          certificateData,
+        };
       } finally {
         this.isLoading = false;
       }

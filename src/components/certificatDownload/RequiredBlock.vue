@@ -21,7 +21,7 @@ const props = defineProps({
     default: () => [],
   },
 });
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "already-received"]);
 const downloadCertificateStore = useDownloadCertificateStore();
 
 const currentKey = ref("warn_establishment");
@@ -101,11 +101,15 @@ function openBranchesModal() {
 
 async function handleBranchConfirm(branchId) {
   try {
-    await downloadCertificateStore.runDownloadFlow(
+    const flowResult = await downloadCertificateStore.runDownloadFlow(
       props.selectedOfferId,
       branchId
     );
     isBranchesModalOpen.value = false;
+    if (flowResult?.status === "already_received") {
+      emit("already-received", flowResult);
+      return;
+    }
     emit("close");
   } catch (error) {
     console.error("Ошибка в цепочке сертификата:", error);
@@ -117,10 +121,14 @@ async function submitCertificateFlow() {
 
   if (props.selectedMerchantBranchId) {
     try {
-      await downloadCertificateStore.runDownloadFlow(
+      const flowResult = await downloadCertificateStore.runDownloadFlow(
         props.selectedOfferId,
         props.selectedMerchantBranchId
       );
+      if (flowResult?.status === "already_received") {
+        emit("already-received", flowResult);
+        return;
+      }
       emit("close");
     } catch (error) {
       console.error("Ошибка в цепочке сертификата:", error);
