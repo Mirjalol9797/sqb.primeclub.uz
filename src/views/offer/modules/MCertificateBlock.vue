@@ -37,8 +37,12 @@ defineExpose({
 
 const props = defineProps({
   merchantOffer: {
-    type: Object,
+    type: [Array, Object],
     required: true,
+  },
+  bookingFlowData: {
+    type: Object,
+    default: null,
   },
   merchant: {
     type: Object,
@@ -152,6 +156,8 @@ onUnmounted(() => {
   <ModalAboniment v-if="settingsStore.isAboniment" />
   <ModalGlobalDownloadCertificate
     v-if="isWarnInstitutionModalOpen"
+    :merchant-offer="merchantOffer"
+    :booking-flow-data="bookingFlowData"
     @close="isWarnInstitutionModalOpen = false"
   />
 </template>

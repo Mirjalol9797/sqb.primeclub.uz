@@ -298,6 +298,7 @@ onUnmounted(() => {
         </div>
         <div class="right-column">
           <!-- <template v-if="merchantsStore.oneMerchantOffer?.length > 1"> -->
+
           <MMerchantInfo
             :merchant="merchantsStore.oneMerchant"
             :on-scroll-to-certificate="scrollToCertificateButton"
@@ -308,6 +309,7 @@ onUnmounted(() => {
               ref="certificateBlockRef"
               :merchant="merchantsStore.oneMerchant"
               :merchant-offer="merchantsStore.oneMerchantOffer"
+              :booking-flow-data="merchantsStore.bookingFlowData"
               :offer-code="offersStore.offerCode"
               :code-error="codeError"
               :show-offer-code-btn="offerCodeBtn"
