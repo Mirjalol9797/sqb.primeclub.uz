@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   certificateData: {
@@ -8,7 +8,10 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["download-pdf"]);
+const emit = defineEmits(["download-pdf", "close"]);
+const isCodeInfoModalOpen = ref(false);
+const isDiscountInfoModalOpen = ref(false);
+const isConditionsModalOpen = ref(false);
 
 const certificate = computed(
   () => props.certificateData?.data || props.certificateData || {}
@@ -42,6 +45,34 @@ function callMerchant() {
 function downloadPdf() {
   emit("download-pdf", certificate.value?.id);
 }
+
+function closeModal() {
+  emit("close");
+}
+
+function openCodeInfoModal() {
+  isCodeInfoModalOpen.value = true;
+}
+
+function closeCodeInfoModal() {
+  isCodeInfoModalOpen.value = false;
+}
+
+function openDiscountInfoModal() {
+  isDiscountInfoModalOpen.value = true;
+}
+
+function closeDiscountInfoModal() {
+  isDiscountInfoModalOpen.value = false;
+}
+
+function openConditionsModal() {
+  isConditionsModalOpen.value = true;
+}
+
+function closeConditionsModal() {
+  isConditionsModalOpen.value = false;
+}
 </script>
 
 <template>
@@ -49,7 +80,7 @@ function downloadPdf() {
     <button
       type="button"
       @click="closeModal"
-      class="sticky top-1 ml-auto min-w-8 h-8 rounded-full border border-[#e5e5ea] flex items-center justify-center text-2xl leading-none text-[#2f2f35] z-10"
+      class="absolute top-2 right-4 ml-auto min-w-8 h-8 rounded-full border border-[#e5e5ea] flex items-center justify-center text-2xl leading-none text-white z-10"
     >
       ×
     </button>
@@ -82,21 +113,35 @@ function downloadPdf() {
         </div>
       </div>
 
-      <button type="button" class="mt-2 underline text-sm">
+      <button
+        type="button"
+        class="mt-2 underline text-sm"
+        @click="openCodeInfoModal"
+      >
         Что делать с этим кодом?
       </button>
     </div>
 
-    <div class="rounded-2xl bg-[#f4f6f6] text-[#5f646e] p-4 mt-4 text-base">
-      {{ certificate.what_to_do_with_code?.text }}
+    <div class="rounded-2xl bg-[#141416] p-4 mt-4 text-sm">
+      Достаточно показать код или QR на экране, не обязательно скачивать PDF
     </div>
 
     <div class="mt-6">
       <div class="text-xl font-semibold mb-3">Действия</div>
-      <button type="button" class="w-full site-btn-grey mb-3">
+      <button
+        type="button"
+        class="w-full site-btn-grey mb-3"
+        @click="openDiscountInfoModal"
+      >
         Как получить скидку?
       </button>
-      <button type="button" class="w-full site-btn-grey mb-3">Условия</button>
+      <button
+        type="button"
+        class="w-full site-btn-grey mb-3"
+        @click="openConditionsModal"
+      >
+        Условия
+      </button>
       <button
         type="button"
         class="w-full site-btn-grey mb-3"
@@ -129,6 +174,87 @@ function downloadPdf() {
       />
       <div class="text-center text-[#5f646e] text-sm mt-3">
         Покажите персоналу
+      </div>
+    </div>
+
+    <!-- Что делать с этим кодом? -->
+    <div
+      v-if="isCodeInfoModalOpen"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      @click.self="closeCodeInfoModal"
+    >
+      <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">
+        <div class="w-14 h-1.5 bg-[#d6d6dc] rounded-full mx-auto mb-5"></div>
+        <div class="relative pr-12">
+          <button
+            type="button"
+            class="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#f1f1f4] flex items-center justify-center text-2xl text-[#2d2d34]"
+            @click="closeCodeInfoModal"
+          >
+            ×
+          </button>
+          <div class="text-lg font-semibold mb-1">Что делать с этим кодом?</div>
+          <div class="text-[#8b8f98] text-sm mb-3">Инструкция</div>
+        </div>
+        <div class="text-[#5e6068] text-sm leading-relaxed">
+          {{
+            certificate.what_to_do_with_code?.text || "Информация отсутствует"
+          }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Как получить скидку? -->
+    <div
+      v-if="isDiscountInfoModalOpen"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      @click.self="closeDiscountInfoModal"
+    >
+      <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">
+        <div class="w-14 h-1.5 bg-[#d6d6dc] rounded-full mx-auto mb-5"></div>
+        <div class="relative pr-12">
+          <button
+            type="button"
+            class="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#f1f1f4] flex items-center justify-center text-2xl text-[#2d2d34]"
+            @click="closeDiscountInfoModal"
+          >
+            ×
+          </button>
+          <div class="text-lg font-semibold mb-1">Как получить скидку?</div>
+          <div class="text-[#8b8f98] text-sm mb-3">Инструкция</div>
+        </div>
+        <div
+          class="text-[#5e6068] text-sm leading-relaxed"
+          v-html="
+            certificate.how_to_get_a_discount?.text || 'Информация отсутствует'
+          "
+        ></div>
+      </div>
+    </div>
+
+    <!-- Условия -->
+    <div
+      v-if="isConditionsModalOpen"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      @click.self="closeConditionsModal"
+    >
+      <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">
+        <div class="w-14 h-1.5 bg-[#d6d6dc] rounded-full mx-auto mb-5"></div>
+        <div class="relative pr-12">
+          <button
+            type="button"
+            class="absolute right-0 top-0 w-10 h-10 rounded-full bg-[#f1f1f4] flex items-center justify-center text-2xl text-[#2d2d34]"
+            @click="closeConditionsModal"
+          >
+            ×
+          </button>
+          <div class="text-lg font-semibold mb-1">Условия</div>
+          <div class="text-[#8b8f98] text-sm mb-3">Инструкция</div>
+        </div>
+        <div
+          class="text-[#5e6068] text-sm leading-relaxed"
+          v-html="certificate.conditions?.text || 'Информация отсутствует'"
+        ></div>
       </div>
     </div>
   </div>
