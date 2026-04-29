@@ -12,7 +12,7 @@ import { useLoginStore } from "@/stores/login";
 import { useSettingsStore } from "@/stores/settings";
 import TmButton from "@/components/ui/TmButton.vue";
 import ModalAboniment from "@/components/modals/ModalAboniment.vue";
-import ModalWarnInstitution from "@/components/certificatDownload/ModalWarnInstitution.vue";
+import ModalGlobalDownloadCertificate from "@/components/certificatDownload/ModalGlobalDownloadCertificate.vue";
 
 const loginStore = useLoginStore();
 const settingsStore = useSettingsStore();
@@ -150,7 +150,7 @@ onUnmounted(() => {
   </div>
 
   <ModalAboniment v-if="settingsStore.isAboniment" />
-  <ModalWarnInstitution
+  <ModalGlobalDownloadCertificate
     v-if="isWarnInstitutionModalOpen"
     @close="isWarnInstitutionModalOpen = false"
   />

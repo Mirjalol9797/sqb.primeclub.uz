@@ -17,6 +17,7 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
     },
     oneMerchant: null,
     oneMerchantOffer: null,
+    bookingFlowData: null,
     summaryMerchants: null,
     newMerchants: [],
     popularMerchants: [],
@@ -143,6 +144,21 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
       }
     },
 
+    async getBookingFlow(slug) {
+      try {
+        const res = await axios.get(`v1/booking-flow/${slug}`);
+        if (res.status === 200) {
+          this.bookingFlowData = res?.data?.data ?? null;
+        } else {
+          this.bookingFlowData = null;
+          console.error("Ошибка api `v1/booking-flow/{slug}`");
+        }
+      } catch (error) {
+        this.bookingFlowData = null;
+        console.error(error);
+      }
+    },
+
     getSummaryMerchants(category_id) {
       try {
         let url = "v1/merchants/summary";
@@ -165,7 +181,9 @@ export const useMerchantsStore = defineStore("MerchantsStore", {
       try {
         const res = await axios.get("v1/merchants/new");
         if (res.status === 200) {
-          this.newMerchants = Array.isArray(res?.data?.data) ? res.data.data : [];
+          this.newMerchants = Array.isArray(res?.data?.data)
+            ? res.data.data
+            : [];
         } else {
           this.newMerchants = [];
           console.error("Ошибка api `v1/merchants/new`");

@@ -57,6 +57,7 @@ function handleScroll() {
 onMounted(async () => {
   await merchantsStore.getOneMerchant(route.params.slug);
   await merchantsStore.getOneMerchatOffer(route.params.slug);
+  await merchantsStore.getBookingFlow(route.params.slug);
 
   window.addEventListener("scroll", handleScroll);
 });
@@ -147,7 +148,8 @@ function openMerchantBranches(offer_id) {
 // Добавляем watcher для изменения маршрута
 watch(
   () => route.path,
-  () => {
+  async () => {
+    await merchantsStore.getBookingFlow(route.params.slug);
     // Закрываем модалку при изменении маршрута
     settingsStore.isCreateCertificate = false;
     settingsStore.isModalCodeError = false;
