@@ -42,13 +42,12 @@ function logOut() {
           />
         </div>
         <div class="grid grid-cols-2 gap-6 768:grid-cols-1 768:gap-4">
+          <tm-input disabled v-model="firstName" :label="$t('name')"></tm-input>
           <tm-input
             disabled
             v-model="lastName"
             :label="$t('surname')"
           ></tm-input>
-          <tm-input disabled v-model="firstName" :label="$t('name')"></tm-input>
-
           <tm-input
             disabled
             v-model="organization"
