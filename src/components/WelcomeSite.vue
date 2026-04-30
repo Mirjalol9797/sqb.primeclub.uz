@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const emit = defineEmits(["completed"]);
@@ -20,6 +20,24 @@ const completeWelcome = () => {
   isTermsModalVisible.value = false;
   emit("completed");
 };
+
+const lockPageScroll = () => {
+  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
+};
+
+const unlockPageScroll = () => {
+  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
+};
+
+onMounted(() => {
+  lockPageScroll();
+});
+
+onUnmounted(() => {
+  unlockPageScroll();
+});
 </script>
 
 <template>
