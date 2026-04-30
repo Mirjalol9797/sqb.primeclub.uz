@@ -85,7 +85,7 @@ function getTelegramBookingLink(startParam) {
               class="underline text-center mb-1 mx-auto w-full text-gray-500"
               @click="isWarnTheEstablishment = true"
             >
-              {{ $t("why_warn") }}
+              {{ $t("why_warn") }}?
             </button>
             <div
               v-if="isWarnTheEstablishment"

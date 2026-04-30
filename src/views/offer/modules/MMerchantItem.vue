@@ -58,18 +58,16 @@ watch(
         v-for="(item, index) in merchants"
         :key="index"
         :to="getMerchantUrl(item)"
-        class="transition-all duration-300 rounded-2xl relative border border-[#ffffff1f] hover:border-[#f5f7fb]"
+        class="transition-all duration-300 rounded-2xl relative"
       >
         <div class="w-full h-[160px]">
           <img
             :src="`https://main.primeclub.uz/uploads/${item.image}`"
             :alt="item.name"
-            class="w-full h-full object-cover rounded-t-2xl"
+            class="w-full h-full object-cover rounded-2xl"
           />
         </div>
-        <div
-          class="p-4 bg-[#141416] flex justify-between items-center rounded-b-2xl"
-        >
+        <div class="p-3 flex justify-between items-center rounded-b-2xl">
           <div>
             <div class="text-sm font-semibold mb-1 flex items-center gap-1.5">
               {{ item.name }}
@@ -77,9 +75,6 @@ watch(
             <div class="text-sm text-[#8d94a6]">
               {{ item.excerpt }}
             </div>
-          </div>
-          <div>
-            <img src="/icons/p-offer/left-white.svg" alt="" class="w-5 h-5" />
           </div>
         </div>
       </router-link>

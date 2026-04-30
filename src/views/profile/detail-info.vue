@@ -48,25 +48,11 @@ function logOut() {
             :label="$t('surname')"
           ></tm-input>
           <tm-input disabled v-model="firstName" :label="$t('name')"></tm-input>
-          <tm-input
-            disabled
-            v-model="middleName"
-            :label="$t('middle_name')"
-          ></tm-input>
+
           <tm-input
             disabled
             v-model="organization"
             :label="$t('company')"
-          ></tm-input>
-          <tm-input
-            disabled
-            v-model="department"
-            :label="$t('department')"
-          ></tm-input>
-          <tm-input
-            disabled
-            v-model="position"
-            :label="$t('position')"
           ></tm-input>
         </div>
         <button @click="logOut" class="site-btn-grey mt-4 min-h-12 mx-auto">

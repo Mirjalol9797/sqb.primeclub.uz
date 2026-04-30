@@ -230,7 +230,7 @@
   "warn_the_establishment_desc_2": "Telegramda tasdiqlanmasa, xodimlar chegirma haqida bilmasligi xavfi mavjud. Keyinroq tasdiqlashingiz mumkin - bu taxminan 10 soniya davom etadi.",
   "dont_warn_the_establishment": "Ogohlantirish kerak emas",
   "warn_on_telegram": "Telegramda ogohlantirish",
-  "why_warn": "Nega ogohlantirish?",
+  "why_warn": "Nega ogohlantirish",
   "why_warn_desc": "<span class='font-medium'>Nega ogohlantirish:</span> xodimlarning bir qismi aksiya haqida bilmasligi mumkin. Telegramda siz taxminiy tashrif vaqtini ko'rsatasiz — va chegirma <span class='font-medium'>kafolatlanadi.</span>",
   "download_app": "Ilovada <br />qulayroq!",
   "chat": {
@@ -276,8 +276,8 @@
   },
   "search_establishments_offers": "Joylar va takliflarni qidirish",
   "show_all": "Barchasini ko‘rsatish",
-  "new_establishments": "Yangi joylar",
-  "popular_establishments": "Mashhur joylar",
+  "new_establishments": "Yangi takliflar",
+  "popular_establishments": "Mashhur takliflar",
   "catalog": "Katalog",
   "go_to_catalog": "Katalogga o‘tish",
   "all_offers": "Barcha takliflar",
@@ -285,5 +285,8 @@
   "attention_desc": "Ushbu muassasada chegirma kafolatlanishi uchun tashrifdan oldin ma’muriyatni ogohlantirish zarur.",
   "attention_desc2": "Sertifikatni tashrifdan bir necha soat oldin olish tavsiya etiladi. Agar muassasaga erta tongda borishni rejalashtirayotgan bo‘lsangiz, sertifikatni bir kun oldin olish muhim.",
   "hide": "Berkitish",
-  "show_more": "Batafsil"
+  "show_more": "Batafsil",
+  "filter": "Filtr",
+  "hours_full": "Soat",
+  "minutes_full": "Daqiqa"
 }

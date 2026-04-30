@@ -36,7 +36,7 @@ onMounted(async () => {
 
 <template>
   <div class="fixed inset-0 z-50 bg-[#141416] overflow-y-auto p-4">
-    <MainTitle pageTitle="Фильтр" />
+    <MainTitle :pageTitle="$t('filter')" />
 
     <div class="grid grid-cols-4 gap-2 mb-6">
       <router-link

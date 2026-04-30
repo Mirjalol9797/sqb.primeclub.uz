@@ -20,18 +20,16 @@ defineProps({
         v-for="(item, index) in merchants"
         :key="index"
         :to="getMerchantUrl(item)"
-        class="bg-[#141416] min-w-[260px] max-w-[260px] transition-all duration-300 rounded-2xl relative border border-[#ffffff1f] hover:border-[#f5f7fb]"
+        class="min-w-[260px] max-w-[260px] transition-all duration-300 rounded-2xl relative"
       >
         <div class="w-full h-[140px]">
           <img
             :src="`https://main.primeclub.uz/uploads/${item.image}`"
             :alt="item.name"
-            class="w-full h-full object-cover rounded-t-2xl"
+            class="w-full h-full object-cover rounded-2xl"
           />
         </div>
-        <div
-          class="p-2 bg-[#141416] flex justify-between items-center rounded-b-2xl"
-        >
+        <div class="p-2 flex justify-between items-center rounded-b-2xl">
           <div>
             <div
               class="text-sm font-semibold mb-1 flex items-center gap-1.5 line-clamp-2"

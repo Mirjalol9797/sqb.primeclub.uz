@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useDownloadCertificateStore } from "@/stores/download-certificate";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps({
   flowItem: {
@@ -22,6 +23,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["close", "already-received", "success"]);
 const downloadCertificateStore = useDownloadCertificateStore();
+const { locale } = useI18n();
 
 const currentKey = ref("warn_establishment");
 const showWhyText = ref(false);
@@ -30,16 +32,18 @@ const selectedWeekDay = ref("");
 const selectedHour = ref("");
 const selectedMinute = ref("");
 
-const weekDays = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
-const weekDayMap = {
-  Пн: "monday",
-  Вт: "tuesday",
-  Ср: "wednesday",
-  Чт: "thursday",
-  Пт: "friday",
-  Сб: "saturday",
-  Вс: "sunday",
-};
+const weekDays = computed(() => {
+  const isUz = locale.value === "uz";
+  return [
+    { value: "monday", label: isUz ? "Du" : "Пн" },
+    { value: "tuesday", label: isUz ? "Se" : "Вт" },
+    { value: "wednesday", label: isUz ? "Cho" : "Ср" },
+    { value: "thursday", label: isUz ? "Pay" : "Чт" },
+    { value: "friday", label: isUz ? "Ju" : "Пт" },
+    { value: "saturday", label: isUz ? "Sha" : "Сб" },
+    { value: "sunday", label: isUz ? "Yak" : "Вс" },
+  ];
+});
 const hourOptions = Array.from({ length: 24 }, (_, index) =>
   String(index).padStart(2, "0")
 );
@@ -162,9 +166,7 @@ async function submitComePlanFlow() {
       ? `${selectedHour.value}:${selectedMinute.value}`
       : getCurrentHm();
 
-  const preferredDays = selectedWeekDay.value
-    ? [weekDayMap[selectedWeekDay.value]].filter(Boolean)
-    : [];
+  const preferredDays = selectedWeekDay.value ? [selectedWeekDay.value] : [];
 
   const bookingPayload = {
     book_at: `${getTodayYmd()} ${preferredTime}`,
@@ -206,7 +208,7 @@ async function submitComePlanFlow() {
         class="text-sm underline text-[#5e6068] mt-2"
         @click="showWhyText = !showWhyText"
       >
-        Зачем предупреждать
+        {{ $t("why_warn") }}
       </button>
       <div
         v-if="showWhyText"
@@ -297,7 +299,7 @@ async function submitComePlanFlow() {
       </div>
       <div class="text-sm font-semibold mb-2">{{ comePlanData.bold }}</div>
 
-      <div class="flex flex-wrap gap-2 mb-3">
+      <div class="flex flex-wrap gap-2 mb-3 come-plan-options">
         <button
           v-for="option in comePlanData.options || []"
           :key="option.value"
@@ -331,19 +333,19 @@ async function submitComePlanFlow() {
             "Выберите день и примерное время:"
           }}
         </div>
-        <div class="flex flex-wrap gap-2 mb-3">
+        <div class="flex flex-wrap gap-2 mb-3 week-days">
           <button
             v-for="day in weekDays"
-            :key="day"
+            :key="day.value"
             class="px-3 py-1.5 rounded-full border text-sm"
             :class="
-              selectedWeekDay === day
+              selectedWeekDay === day.value
                 ? 'bg-[#000] text-white '
                 : 'bg-[#f3f4f6] text-[#202127] border-[#e2e4e8]'
             "
-            @click="selectedWeekDay = day"
+            @click="selectedWeekDay = day.value"
           >
-            {{ day }}
+            {{ day.label }}
           </button>
         </div>
 
@@ -355,7 +357,7 @@ async function submitComePlanFlow() {
             v-model="selectedHour"
             class="flex-1 rounded-xl px-3 py-1 text-sm bg-white text-black"
           >
-            <option value="">Часы</option>
+            <option value="">{{ $t("hours_full") }}</option>
             <option v-for="hour in hourOptions" :key="hour" :value="hour">
               {{ hour }}
             </option>
@@ -365,7 +367,7 @@ async function submitComePlanFlow() {
             v-model="selectedMinute"
             class="flex-1 rounded-xl px-3 py-1 text-sm bg-white text-black"
           >
-            <option value="">Мин</option>
+            <option value="">{{ $t("minutes_full") }}</option>
             <option
               v-for="minute in minuteOptions"
               :key="minute"
@@ -391,7 +393,7 @@ async function submitComePlanFlow() {
           {{ comePlanData.secondary_button?.text }}
         </button>
         <button
-          class="w-full rounded-2xl text-sm font-medium h-12"
+          class="w-full rounded-2xl text-sm font-medium h-12 px-2"
           :class="
             canSubmitComePlan
               ? 'bg-[#000] text-white border border-[#d2d3d8]'
