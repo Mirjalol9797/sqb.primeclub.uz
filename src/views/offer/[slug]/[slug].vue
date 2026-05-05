@@ -11,7 +11,6 @@ import MBreadcrumbs from "../modules/MBreadcrumbs.vue";
 import MMerchantDescription from "../modules/MMerchantDescription.vue";
 import MMerchantLocation from "../modules/MMerchantLocation.vue";
 import MMerchantSlider from "../modules/MMerchantSlider.vue";
-import ModalDetailImages from "@/components/modals/ModalDetailImages.vue";
 import ModalMerchantBranches from "@/components/modals/ModalMerchantBranches.vue";
 import ModalDownloadApp from "@/components/modals/ModalDownloadApp.vue";
 import MMobileImage from "../modules/MMobileImage.vue";
@@ -136,10 +135,6 @@ function scrollToCertificateButton() {
   certificateBlockRef.value?.scrollToButton();
 }
 
-function openDetailImages() {
-  settingsStore.isDetailImages = true;
-}
-
 function openMerchantBranches(offer_id) {
   selectedOfferId.value = offer_id;
   settingsStore.isMerchantBranches = true;
@@ -153,7 +148,6 @@ watch(
     // Закрываем модалку при изменении маршрута
     settingsStore.isCreateCertificate = false;
     settingsStore.isModalCodeError = false;
-    settingsStore.isDetailImages = false;
     settingsStore.isMerchantBranches = false;
     settingsStore.isDownloadAppModal = false;
   }
@@ -163,7 +157,6 @@ onUnmounted(() => {
   window.removeEventListener("scroll", handleScroll);
   settingsStore.isCreateCertificate = false;
   settingsStore.isModalCodeError = false;
-  settingsStore.isDetailImages = false;
   settingsStore.isMerchantBranches = false;
   settingsStore.isDownloadAppModal = false;
 });
@@ -213,7 +206,6 @@ onUnmounted(() => {
       <MMobileImage
         :merchant="merchantsStore.oneMerchant"
         :merchant-offer="merchantsStore.oneMerchantOffer"
-        @openDetailImages="openDetailImages"
       />
 
       <div
@@ -332,11 +324,6 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <ModalDetailImages
-        :images="merchantsStore.oneMerchant"
-        v-if="settingsStore.isDetailImages"
-        @closeModal="settingsStore.isDetailImages = false"
-      />
     </div>
   </div>
 
