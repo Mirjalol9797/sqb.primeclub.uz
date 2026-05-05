@@ -201,7 +201,7 @@ function closeConditionsModal() {
     <!-- Что делать с этим кодом? -->
     <div
       v-if="isCodeInfoModalOpen"
-      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end max-w-[640px] mx-auto"
       @click.self="closeCodeInfoModal"
     >
       <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">
@@ -228,7 +228,7 @@ function closeConditionsModal() {
     <!-- Как получить скидку? -->
     <div
       v-if="isDiscountInfoModalOpen"
-      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end max-w-[640px] mx-auto"
       @click.self="closeDiscountInfoModal"
     >
       <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">
@@ -256,7 +256,7 @@ function closeConditionsModal() {
     <!-- Условия -->
     <div
       v-if="isConditionsModalOpen"
-      class="fixed inset-0 z-[70] bg-black/40 flex items-end"
+      class="fixed inset-0 z-[70] bg-black/40 flex items-end max-w-[640px] mx-auto"
       @click.self="closeConditionsModal"
     >
       <div class="w-full bg-white rounded-t-3xl px-5 pt-4 pb-6 text-[#1f1f27]">

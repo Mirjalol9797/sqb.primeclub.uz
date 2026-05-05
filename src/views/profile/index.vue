@@ -21,18 +21,14 @@ function logOut() {
 </script>
 
 <template>
-  <div
-    class="page-profile py-10 h-[90vh] 768:pb-[100px] 768:pt-5 480:py-5 relative"
-  >
+  <div class="page-profile h-[90vh] pb-[100px] pt-5 py-5 relative">
     <div class="site-container">
       <div class="site-title">{{ $t("my_profile") }}</div>
-      <div class="flex gap-10 768:flex-col 768:gap-0">
-        <div
-          class="w-1/2 flex flex-col 768:w-full 768:mb-4 768:pb-4 768:border-b 768:border-[#ffffff1f]"
-        >
+      <div class="flex flex-col gap-0">
+        <div class="flex flex-col w-full mb-4">
           <router-link
             :to="localePath('/profile/detail-info')"
-            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
+            class="flex items-center justify-between gap-3 p-2.5 border-[#ffffff1f] bg-transparent border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -49,7 +45,7 @@ function logOut() {
               </svg>
               <span>{{ $t("personal_info") }}</span>
             </div>
-            <div class="hidden 768:block">
+            <div class="block">
               <svg
                 class="w-5"
                 fill="none"
@@ -66,7 +62,7 @@ function logOut() {
           </router-link>
           <router-link
             :to="localePath('/favorites')"
-            class="bg-white flex items-center justify-between gap-3 p-2.5 border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:py-4 768:mb-0"
+            class="flex items-center justify-between gap-3 p-2.5 border-[#ffffff1f] bg-transparent border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -83,7 +79,7 @@ function logOut() {
               </svg>
               <span>{{ $t("favorites") }}</span>
             </div>
-            <div class="hidden 768:block">
+            <div class="block">
               <svg
                 class="w-5"
                 fill="none"
@@ -100,7 +96,7 @@ function logOut() {
           </router-link>
           <div
             @click="settingsStore.isModalSupportService = true"
-            class="bg-white flex items-center justify-between cursor-pointer border border-[#ffffff1f] rounded-xl mb-4 768:bg-transparent gap-3 p-2.5 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="flex items-center justify-between cursor-pointer gap-3 p-2.5 border-[#ffffff1f] bg-transparent border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -117,7 +113,7 @@ function logOut() {
               </svg>
               <span>{{ $t("support_service") }}</span>
             </div>
-            <div class="hidden 768:block">
+            <div class="block">
               <svg
                 class="w-5"
                 fill="none"
@@ -134,7 +130,7 @@ function logOut() {
           </div>
           <div
             @click="settingsStore.isModalChangeLanguage = true"
-            class="hidden border border-ececec rounded-xl mb-4 items-center justify-between gap-3 p-2.5 768:flex 768:border-0 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="border-[#ffffff1f] flex items-center justify-between gap-3 p-2.5 border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -170,11 +166,11 @@ function logOut() {
         <div class="hidden mb-2 font-medium text-base">
           {{ $t("legal_info") }}
         </div>
-        <div class="w-1/2 flex flex-col 768:w-full">
+        <div class="flex flex-col w-full">
           <a
             href="https://primeclub.uz/terms"
             target="_blank"
-            class="bg-white flex border border-[#ffffff1f] rounded-xl mb-4 items-center justify-between gap-3 p-2.5 768:bg-transparent 768:border-0 768:border-b 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="flex items-center justify-between gap-3 p-2.5 border-[#ffffff1f] bg-transparent border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -191,7 +187,7 @@ function logOut() {
               </svg>
               <span>{{ $t("privacy_policy_link") }}</span>
             </div>
-            <div class="hidden 768:block">
+            <div class="block">
               <svg
                 class="w-5"
                 fill="none"
@@ -209,7 +205,7 @@ function logOut() {
           <a
             href="https://primeclub.uz/data-processing"
             target="_blank"
-            class="bg-white flex border border-ececec rounded-xl mb-4 items-center justify-between gap-3 p-2.5 768:bg-transparent 768:border-0 768:px-1 768:rounded-none 768:mb-0 768:py-4"
+            class="flex items-center justify-between gap-3 p-2.5 border-[#ffffff1f] bg-transparent border-0 border-b px-1 rounded-none py-4 mb-0"
           >
             <div class="flex items-center gap-3">
               <svg
@@ -226,7 +222,7 @@ function logOut() {
               </svg>
               <span>{{ $t("user_agreement_link") }}</span>
             </div>
-            <div class="hidden 768:block">
+            <div class="block">
               <svg
                 class="w-5"
                 fill="none"

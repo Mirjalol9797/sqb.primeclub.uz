@@ -120,7 +120,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 text-black text-sm">
+  <div class="fixed inset-0 z-50 text-black text-sm max-w-[640px] mx-auto">
     <div
       v-if="!showCertificateDetail"
       class="absolute inset-0 bg-black/45"

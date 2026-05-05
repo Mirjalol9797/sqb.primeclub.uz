@@ -42,7 +42,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="fixed inset-0 z-[100] text-white bg-[radial-gradient(circle_at_top,_#111827_0%,_#04060b_45%,_#000000_100%)]"
+    class="fixed inset-0 z-[100] text-white bg-[radial-gradient(circle_at_top,_#111827_0%,_#04060b_45%,_#000000_100%)] max-w-[640px] mx-auto"
   >
     <div class="min-h-full flex flex-col justify-between px-6 pt-14 pb-10">
       <div class="mt-14">
@@ -81,7 +81,7 @@ onUnmounted(() => {
     <div
       v-if="isTermsModalVisible"
       @click.self="closeTermsModal"
-      class="fixed inset-0 bg-black/45 flex items-end"
+      class="fixed inset-0 bg-black/45 flex items-end max-w-[640px] mx-auto"
     >
       <div class="w-full bg-[#11141a] rounded-t-[24px] px-5 pt-3.5 pb-5">
         <div

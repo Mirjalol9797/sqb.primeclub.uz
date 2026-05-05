@@ -230,12 +230,12 @@ onUnmounted(() => {
         </div>
         <div
           v-else
-          class="border border-[#ffffff1f] p-4 mb-6 flex items-center justify-between rounded-2xl hover:scale-[1.01] transition-all duration-300 768:flex-col 768:items-start 768:gap-2"
+          class="border border-[#ffffff1f] p-4 mb-6 flex justify-between rounded-2xl hover:scale-[1.01] transition-all duration-300 flex-col items-start gap-2"
           v-for="(item, index) in certificatesStore.listCertificates"
           :key="index"
           :class="!isActive ? 'opacity-50' : ''"
         >
-          <div class="w-full 768:mb-2">
+          <div class="w-full mb-2">
             <div class="font-semibold text-base mb-2">
               {{ item?.offer?.name }}
             </div>
@@ -349,7 +349,7 @@ onUnmounted(() => {
 
     <div
       v-if="isCertificateDetailOpen && selectedCertificateDetail"
-      class="fixed inset-0 z-[80] bg-black overflow-y-auto px-4 pt-4 pb-8"
+      class="fixed inset-0 z-[80] bg-black overflow-y-auto px-4 pt-4 pb-8 max-w-[640px] mx-auto"
     >
       <CertificateDetailInfo
         :certificate-data="selectedCertificateDetail"
