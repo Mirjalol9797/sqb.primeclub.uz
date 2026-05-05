@@ -31,7 +31,7 @@ function handleSlideChange(swiper) {
       :slides-per-view="1"
       :space-between="0"
       :loop="merchant?.images?.length > 1"
-      class="h-[266px] mobile-image"
+      class="h-[340px] mobile-image"
       @slideChange="handleSlideChange"
     >
       <SwiperSlide v-for="(image, index) in merchant?.images" :key="index">
