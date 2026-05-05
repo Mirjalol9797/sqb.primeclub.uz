@@ -201,7 +201,7 @@ onUnmounted(() => {
     </div>
   </transition>
 
-  <div class="page-offer-detail py-10 768:pb-[100px] 768:pt-0 bg-fff">
+  <div class="page-offer-detail pb-[100px] pt-0 bg-fff">
     <div class="site-container">
       <!-- breadcrumbs -->
       <MBreadcrumbs
@@ -217,14 +217,9 @@ onUnmounted(() => {
       />
 
       <div
-        class="flex justify-between gap-4 offer-detail-wrapper 768:flex-col-reverse"
+        class="flex justify-between gap-4 offer-detail-wrapper flex-col-reverse"
       >
         <div class="left-column">
-          <MMerchantSlider
-            :images="merchantsStore.oneMerchant"
-            @openDetailImages="openDetailImages"
-            class="768:!hidden"
-          />
           <div class="p-4 rounded-2xl border border-[#ffffff1f]">
             <div
               class="flex gap-0.5"
@@ -372,19 +367,6 @@ onUnmounted(() => {
 </template>
 
 <style lang="scss" scoped>
-.page-offer-detail {
-  .left-column {
-    width: calc(100% - 360px);
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
-  }
-  .right-column {
-    min-width: 360px;
-  }
-}
-
 .fade-slide-enter-active,
 .fade-slide-leave-active {
   transition: all 0.3s ease;

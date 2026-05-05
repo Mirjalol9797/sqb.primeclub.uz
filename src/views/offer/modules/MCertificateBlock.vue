@@ -134,7 +134,7 @@ onUnmounted(() => {
         {{ item?.name }}
       </div>
       <div
-        class="text-6B7280 text-sm 768:min-h-10"
+        class="text-6B7280 text-sm min-h-10"
         v-if="item?.description"
         v-html="item?.description"
       ></div>

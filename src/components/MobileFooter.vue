@@ -7,7 +7,7 @@ const { t } = useI18n();
 
 <template>
   <div
-    class="hidden text-[#8d94a6] 768:flex justify-around rounded-t-2xl fixed bottom-[-2px] bg-[#141416] pt-[14px] pb-7 px-1 w-full z-10 text-xs shadow-[0_-3px_15px_rgba(0,0,0,0.1)]"
+    class="text-[#8d94a6] flex justify-around rounded-t-2xl fixed bottom-[-2px] bg-[#141416] pt-[14px] pb-7 px-1 w-full z-10 text-xs shadow-[0_-3px_15px_rgba(0,0,0,0.1)] max-w-[640px] mx-auto"
   >
     <router-link
       :to="localePath('/offer')"

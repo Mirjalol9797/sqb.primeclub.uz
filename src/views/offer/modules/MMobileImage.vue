@@ -18,7 +18,7 @@ const emit = defineEmits(["openDetailImages"]);
 <template>
   <div
     v-if="merchant?.images?.length > 0"
-    class="mx-[-10px] relative hidden 768:block mb-4"
+    class="mx-[-10px] relative block mb-4"
   >
     <div class="h-[266px] mobile-image" @click="$emit('openDetailImages')">
       <img

@@ -35,7 +35,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 bg-[#141416] overflow-y-auto p-4">
+  <div
+    class="fixed inset-0 z-50 bg-[#141416] overflow-y-auto p-4 max-w-[640px] mx-auto"
+  >
     <MainTitle :pageTitle="$t('filter')" />
 
     <div class="grid grid-cols-4 gap-2 mb-6">
@@ -43,7 +45,7 @@ onMounted(async () => {
         v-for="(category, index) in merchantsStore.merchantCategories"
         :key="index"
         :to="localePath('/offer/' + category?.slug)"
-        class="categories__item flex items-center gap-2 text-xs 768:flex-col 768:text-center 768:min-w-[80px] text-[#8d94a6]"
+        class="categories__item flex items-center gap-2 text-xs flex-col text-center min-w-[80px] text-[#8d94a6]"
         @click="closeModal"
       >
         <div

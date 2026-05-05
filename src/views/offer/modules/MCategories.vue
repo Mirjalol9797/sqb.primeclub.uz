@@ -59,76 +59,74 @@ const hasHiddenCategories = computed(
         : ''
     "
   >
-    <div class="">
-      <div class="grid grid-cols-4 gap-2">
-        <!-- "Все" -->
-        <router-link
-          :to="localePath('/offer')"
-          :class="[
-            'categories__item flex items-center gap-2  text-xs 768:flex-col 768:text-center text-[#8d94a6]',
-          ]"
-          @click="closeModal('')"
-        >
-          <div
-            :class="!route.params.slug ? 'bg-white' : ''"
-            class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
-          >
-            <img
-              :src="buildCategoryIconDataUrl('all', !route.params.slug)"
-              alt="все"
-              class="w-10 h-10"
-            />
-          </div>
-          <div
-            :class="!route.params.slug ? 'font-medium' : ''"
-            class="categories__item-name"
-          >
-            {{ $t("all") }}
-          </div>
-        </router-link>
-        <!-- Категории -->
-        <router-link
-          v-for="(category, index) in visibleCategories"
-          :key="index"
-          :to="localePath('/offer/' + category?.slug)"
-          :class="[
-            'categories__item flex items-center gap-2  text-xs 768:flex-col  768:text-center 768:min-w-[80px] text-[#8d94a6]',
-          ]"
-          @click="closeModal(category?.id)"
-        >
-          <div
-            :class="route.params.slug === category?.slug ? 'bg-white' : ''"
-            class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
-          >
-            <img
-              :src="
-                buildCategoryIconDataUrl(
-                  category?.name,
-                  route.params.slug === category?.slug
-                )
-              "
-              :alt="category.name"
-              class="w-10 h-10"
-            />
-          </div>
-          <div
-            :class="route.params.slug === category?.slug ? 'font-medium' : ''"
-            class="categories__item-name"
-          >
-            {{ category?.name }}
-          </div>
-        </router-link>
-      </div>
-
-      <button
-        v-if="hasHiddenCategories"
-        type="button"
-        class="w-full mt-3 rounded-xl border border-[#ffffff2b] text-[#d5d9e2] py-2.5 text-sm font-medium hover:bg-[#ffffff0f] transition-colors"
-        @click="showAllCategories = true"
+    <div class="grid grid-cols-4 gap-2">
+      <!-- "Все" -->
+      <router-link
+        :to="localePath('/offer')"
+        :class="[
+          'categories__item flex items-center gap-2  text-xs flex-col text-center text-[#8d94a6]',
+        ]"
+        @click="closeModal('')"
       >
-        {{ $t("show_all") }}
-      </button>
+        <div
+          :class="!route.params.slug ? 'bg-white' : ''"
+          class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
+        >
+          <img
+            :src="buildCategoryIconDataUrl('all', !route.params.slug)"
+            alt="все"
+            class="w-10 h-10"
+          />
+        </div>
+        <div
+          :class="!route.params.slug ? 'font-medium' : ''"
+          class="categories__item-name"
+        >
+          {{ $t("all") }}
+        </div>
+      </router-link>
+      <!-- Категории -->
+      <router-link
+        v-for="(category, index) in visibleCategories"
+        :key="index"
+        :to="localePath('/offer/' + category?.slug)"
+        :class="[
+          'categories__item flex items-center gap-2  text-xs flex-col  text-center min-w-[80px] text-[#8d94a6]',
+        ]"
+        @click="closeModal(category?.id)"
+      >
+        <div
+          :class="route.params.slug === category?.slug ? 'bg-white' : ''"
+          class="rounded-lg categories__item-icon transition-colors flex items-center justify-center"
+        >
+          <img
+            :src="
+              buildCategoryIconDataUrl(
+                category?.name,
+                route.params.slug === category?.slug
+              )
+            "
+            :alt="category.name"
+            class="w-10 h-10"
+          />
+        </div>
+        <div
+          :class="route.params.slug === category?.slug ? 'font-medium' : ''"
+          class="categories__item-name"
+        >
+          {{ category?.name }}
+        </div>
+      </router-link>
     </div>
+
+    <button
+      v-if="hasHiddenCategories"
+      type="button"
+      class="w-full mt-3 rounded-xl border border-[#ffffff2b] text-[#d5d9e2] py-2.5 text-sm font-medium hover:bg-[#ffffff0f] transition-colors"
+      @click="showAllCategories = true"
+    >
+      {{ $t("show_all") }}
+    </button>
   </div>
 </template>
 

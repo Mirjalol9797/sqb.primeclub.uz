@@ -69,14 +69,17 @@ const handleToggleFavorite = () => {
       />
     </div>
     <div>
-      <div class="font-semibold text-base 768:text-xl">
+      <div class="font-semibold text-base">
         {{ merchant?.name }}
       </div>
       <div class="text-gray-500 text-sm">
         {{ merchant?.category?.name }}
       </div>
     </div>
-    <div v-if="warningOffer" class="mt-3 border border-[#ffffff1f] rounded-2xl p-3">
+    <div
+      v-if="warningOffer"
+      class="mt-3 border border-[#ffffff1f] rounded-2xl p-3"
+    >
       <div class="font-medium mb-1">
         {{ warningOffer.warning_text?.warning_title || $t("attention") }}
       </div>
@@ -99,7 +102,9 @@ const handleToggleFavorite = () => {
         v-if="isDetailsVisible"
         class="text-sm border border-[#ffffff1f] p-3 rounded-2xl mt-2"
       >
-        {{ warningOffer.warning_text?.button_text?.data || $t("attention_desc2") }}
+        {{
+          warningOffer.warning_text?.button_text?.data || $t("attention_desc2")
+        }}
       </div>
     </div>
     <!-- <button class="site-btn-grey w-full" @click="onScrollToCertificate">

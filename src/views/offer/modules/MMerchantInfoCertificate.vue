@@ -112,7 +112,7 @@ onUnmounted(() => {
       />
     </div>
     <div class="mb-4">
-      <div class="font-semibold text-base 768:text-xl">
+      <div class="font-semibold text-base">
         {{ merchant?.name }}
       </div>
       <div class="text-gray-500 text-sm">

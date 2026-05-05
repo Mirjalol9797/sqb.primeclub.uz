@@ -266,7 +266,7 @@ onUnmounted(() => {
     >
       <MSearch />
     </div>
-    <div class="flex items-start gap-6 768:flex-col 768:gap-4">
+    <div class="flex items-start flex-col gap-4">
       <MCategories />
 
       <MNewMerchants
