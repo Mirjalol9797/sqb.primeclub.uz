@@ -8,7 +8,7 @@ import { useLoginStore } from "@/stores/login";
 
 const route = useRoute();
 const router = useRouter();
-const showWelcomeSite = ref(false);
+const isWelcomePassed = ref(false);
 
 const loginStore = useLoginStore();
 function siteScrollTop() {
@@ -17,7 +17,7 @@ function siteScrollTop() {
 
 const hideHeader = computed(() => {
   // Скрываем для конкретных путей
-  const hidePaths = ["/search"];
+  const hidePaths = ["/search", "/login", "/uz/login"];
   if (hidePaths.some((path) => route.path.startsWith(path))) {
     return true;
   }
@@ -30,9 +30,17 @@ const hideHeader = computed(() => {
   return false;
 });
 
+const isLoginPage = computed(
+  () => route.path === "/login" || route.path === "/uz/login"
+);
+
+const showWelcomeSite = computed(
+  () => isLoginPage.value && !isWelcomePassed.value
+);
+
 onMounted(() => {
-  showWelcomeSite.value =
-    localStorage.getItem("primeclub_welcome_passed") !== "1";
+  isWelcomePassed.value =
+    localStorage.getItem("primeclub_welcome_passed") === "1";
 
   if (loginStore.token) {
     loginStore.checkAuthToken(router);
@@ -53,7 +61,7 @@ onMounted(() => {
 });
 
 const handleWelcomeCompleted = () => {
-  showWelcomeSite.value = false;
+  isWelcomePassed.value = true;
 };
 </script>
 

@@ -2,11 +2,15 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useLoginStore } from "@/stores/login";
 import i18n from "@/plugins/i18n";
 import { setLocale } from "@/plugins/i18n";
-import { HARD_AUTH_TOKEN } from "@/plugins/api";
 
 // 1) БАЗОВЫЕ (RU, без префикса)
 const baseRoutes = [
-  { path: "/", redirect: "/offer" },
+  { path: "/", redirect: "/login" },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("@/views/login/index.js"),
+  },
   {
     path: "/offer",
     name: "OfferAll",
@@ -135,15 +139,21 @@ router.beforeEach(async (to, from, next) => {
   }
 
   const loginStore = useLoginStore();
-  const token = loginStore.token || HARD_AUTH_TOKEN;
+  const token = loginStore.token;
+  const loginRouteName = targetLocale === "uz" ? "Login-uz" : "Login";
   const offerRouteName = targetLocale === "uz" ? "OfferAll-uz" : "OfferAll";
 
-  if (!token && to.meta.requiresAuth) {
+  if (!token && to.name !== loginRouteName) {
+    next({ name: loginRouteName, query: { redirect: to.fullPath } });
+    return;
+  }
+
+  if (token && to.name === loginRouteName) {
     next({ name: offerRouteName });
     return;
   }
 
-  if (token) {
+  if (token && to.name !== loginRouteName) {
     loginStore.checkAuthToken(router);
   }
 
