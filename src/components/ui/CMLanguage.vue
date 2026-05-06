@@ -43,10 +43,10 @@ function selectLanguage(lang) {
 </script>
 
 <template>
-  <div class="relative language-selector">
+  <div class="language-selector">
     <button
       @click="toggleLanguageDropdown"
-      class="flex items-center gap-2 px-3 py-2 bg-white border border-f4af00 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-f4af00 focus:border-transparent"
+      class="flex items-center gap-2 px-3 py-2 border border-[#ffffff1f] rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-none"
     >
       <span class="text-sm font-medium uppercase">{{ currentLocale }}</span>
       <svg
@@ -72,14 +72,18 @@ function selectLanguage(lang) {
       <button
         @click="selectLanguage('ru')"
         class="w-full text-left px-3 py-2 text-sm font-medium transition-colors duration-150"
-        :class="{ 'bg-ffd531 text-white': currentLocale === 'ru' }"
+        :class="
+          currentLocale == 'ru' ? 'bg-black text-white' : 'bg-white text-black'
+        "
       >
         <span class="uppercase">RU</span>
       </button>
       <button
         @click="selectLanguage('uz')"
         class="w-full text-left px-3 py-2 text-sm font-medium transition-colors duration-150"
-        :class="{ 'bg-ffd531 text-white': currentLocale === 'uz' }"
+        :class="
+          currentLocale == 'uz' ? 'bg-black text-white' : 'bg-white text-black'
+        "
       >
         <span class="uppercase">UZ</span>
       </button>

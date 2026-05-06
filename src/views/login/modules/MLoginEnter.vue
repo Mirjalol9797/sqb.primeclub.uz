@@ -213,7 +213,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-[90vh] flex flex-col justify-between">
+  <div class="mt-10 h-[80vh] flex flex-col justify-between">
     <div class="w-full" v-if="step === 'phone'">
       <h1 class="text-3xl font-bold mb-1 text-center">Добро пожаловать</h1>
       <p class="text-base text-[#aab3c4] mb-10 text-center">
@@ -281,7 +281,9 @@ onUnmounted(() => {
       <div class="text-center mt-6">
         <button
           class="text-sm font-semibold"
-          :class="canResend ? 'text-white' : 'text-[#9aa2b3] cursor-not-allowed'"
+          :class="
+            canResend ? 'text-white' : 'text-[#9aa2b3] cursor-not-allowed'
+          "
           :disabled="!canResend"
           @click="submitPhone"
         >
@@ -318,7 +320,10 @@ onUnmounted(() => {
 
     <div class="text-center" v-if="step === 'phone'">
       Нет аккаунта?
-      <button class="text-[#4A9EFF] font-semibold" @click="emit('switch-to-register')">
+      <button
+        class="text-[#4A9EFF] font-semibold"
+        @click="emit('switch-to-register')"
+      >
         Зарегистрироваться
       </button>
     </div>

@@ -265,7 +265,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="h-[90vh] flex flex-col justify-between">
+  <div class="mt-10 h-[80vh] flex flex-col justify-between">
     <div class="w-full" v-if="registerStep === 1">
       <h1 class="text-3xl font-bold mb-1 text-center">Добро пожаловать</h1>
       <p class="text-base text-[#aab3c4] mb-10 text-center">

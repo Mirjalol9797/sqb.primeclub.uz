@@ -10,7 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex items-center gap-2 mb-6 text-xs !hidden">
+  <div class="items-center gap-2 mb-6 text-xs !hidden">
     <button @click="$router.back()">
       <img src="/icons/p-offer/back-black.svg" alt="" class="w-4" />
     </button>
