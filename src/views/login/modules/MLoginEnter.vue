@@ -1,10 +1,12 @@
 <script setup>
 import { computed, onUnmounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import axios from "@/plugins/api";
 import { useLoginStore } from "@/stores/login";
 
 const emit = defineEmits(["switch-to-register"]);
+const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const loginStore = useLoginStore();
@@ -215,13 +217,17 @@ onUnmounted(() => {
 <template>
   <div class="mt-10 h-[80vh] flex flex-col justify-between">
     <div class="w-full" v-if="step === 'phone'">
-      <h1 class="text-3xl font-bold mb-1 text-center">Добро пожаловать</h1>
+      <h1 class="text-3xl font-bold mb-1 text-center">
+        {{ t("login_enter_welcome_title") }}
+      </h1>
       <p class="text-base text-[#aab3c4] mb-10 text-center">
-        Введите номер телефона для входа
+        {{ t("login_enter_phone_hint") }}
       </p>
 
       <div class="max-w-[380px] mx-auto">
-        <div class="text-[#8d97aa] text-sm mb-3">Номер телефона</div>
+        <div class="text-[#8d97aa] text-sm mb-3">
+          {{ t("login_enter_phone_label") }}
+        </div>
         <input
           :value="phone"
           @input="onPhoneInput"
@@ -246,7 +252,7 @@ onUnmounted(() => {
           :disabled="!canSubmitPhone"
           @click="submitPhone"
         >
-          Войти
+          {{ t("login_enter_login_button") }}
         </button>
       </div>
     </div>
@@ -255,9 +261,11 @@ onUnmounted(() => {
       <button @click="changePhone">
         <img src="/icons/p-offer/back.svg" alt="" class="w-5" />
       </button>
-      <h1 class="text-3xl font-bold mb-1 text-center">Подтверждение</h1>
+      <h1 class="text-3xl font-bold mb-1 text-center">
+        {{ t("login_enter_confirmation_title") }}
+      </h1>
       <p class="text-sm text-[#aab3c4] mb-4 text-center">
-        Введите код из СМС, отправленный на номер
+        {{ t("login_enter_confirmation_hint") }}
       </p>
       <div class="text-xl font-semibold mb-10 text-center">{{ phone }}</div>
 
@@ -287,8 +295,12 @@ onUnmounted(() => {
           :disabled="!canResend"
           @click="submitPhone"
         >
-          Отправить повторно
-          <span v-if="retryAfter > 0"> через {{ retryAfter }} с</span>
+          <template v-if="retryAfter > 0">
+            {{ t("login_enter_resend_after", { countdown: retryAfter }) }}
+          </template>
+          <template v-else>
+            {{ t("resend") }}
+          </template>
         </button>
       </div>
 
@@ -297,7 +309,7 @@ onUnmounted(() => {
           class="text-[#4A9EFF] text-base mt-2 underline"
           @click="changePhone"
         >
-          Изменить номер телефона
+          {{ $t("change_phone_number") }}
         </button>
       </div>
 
@@ -313,18 +325,18 @@ onUnmounted(() => {
           :disabled="!canSubmitCode"
           @click="submitCode"
         >
-          Подтвердить
+          {{ $t("confirm") }}
         </button>
       </div>
     </div>
 
     <div class="text-center" v-if="step === 'phone'">
-      Нет аккаунта?
+      {{ t("login_enter_no_account") }}
       <button
         class="text-[#4A9EFF] font-semibold"
         @click="emit('switch-to-register')"
       >
-        Зарегистрироваться
+        {{ t("login_enter_register") }}
       </button>
     </div>
   </div>

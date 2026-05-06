@@ -288,5 +288,14 @@
   "show_more": "Batafsil",
   "filter": "Filtr",
   "hours_full": "Soat",
-  "minutes_full": "Daqiqa"
+  "minutes_full": "Daqiqa",
+  "login_enter_welcome_title": "Xush kelibsiz",
+  "login_enter_phone_hint": "Kirish uchun telefon raqamingizni kiriting",
+  "login_enter_phone_label": "Telefon raqami",
+  "login_enter_login_button": "Kirish",
+  "login_enter_no_account": "Hisobingiz yo'qmi?",
+  "login_enter_register": "Ro'yxatdan o'tish",
+  "login_enter_confirmation_title": "Tasdiqlash",
+  "login_enter_confirmation_hint": "Raqamga yuborilgan SMS-kodni kiriting",
+  "login_enter_resend_after": "Qayta yuborish mumkin {countdown} s"
 }

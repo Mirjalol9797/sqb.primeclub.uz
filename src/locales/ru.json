@@ -287,5 +287,14 @@
   "show_more": "Подробнее",
   "filter": "Фильтр",
   "hours_full": "Часы",
-  "minutes_full": "Минуты"
+  "minutes_full": "Минуты",
+  "login_enter_welcome_title": "Добро пожаловать",
+  "login_enter_phone_hint": "Введите номер телефона для входа",
+  "login_enter_phone_label": "Номер телефона",
+  "login_enter_login_button": "Войти",
+  "login_enter_no_account": "Нет аккаунта?",
+  "login_enter_register": "Зарегистрироваться",
+  "login_enter_confirmation_title": "Подтверждение",
+  "login_enter_confirmation_hint": "Введите код из СМС, отправленный на номер",
+  "login_enter_resend_after": "Отправить повторно через {countdown} с"
 }
