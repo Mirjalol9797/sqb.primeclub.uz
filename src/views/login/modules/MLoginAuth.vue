@@ -267,13 +267,17 @@ onUnmounted(() => {
 <template>
   <div class="mt-10 h-[80vh] flex flex-col justify-between">
     <div class="w-full" v-if="registerStep === 1">
-      <h1 class="text-3xl font-bold mb-1 text-center">Добро пожаловать</h1>
+      <h1 class="text-3xl font-bold mb-1 text-center">
+        {{ $t("login_enter_welcome_title") }}
+      </h1>
       <p class="text-base text-[#aab3c4] mb-10 text-center">
-        Введите данные для регистрации
+        {{ $t("login_auth_registration_hint") }}
       </p>
 
       <div class="max-w-[380px] mx-auto">
-        <div class="text-[#8d97aa] text-sm mb-3">Номер телефона</div>
+        <div class="text-[#8d97aa] text-sm mb-3">
+          {{ $t("login_enter_phone_label") }}
+        </div>
         <input
           type="tel"
           :value="phone"
@@ -286,12 +290,14 @@ onUnmounted(() => {
           {{ phoneError }}
         </div>
 
-        <div class="text-[#8d97aa] text-sm mb-3">Пригласительный код</div>
+        <div class="text-[#8d97aa] text-sm mb-3">
+          {{ $t("login_auth_invitation_code_label") }}
+        </div>
         <input
           type="text"
           :value="invitationCode"
           @input="onInvitationInput"
-          placeholder="Введите код"
+          :placeholder="$t('enter_code')"
           class="w-full h-16 rounded-2xl bg-[#0c0f15] border border-[#131926] px-6 text-[#9aa2b3] mb-6 outline-none"
         />
         <div v-if="invitationError" class="text-[#ff5f5f] text-sm mb-3">
@@ -309,7 +315,7 @@ onUnmounted(() => {
           :disabled="!canSubmitStepOne"
           @click="submitRegisterStepOne"
         >
-          Зарегистрироваться
+          {{ $t("login_enter_register") }}
         </button>
       </div>
     </div>
@@ -318,9 +324,11 @@ onUnmounted(() => {
       <button @click="registerStep = 1">
         <img src="/icons/p-offer/back.svg" alt="" class="w-5" />
       </button>
-      <h1 class="text-3xl font-bold mb-1 text-center">Подтверждение</h1>
+      <h1 class="text-3xl font-bold mb-1 text-center">
+        {{ $t("login_enter_confirmation_title") }}
+      </h1>
       <p class="text-sm text-[#aab3c4] mb-4 text-center">
-        Введите код из СМС, отправленный на номер
+        {{ $t("login_enter_confirmation_hint") }}
       </p>
       <div class="text-xl font-semibold mb-10 text-center">{{ phone }}</div>
 
@@ -342,9 +350,20 @@ onUnmounted(() => {
       </div>
 
       <div class="text-center mt-6">
-        <button class="text-sm font-semibold text-white">
-          Отправить повторно
-          <span v-if="retryAfter > 0"> через {{ retryAfter }} с</span>
+        <button
+          class="text-sm font-semibold"
+          :class="
+            canResend ? 'text-white' : 'text-[#9aa2b3] cursor-not-allowed'
+          "
+          :disabled="!canResend"
+          @click="submitPhone"
+        >
+          <template v-if="retryAfter > 0">
+            {{ $t("login_enter_resend_after", { countdown: retryAfter }) }}
+          </template>
+          <template v-else>
+            {{ $t("resend") }}
+          </template>
         </button>
       </div>
 
@@ -360,7 +379,7 @@ onUnmounted(() => {
           :disabled="!canSubmitStepTwo"
           @click="submitRegisterStepTwo"
         >
-          Подтвердить
+          {{ $t("confirm") }}
         </button>
       </div>
     </div>
@@ -369,28 +388,30 @@ onUnmounted(() => {
       <button @click="registerStep = 2">
         <img src="/icons/p-offer/back.svg" alt="" class="w-5" />
       </button>
-      <h1 class="text-3xl font-bold mb-1 text-center">Ваш профиль</h1>
+      <h1 class="text-3xl font-bold mb-1 text-center">
+        {{ $t("login_auth_profile_title") }}
+      </h1>
       <p class="text-base text-[#aab3c4] mb-10 text-center">
-        Заполните данные для завершения регистрации
+        {{ $t("login_auth_profile_hint") }}
       </p>
 
       <div class="max-w-[380px] mx-auto">
-        <div class="text-[#8d97aa] text-sm mb-3">Имя *</div>
+        <div class="text-[#8d97aa] text-sm mb-3">{{ $t("name") }} *</div>
         <input
           type="text"
           v-model="firstName"
-          placeholder="Введите имя"
+          :placeholder="$t('login_auth_first_name_placeholder')"
           class="w-full h-16 rounded-2xl bg-[#0c0f15] border border-[#131926] px-6 text-[#9aa2b3] mb-4 outline-none"
         />
         <div v-if="firstNameError" class="text-[#ff5f5f] text-sm mb-3">
           {{ firstNameError }}
         </div>
 
-        <div class="text-[#8d97aa] text-sm mb-3">Фамилия</div>
+        <div class="text-[#8d97aa] text-sm mb-3">{{ $t("surname") }}</div>
         <input
           type="text"
           v-model="lastName"
-          placeholder="Введите фамилию"
+          :placeholder="$t('login_auth_last_name_placeholder')"
           class="w-full h-16 rounded-2xl bg-[#0c0f15] border border-[#131926] px-6 text-[#9aa2b3] mb-6 outline-none"
         />
 
@@ -405,18 +426,18 @@ onUnmounted(() => {
           :disabled="!canSubmitStepThree"
           @click="submitRegisterStepThree"
         >
-          Сохранить
+          {{ $t("welcome_site.continue") }}
         </button>
       </div>
     </div>
 
     <div class="text-center" v-if="registerStep === 1">
-      Уже есть аккаунт?
+      {{ $t("already_have_account") }}
       <button
         class="text-[#4A9EFF] font-semibold"
         @click="emit('switch-to-enter')"
       >
-        Войти
+        {{ $t("login") }}
       </button>
     </div>
   </div>

@@ -297,5 +297,11 @@
   "login_enter_register": "Ro'yxatdan o'tish",
   "login_enter_confirmation_title": "Tasdiqlash",
   "login_enter_confirmation_hint": "Raqamga yuborilgan SMS-kodni kiriting",
-  "login_enter_resend_after": "Qayta yuborish mumkin {countdown} s"
+  "login_enter_resend_after": "Qayta yuborish mumkin {countdown} s",
+  "login_auth_registration_hint": "Ro'yxatdan o'tish uchun ma'lumotlarni kiriting",
+  "login_auth_invitation_code_label": "Taklif kodi",
+  "login_auth_profile_title": "Sizning profilingiz",
+  "login_auth_profile_hint": "Ro'yxatdan o'tishni yakunlash uchun ma'lumotlarni to'ldiring",
+  "login_auth_first_name_placeholder": "Ismingizni kiriting",
+  "login_auth_last_name_placeholder": "Familiyangizni kiriting"
 }

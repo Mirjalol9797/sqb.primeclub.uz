@@ -296,5 +296,11 @@
   "login_enter_register": "Зарегистрироваться",
   "login_enter_confirmation_title": "Подтверждение",
   "login_enter_confirmation_hint": "Введите код из СМС, отправленный на номер",
-  "login_enter_resend_after": "Отправить повторно через {countdown} с"
+  "login_enter_resend_after": "Отправить повторно через {countdown} с",
+  "login_auth_registration_hint": "Введите данные для регистрации",
+  "login_auth_invitation_code_label": "Пригласительный код",
+  "login_auth_profile_title": "Ваш профиль",
+  "login_auth_profile_hint": "Заполните данные для завершения регистрации",
+  "login_auth_first_name_placeholder": "Введите имя",
+  "login_auth_last_name_placeholder": "Введите фамилию"
 }
