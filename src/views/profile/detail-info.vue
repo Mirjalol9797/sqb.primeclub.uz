@@ -1,20 +1,39 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { localePath } from "@/plugins/i18n";
 import { useLoginStore } from "@/stores/login";
+import axios from "@/plugins/api";
 const loginStore = useLoginStore();
 const router = useRouter();
 const { t } = useI18n();
+const profileData = ref(null);
 
 // Создаем вычисляемые свойства для полей профиля
-const lastName = computed(() => loginStore.user?.last_name || "");
-const firstName = computed(() => loginStore.user?.first_name || "");
-const middleName = computed(() => loginStore.user?.middle_name || "");
-const organization = computed(() => loginStore.user?.organization || "");
-const department = computed(() => loginStore.user?.department || "");
-const position = computed(() => loginStore.user?.position || "");
+const currentUser = computed(() => profileData.value || loginStore.user || {});
+const lastName = computed(() => currentUser.value?.last_name || "");
+const firstName = computed(() => currentUser.value?.first_name || "");
+const middleName = computed(() => currentUser.value?.middle_name || "");
+const organization = computed(() => currentUser.value?.organization || "");
+const department = computed(() => currentUser.value?.department || "");
+const position = computed(() => currentUser.value?.position || "");
+
+async function loadProfile() {
+  try {
+    const response = await axios.get("v1/my/profile");
+    profileData.value = response?.data?.data || null;
+    if (profileData.value) {
+      loginStore.user = profileData.value;
+    }
+  } catch (error) {
+    console.error("Ошибка загрузки профиля:", error);
+  }
+}
+
+onMounted(() => {
+  loadProfile();
+});
 
 function logOut() {
   loginStore.token = null;
@@ -33,8 +52,8 @@ function logOut() {
         <div class="w-[150px] h-[150px] mx-auto mb-12 768:mb-8">
           <img
             :src="
-              loginStore.user?.image
-                ? `https://main.primeclub.uz/uploads/${loginStore.user?.image}`
+              currentUser?.image
+                ? `https://main.primeclub.uz/uploads/${currentUser?.image}`
                 : '/icons/user-name.svg'
             "
             alt=""
