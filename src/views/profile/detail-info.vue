@@ -19,7 +19,7 @@ const position = computed(() => loginStore.user?.position || "");
 function logOut() {
   loginStore.token = null;
   loginStore.user = null;
-  localStorage.removeItem("telegramAuthCode");
+  localStorage.clear();
   router.push(localePath("/offer"));
 }
 </script>

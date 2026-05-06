@@ -171,8 +171,22 @@ async function submitCode() {
     });
 
     if (response?.data?.data?.status === true && response?.data?.data?.token) {
-      loginStore.token = response.data.data.token;
-      loginStore.user = response.data.data.user || null;
+      const authToken = response.data.data.token;
+      const authUser = response.data.data.user || null;
+
+      loginStore.$patch({
+        token: authToken,
+        user: authUser,
+      });
+
+      // Явно дублируем в localStorage, чтобы токен гарантированно был после refresh
+      localStorage.setItem(
+        "login",
+        JSON.stringify({
+          token: authToken,
+          user: authUser,
+        })
+      );
 
       const redirectUrl = route.query.redirect;
       if (redirectUrl) {

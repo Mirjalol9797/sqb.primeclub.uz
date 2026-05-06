@@ -1,5 +1,15 @@
 import axios from "axios";
 import i18n from "@/plugins/i18n";
+import { useLoginStore } from "@/stores/login";
+
+function getActiveLoginToken() {
+  try {
+    const loginStore = useLoginStore();
+    return loginStore?.token || null;
+  } catch (error) {
+    return null;
+  }
+}
 
 function getPersistedLoginToken() {
   try {
@@ -18,9 +28,14 @@ const $axios = axios.create({
 
 $axios.interceptors.request.use(
   (config) => {
-    const isAuthRequest = String(config.url || "").startsWith("v1/auth/");
-    const token = getPersistedLoginToken();
-    if (!isAuthRequest && token) {
+    config.headers = config.headers || {};
+    const requestUrl = String(config.url || "");
+    const isPublicAuthRequest =
+      requestUrl.startsWith("v1/auth/send-sms") ||
+      requestUrl.startsWith("v1/auth/verify-sms") ||
+      requestUrl.startsWith("v1/auth/telegram/login");
+    const token = getActiveLoginToken() || getPersistedLoginToken();
+    if (!isPublicAuthRequest && token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
       delete config.headers.Authorization;

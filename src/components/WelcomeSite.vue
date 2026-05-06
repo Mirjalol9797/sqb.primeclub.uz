@@ -45,7 +45,7 @@ onUnmounted(() => {
     class="fixed inset-0 z-[100] text-white bg-[radial-gradient(circle_at_top,_#111827_0%,_#04060b_45%,_#000000_100%)] max-w-[640px] mx-auto"
   >
     <div class="min-h-full flex flex-col justify-between px-6 pt-14 pb-10">
-      <div class="mt-14">
+      <div>
         <div class="text-2xl font-bold leading-none text-center">
           SQB Premium
         </div>
