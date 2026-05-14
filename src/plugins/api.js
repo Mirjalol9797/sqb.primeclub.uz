@@ -45,6 +45,7 @@ $axios.interceptors.request.use(
     const currentLocale = i18n.global.locale.value;
     config.headers["Accept-Language"] = currentLocale;
     config.headers["Content-Type"] = "application/json";
+    config.headers["X-Client-Type"] = "sqb";
 
     // Отладочная информация
     console.log(
